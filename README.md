@@ -2,7 +2,7 @@
 
 LiftLog Lite is a small frontend-only workout tracker I built for myself to make gym sessions easier to follow. It focuses on the core things I actually need during a workout: tracking how long the session has been running, managing rest timers, logging completed sets, and saving simple notes after finishing.
 
-The app runs fully in the browser. There is no backend, account system, or database required.
+The app runs fully in the browser.
 
 ## What it does
 
@@ -31,8 +31,6 @@ When finishing a session, the app asks for a quick review:
 
 ## Local-first storage
 
-Workout data is saved using `localStorage`, so refreshing the page does not wipe the current session or workout history.
-
 For manual backup, the app can export and load JSON files. It can also export workout sessions as Markdown reports.
 
 ## Tech stack
@@ -40,7 +38,6 @@ For manual backup, the app can export and load JSON files. It can also export wo
 - React
 - Vite
 - Tailwind CSS
-- localStorage
 
 ## Running locally
 
@@ -57,4 +54,4 @@ npm run build
 
 ## Notes
 
-This is mainly a personal mini project, so the goal is not to build a full fitness platform. The focus is a simple, fast, local-first workout timer and session logger that feels good to use during actual workouts.
+This is mainly a personal mini project for my own workouts. The focus is a simple, fast, local-first workout timer and session logger that feels good to use during actual workouts.
