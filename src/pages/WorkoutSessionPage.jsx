@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { readWorkoutStorage, saveWorkoutStorage } from "../storage/workoutStorage";
+import { buildSessionMarkdown, downloadFile } from "../utils/workoutExport";
+import { clampSeconds, formatClock, formatDateTime, formatDuration, formatFileTimestamp } from "../utils/workoutFormat";
+import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../utils/workoutData";
 
 const defaultRestSeconds = 90;
 const restPresets = [30, 60, 90, 120, 180];
-const storageKey = "liftlog-lite.workout-state.v1";
-
 function WorkoutSessionPage() {
   const workoutTickerRef = useRef(null);
   const restTickerRef = useRef(null);
@@ -118,7 +120,7 @@ function WorkoutSessionPage() {
       activeSession: buildActiveSessionSnapshot(),
     };
 
-    window.localStorage.setItem(storageKey, JSON.stringify(payload));
+    saveWorkoutStorage(payload);
   }, [
     sessionLogs,
     selectedSessionId,
@@ -157,13 +159,11 @@ function WorkoutSessionPage() {
 
   function loadSavedState() {
     try {
-      const raw = window.localStorage.getItem(storageKey);
-      if (!raw) {
+      const data = readWorkoutStorage();
+      if (!Object.keys(data).length) {
         storageLoadedRef.current = true;
         return;
       }
-
-      const data = JSON.parse(raw);
       const savedSessions = Array.isArray(data?.sessionLogs) ? data.sessionLogs : [];
 
       setSessionLogs(savedSessions);
@@ -1238,137 +1238,6 @@ function RestCompletePopup({ onClose }) {
       </div>
     </div>
   );
-}
-
-function createEmptyReview() {
-  return {
-    workoutType: "",
-    thoughts: "",
-    energy: 0,
-    difficulty: 0,
-    mood: 0,
-    overallExperience: 0,
-  };
-}
-
-function normalizeReview(review) {
-  const source = review && typeof review === "object" ? review : {};
-  return {
-    workoutType: String(source.workoutType ?? ""),
-    thoughts: String(source.thoughts ?? ""),
-    energy: clampRating(source.energy),
-    difficulty: clampRating(source.difficulty),
-    mood: clampRating(source.mood),
-    overallExperience: clampRating(source.overallExperience),
-  };
-}
-
-function clampRating(value) {
-  const number = Number(value);
-  if (!Number.isFinite(number)) return 0;
-  return Math.max(0, Math.min(5, Math.floor(number)));
-}
-
-function normalizeSetLogs(logs) {
-  return logs.map((log, index) => ({ ...log, setNumber: index + 1 }));
-}
-
-function clampSeconds(value) {
-  const number = Number(value);
-  if (!Number.isFinite(number) || number <= 0) return defaultRestSeconds;
-  return Math.max(1, Math.min(1800, Math.floor(number)));
-}
-
-function formatDuration(seconds) {
-  const safeSeconds = Math.max(0, Math.floor(seconds || 0));
-  const hours = Math.floor(safeSeconds / 3600);
-  const minutes = Math.floor((safeSeconds % 3600) / 60);
-  const remainingSeconds = safeSeconds % 60;
-  return `${pad(hours)}:${pad(minutes)}:${pad(remainingSeconds)}`;
-}
-
-function formatClock(seconds) {
-  const safeSeconds = Math.max(0, Math.floor(seconds || 0));
-  const minutes = Math.floor(safeSeconds / 60);
-  const remainingSeconds = safeSeconds % 60;
-  return `${pad(minutes)}:${pad(remainingSeconds)}`;
-}
-
-function pad(value) {
-  return String(value).padStart(2, "0");
-}
-
-function formatDateTime(timestamp) {
-  if (!timestamp) return "—";
-  return new Intl.DateTimeFormat(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  }).format(new Date(timestamp));
-}
-
-function formatFileTimestamp(timestamp) {
-  const date = new Date(timestamp || Date.now());
-  return [
-    date.getFullYear(),
-    pad(date.getMonth() + 1),
-    pad(date.getDate()),
-    pad(date.getHours()),
-    pad(date.getMinutes()),
-  ].join("-");
-}
-
-function buildSessionMarkdown(session) {
-  const review = normalizeReview(session.review);
-  const sets = Array.isArray(session.sets) ? session.sets : [];
-  const lines = [
-    `# Workout Session - ${formatDateTime(session.startedAt)}`,
-    "",
-    `- Workout time: ${formatDuration(session.workoutSeconds)}`,
-    `- Total rest time: ${formatDuration(session.totalRestSeconds)}`,
-    `- Sets: ${session.setCount}`,
-    `- Workout type: ${review.workoutType || "Not added"}`,
-    `- Energy: ${review.energy}/5`,
-    `- Difficulty: ${review.difficulty}/5`,
-    `- Mood: ${review.mood}/5`,
-    `- Overall experience: ${review.overallExperience}/5`,
-    "",
-    "## Thoughts",
-    "",
-    review.thoughts || "No thoughts added.",
-    "",
-    "## Sets",
-    "",
-  ];
-
-  if (sets.length === 0) {
-    lines.push("No sets logged.");
-    return lines.join("\n");
-  }
-
-  lines.push("| Set | Time to complete | Completed at | Rest target | Rest actual | Rest start | Rest end |");
-  lines.push("| --- | --- | --- | --- | --- | --- | --- |");
-
-  sets.forEach((set) => {
-    lines.push(`| ${set.setNumber} | ${formatClock(set.timeToCompleteSetSeconds ?? 0)} | ${formatClock(set.completedAtSessionSeconds ?? 0)} | ${formatClock(set.restTargetSeconds ?? 0)} | ${set.restActualSeconds == null ? "—" : formatClock(set.restActualSeconds)} | ${formatClock(set.restStartedAtSessionSeconds ?? 0)} | ${set.restEndedAtSessionSeconds == null ? "—" : formatClock(set.restEndedAtSessionSeconds)} |`);
-  });
-
-  return lines.join("\n");
-}
-
-function downloadFile(filename, content, type) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = filename;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
 }
 
 export default WorkoutSessionPage;
