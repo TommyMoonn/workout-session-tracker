@@ -3,8 +3,13 @@ import { NavLink } from "react-router-dom";
 const navItems = [
   {
     label: "Session Timer",
-    description: "Track sets, rest, and workout notes.",
+    description: "Track the active workout.",
     path: "/timer",
+  },
+  {
+    label: "History",
+    description: "Review saved sessions and exports.",
+    path: "/history",
   },
   {
     label: "Exercises",

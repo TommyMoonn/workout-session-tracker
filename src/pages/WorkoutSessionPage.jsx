@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const defaultRestSeconds = 90;
 const restPresets = [30, 60, 90, 120, 180];
@@ -34,6 +35,7 @@ function WorkoutSessionPage() {
   const [restAlert, setRestAlert] = useState(false);
   const [isSetPanelOpen, setIsSetPanelOpen] = useState(false);
   const [finishDraft, setFinishDraft] = useState(null);
+  const [loggedSessionNotice, setLoggedSessionNotice] = useState(null);
   const [sessionReview, setSessionReview] = useState(createEmptyReview());
   const [editingSession, setEditingSession] = useState(null);
   const [editingReview, setEditingReview] = useState(createEmptyReview());
@@ -277,7 +279,12 @@ function WorkoutSessionPage() {
     setFinishDraft(null);
     setSessionReview(createEmptyReview());
     resetAfterSessionLogged();
-    showToast(`Session logged: ${formatDuration(session.workoutSeconds)}.`);
+    setLoggedSessionNotice({
+      id: session.id,
+      workoutSeconds: session.workoutSeconds,
+      totalRestSeconds: session.totalRestSeconds,
+      setCount: session.setCount,
+    });
   }
 
   function cancelFinishWorkout() {
@@ -396,12 +403,12 @@ function WorkoutSessionPage() {
     setSetLogs((current) => current.map((log) => (
       log.id === setId
         ? {
-            ...log,
-            restEndedAt: endedAt,
-            restEndedAtSessionSeconds: endedAtSessionSeconds,
-            restActualSeconds: Math.max(0, actualSeconds),
-            status,
-          }
+          ...log,
+          restEndedAt: endedAt,
+          restEndedAtSessionSeconds: endedAtSessionSeconds,
+          restActualSeconds: Math.max(0, actualSeconds),
+          status,
+        }
         : log
     )));
   }
@@ -685,188 +692,139 @@ function WorkoutSessionPage() {
   return (
     <div className="workout-page">
       <main>
-          <section className="grid-top workout-fu">
-            <div className="hero-card card card-padding workout-card">
-              <p className="kicker">Workout command center</p>
-              <h1 className="hero-title">Log sets while the session runs.</h1>
-              <p className="hero-copy">
-                Start the workout timer, press Complete set after each set, and the rest timer starts automatically using your selected rest length.
-              </p>
+        <section className="grid-top workout-fu">
+          <div className="hero-card card card-padding workout-card">
+            <p className="kicker">Workout command center</p>
+            <h1 className="hero-title">Log sets while the session runs.</h1>
+            <p className="hero-copy">
+              Start the workout timer, press Complete set after each set, and the rest timer starts automatically using your selected rest length.
+            </p>
 
-              <hr className="divider" />
+            <hr className="divider" />
 
-              <div className="timer-panel">
-                <div className="timer-topline">
-                  <span className="timer-label">Main timer</span>
-                  <span className={`pulse-dot ${isWorkoutRunning ? "running" : ""}`} />
+            <div className="timer-panel">
+              <div className="timer-topline">
+                <span className="timer-label">Main timer</span>
+                <span className={`pulse-dot ${isWorkoutRunning ? "running" : ""}`} />
+              </div>
+              <div className="big-time">{formatDuration(workoutElapsed)}</div>
+              <p className="timer-summary">{workoutSummary}</p>
+            </div>
+
+            <div className="button-row">
+              {!isWorkoutRunning ? (
+                <button className="btn btn-primary" type="button" onClick={startWorkout}>
+                  {workoutStatus === "paused" ? "Resume workout" : "Start workout"}
+                </button>
+              ) : (
+                <button className="btn" type="button" onClick={pauseWorkout}>Pause workout</button>
+              )}
+
+              <button className="btn btn-dark" type="button" onClick={finishWorkout} disabled={!hasActiveSession}>
+                Finish + log session
+              </button>
+
+              <button className="btn btn-soft" type="button" onClick={resetWorkout} disabled={!hasActiveSession}>
+                Reset session
+              </button>
+            </div>
+          </div>
+
+          <aside className="card card-padding rest-card workout-card workout-fu-1">
+            <div>
+              <p className="kicker">Set + rest flow</p>
+              <h2 className="rest-title">Complete set, then rest.</h2>
+            </div>
+
+            <div className="rest-display">
+              <div className="rest-topline">
+                <div>
+                  <p className="metric-label">Rest remaining</p>
+                  <p className="rest-time">{formatClock(restRemaining)}</p>
                 </div>
-                <div className="big-time">{formatDuration(workoutElapsed)}</div>
-                <p className="timer-summary">{workoutSummary}</p>
+                <p className="rest-status">{restStatus === "idle" ? "Not running" : restStatus}</p>
+              </div>
+              <div className="progress-shell">
+                <div className="progress-fill" style={{ width: `${restProgress}%` }} />
+              </div>
+            </div>
+
+            <div>
+              <label className="field-label" htmlFor="restSeconds">Rest length for next set</label>
+              <div className="input-row">
+                <input
+                  id="restSeconds"
+                  className="input"
+                  type="number"
+                  min="1"
+                  max="1800"
+                  step="1"
+                  inputMode="numeric"
+                  value={restDurationInput}
+                  onChange={(event) => changeRestDurationInput(event.target.value)}
+                  onBlur={commitRestDurationInput}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") event.currentTarget.blur();
+                  }}
+                />
+                <span className="unit-box">Sec</span>
               </div>
 
-              <div className="button-row">
-                {!isWorkoutRunning ? (
-                  <button className="btn btn-primary" type="button" onClick={startWorkout}>
-                    {workoutStatus === "paused" ? "Resume workout" : "Start workout"}
+              <div className="presets">
+                {restPresets.map((seconds) => (
+                  <button
+                    key={seconds}
+                    type="button"
+                    onClick={() => selectRestPreset(seconds)}
+                    className={`preset ${restDuration === seconds ? "active" : ""}`}
+                  >
+                    {seconds}s
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="rest-actions button-grid">
+              <button className="btn btn-primary" type="button" onClick={completeSetAndStartRest}>
+                Complete set + start rest
+              </button>
+              <div className="two-col">
+                {!isRestRunning ? (
+                  <button className="btn" type="button" onClick={resumeRest} disabled={restStatus !== "paused"}>
+                    Resume rest
                   </button>
                 ) : (
-                  <button className="btn" type="button" onClick={pauseWorkout}>Pause workout</button>
+                  <button className="btn" type="button" onClick={pauseRest}>Pause rest</button>
                 )}
-
-                <button className="btn btn-dark" type="button" onClick={finishWorkout} disabled={!hasActiveSession}>
-                  Finish + log session
-                </button>
-
-                <button className="btn btn-soft" type="button" onClick={resetWorkout} disabled={!hasActiveSession}>
-                  Reset session
+                <button className="btn btn-dark" type="button" onClick={resetRest} disabled={!activeSetId}>
+                  Stop rest
                 </button>
               </div>
             </div>
+          </aside>
+        </section>
 
-            <aside className="card card-padding rest-card workout-card workout-fu-1">
-              <div>
-                <p className="kicker">Set + rest flow</p>
-                <h2 className="rest-title">Complete set, then rest.</h2>
-              </div>
-
-              <div className="rest-display">
-                <div className="rest-topline">
-                  <div>
-                    <p className="metric-label">Rest remaining</p>
-                    <p className="rest-time">{formatClock(restRemaining)}</p>
-                  </div>
-                  <p className="rest-status">{restStatus === "idle" ? "Not running" : restStatus}</p>
-                </div>
-                <div className="progress-shell">
-                  <div className="progress-fill" style={{ width: `${restProgress}%` }} />
-                </div>
-              </div>
-
-              <div>
-                <label className="field-label" htmlFor="restSeconds">Rest length for next set</label>
-                <div className="input-row">
-                  <input
-                    id="restSeconds"
-                    className="input"
-                    type="number"
-                    min="1"
-                    max="1800"
-                    step="1"
-                    inputMode="numeric"
-                    value={restDurationInput}
-                    onChange={(event) => changeRestDurationInput(event.target.value)}
-                    onBlur={commitRestDurationInput}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter") event.currentTarget.blur();
-                    }}
-                  />
-                  <span className="unit-box">Sec</span>
-                </div>
-
-                <div className="presets">
-                  {restPresets.map((seconds) => (
-                    <button
-                      key={seconds}
-                      type="button"
-                      onClick={() => selectRestPreset(seconds)}
-                      className={`preset ${restDuration === seconds ? "active" : ""}`}
-                    >
-                      {seconds}s
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rest-actions button-grid">
-                <button className="btn btn-primary" type="button" onClick={completeSetAndStartRest}>
-                  Complete set + start rest
-                </button>
-                <div className="two-col">
-                  {!isRestRunning ? (
-                    <button className="btn" type="button" onClick={resumeRest} disabled={restStatus !== "paused"}>
-                      Resume rest
-                    </button>
-                  ) : (
-                    <button className="btn" type="button" onClick={pauseRest}>Pause rest</button>
-                  )}
-                  <button className="btn btn-dark" type="button" onClick={resetRest} disabled={!activeSetId}>
-                    Stop rest
-                  </button>
-                </div>
-              </div>
-            </aside>
-          </section>
-
-          <section className="metric-grid workout-fu workout-fu-2">
-            <MetricCard label="Workout time" value={formatDuration(workoutElapsed)} />
-            <MetricCard label="Total rest time" value={formatDuration(totalRestSeconds)} />
-            <MetricCard label="Sets logged" value={String(setLogs.length)}>
-              <div className="metric-actions">
-                <button className="btn btn-primary" type="button" onClick={() => setIsSetPanelOpen(true)}>Open log</button>
-                <button className="btn btn-soft" type="button" onClick={clearSetLogs} disabled={setLogs.length === 0}>Clear</button>
-              </div>
-            </MetricCard>
-          </section>
-
-          <section className="card history-card workout-card workout-fu-2">
-            <div className="history-header">
-              <div>
-                <p className="kicker">Session history</p>
-                <h2 className="history-title">Finished sessions</h2>
-                <p className="history-subtitle">Each finished session stores its own set log, rest totals, notes, and workout duration.</p>
-              </div>
-
-              <div className="action-groups">
-                <input ref={jsonInputRef} type="file" accept="application/json,.json" hidden onChange={importWorkoutHistoryJson} />
-                <ActionGroup label="Backup JSON">
-                  <ActionButton iconType="download" label="Export" onClick={exportWorkoutHistoryJson} disabled={sessionLogs.length === 0} />
-                  <ActionButton iconType="upload" label="Load" onClick={openJsonImport} />
-                </ActionGroup>
-                <ActionGroup label="Markdown report">
-                  <ActionButton iconType="file" label="Selected" onClick={exportSelectedMarkdown} disabled={!selectedSession} primary />
-                  <ActionButton iconType="list" label="All" onClick={exportAllMarkdown} disabled={sessionLogs.length === 0} />
-                </ActionGroup>
-                <ActionGroup label="Manage">
-                  <ActionButton iconType="trash" label="Clear" onClick={clearSessionLogs} disabled={sessionLogs.length === 0} danger />
-                </ActionGroup>
-              </div>
+        <section className="metric-grid workout-fu workout-fu-2">
+          <MetricCard label="Workout time" value={formatDuration(workoutElapsed)} />
+          <MetricCard label="Total rest time" value={formatDuration(totalRestSeconds)} />
+          <MetricCard label="Sets logged" value={String(setLogs.length)}>
+            <div className="metric-actions">
+              <button className="btn btn-primary" type="button" onClick={() => setIsSetPanelOpen(true)}>Open log</button>
+              <button className="btn btn-soft" type="button" onClick={clearSetLogs} disabled={setLogs.length === 0}>Clear</button>
             </div>
+          </MetricCard>
+        </section>
 
-            {sessionLogs.length === 0 ? (
-              <EmptyState text="No sessions logged yet. Finish a workout to save the full session summary." />
-            ) : (
-              <div className="history-body">
-                <div className="session-list">
-                  {sessionLogs.map((session, index) => (
-                    <button
-                      key={session.id}
-                      type="button"
-                      onClick={() => setSelectedSessionId(session.id)}
-                      className={`session-row ${selectedSession?.id === session.id ? "selected" : ""}`}
-                    >
-                      <div className="session-row-top">
-                        <div>
-                          <p className="kicker">Session {sessionLogs.length - index}</p>
-                          <p className="session-date">{formatDateTime(session.startedAt)}</p>
-                        </div>
-                        <span className="set-count-pill">{session.setCount} sets</span>
-                      </div>
-                      <div className="session-row-meta">
-                        <span>Workout {formatDuration(session.workoutSeconds)}</span>
-                        <span>Rest {formatDuration(session.totalRestSeconds)}</span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-
-                <SessionDetail
-                  session={selectedSession}
-                  onDeleteSet={deleteSessionSet}
-                  onEditReview={openEditSessionReview}
-                />
-              </div>
-            )}
-          </section>
+        <section className="card card-padding workout-card workout-fu-2" style={{ marginTop: "24px" }}>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="kicker">Session history moved</p>
+              <h2 className="history-title">Finished sessions now live on the History page.</h2>
+              <p className="history-subtitle">Keep this timer focused on the active workout. Review, import, export, edit notes, and manage saved sessions from History.</p>
+            </div>
+            <Link className="btn btn-primary" to="/history">Open history</Link>
+          </div>
+        </section>
       </main>
 
       {isSetPanelOpen && (
@@ -899,6 +857,13 @@ function WorkoutSessionPage() {
           onChange={setEditingReview}
           onCancel={cancelEditSessionReview}
           onSave={saveEditSessionReview}
+        />
+      )}
+
+      {loggedSessionNotice && (
+        <SessionLoggedPopup
+          session={loggedSessionNotice}
+          onClose={() => setLoggedSessionNotice(null)}
         />
       )}
 
@@ -1217,6 +1182,47 @@ function RatingInput({ label, value, onChange }) {
         <span className="rating-number">{value}</span>
       </div>
     </label>
+  );
+}
+
+function SessionLoggedPopup({ session, onClose }) {
+  return (
+    <div className="modal-overlay" onMouseDown={onClose}>
+      <section
+        className="modal-panel relative"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="btn btn-soft absolute right-6 top-6 h-11 w-11 p-0"
+          onClick={onClose}
+          aria-label="Close popup"
+        >
+          X
+        </button>
+
+        <div className="modal-header pr-20">
+          <div>
+            <p className="kicker">Session logged</p>
+            <h2 className="modal-title">Saved to History.</h2>
+            <p className="history-subtitle">
+              Your workout was saved with {session.setCount} set{session.setCount === 1 ? "" : "s"},{" "}
+              {formatDuration(session.workoutSeconds)} workout time, and{" "}
+              {formatDuration(session.totalRestSeconds)} rest time.
+            </p>
+          </div>
+        </div>
+
+        <footer className="modal-footer">
+          <button type="button" className="btn" onClick={onClose}>
+            Stay on timer
+          </button>
+          <Link className="btn btn-primary" to="/history" onClick={onClose}>
+            Open history
+          </Link>
+        </footer>
+      </section>
+    </div>
   );
 }
 
