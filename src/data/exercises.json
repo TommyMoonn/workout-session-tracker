@@ -15,7 +15,23 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 90,
     "description": "Classic horizontal press for building chest, triceps, and shoulder strength at home.",
-    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "searchKeywords": [
+      "push up",
+      "upper body",
+      "bodyweight",
+      "beginner",
+      "push",
+      "pushup",
+      "chest",
+      "triceps",
+      "shoulders",
+      "press up",
+      "chest press bodyweight",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "incline-push-up",
@@ -33,7 +49,22 @@
     "defaultReps": "10-20",
     "defaultRestSeconds": 60,
     "description": "Push-up variation using an elevated surface to reduce load and build pressing strength.",
-    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "searchKeywords": [
+      "incline push up",
+      "upper body",
+      "bodyweight",
+      "beginner",
+      "push",
+      "inclinepushup",
+      "chest",
+      "triceps",
+      "shoulders",
+      "incline pushup",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "decline-push-up",
@@ -51,7 +82,22 @@
     "defaultReps": "6-12",
     "defaultRestSeconds": 90,
     "description": "Feet-elevated push-up variation that increases shoulder and upper chest demand.",
-    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "searchKeywords": [
+      "decline push up",
+      "upper body",
+      "bodyweight",
+      "intermediate",
+      "push",
+      "declinepushup",
+      "upper chest",
+      "shoulders",
+      "triceps",
+      "decline pushup",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "diamond-push-up",
@@ -68,7 +114,22 @@
     "defaultReps": "5-12",
     "defaultRestSeconds": 90,
     "description": "Close-hand push-up variation that emphasizes the triceps.",
-    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "searchKeywords": [
+      "diamond push up",
+      "upper body",
+      "bodyweight",
+      "advanced",
+      "push",
+      "diamondpushup",
+      "triceps",
+      "chest",
+      "diamond pushup",
+      "close grip push up",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "wide-push-up",
@@ -85,7 +146,21 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 90,
     "description": "Push-up variation with a wider hand position that emphasizes the chest.",
-    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "searchKeywords": [
+      "wide push up",
+      "upper body",
+      "bodyweight",
+      "intermediate",
+      "push",
+      "widepushup",
+      "chest",
+      "shoulders",
+      "wide pushup",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "pike-push-up",
@@ -102,7 +177,22 @@
     "defaultReps": "6-12",
     "defaultRestSeconds": 90,
     "description": "Bodyweight shoulder press pattern using a hip-hinged inverted position.",
-    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "searchKeywords": [
+      "pike push up",
+      "upper body",
+      "bodyweight",
+      "intermediate",
+      "push",
+      "pikepushup",
+      "shoulders",
+      "triceps",
+      "pike pushup",
+      "shoulder push up",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "chair-dip",
@@ -120,7 +210,18 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 90,
     "description": "Triceps-focused dip using a sturdy chair or low platform.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "chair dip",
+      "upper body",
+      "chair",
+      "intermediate",
+      "push",
+      "chairdip",
+      "triceps",
+      "chest",
+      "shoulders"
+    ]
   },
   {
     "id": "wall-push-up",
@@ -138,7 +239,22 @@
     "defaultReps": "12-25",
     "defaultRestSeconds": 45,
     "description": "Very accessible push-up regression done against a wall.",
-    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "searchKeywords": [
+      "wall push up",
+      "upper body",
+      "bodyweight",
+      "beginner",
+      "push",
+      "wallpushup",
+      "chest",
+      "triceps",
+      "shoulders",
+      "wall pushup",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "dumbbell-floor-press",
@@ -156,7 +272,21 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 90,
     "description": "Chest press done lying on the floor with dumbbells.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell floor press",
+      "upper body",
+      "dumbbell",
+      "beginner",
+      "push",
+      "dumbbellfloorpress",
+      "chest",
+      "triceps",
+      "shoulders",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-shoulder-press",
@@ -173,7 +303,20 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 90,
     "description": "Vertical pressing exercise for shoulders and triceps using dumbbells.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell shoulder press",
+      "upper body",
+      "dumbbell",
+      "beginner",
+      "push",
+      "dumbbellshoulderpress",
+      "shoulders",
+      "triceps",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-lateral-raise",
@@ -189,7 +332,19 @@
     "defaultReps": "10-20",
     "defaultRestSeconds": 60,
     "description": "Shoulder isolation exercise that trains the side delts.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell lateral raise",
+      "upper body",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "dumbbelllateralraise",
+      "side delts",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-front-raise",
@@ -205,7 +360,19 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 60,
     "description": "Shoulder isolation exercise focused on the front delts.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell front raise",
+      "upper body",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "dumbbellfrontraise",
+      "front delts",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "single-arm-dumbbell-row",
@@ -223,7 +390,23 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 90,
     "description": "Unilateral row for training the back and biceps with one dumbbell.",
-    "demoUrl": "https://www.youtube.com/watch?v=roCP6wCXPqo"
+    "demoUrl": "https://www.youtube.com/watch?v=roCP6wCXPqo",
+    "searchKeywords": [
+      "single arm dumbbell row",
+      "upper body",
+      "dumbbell",
+      "beginner",
+      "pull",
+      "singlearmdumbbellrow",
+      "lats",
+      "upper back",
+      "biceps",
+      "one arm dumbbell row",
+      "dumbbell row",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "bent-over-dumbbell-row",
@@ -241,7 +424,22 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 90,
     "description": "Dumbbell row variation performed with a hip hinge position.",
-    "demoUrl": "https://www.youtube.com/watch?v=roCP6wCXPqo"
+    "demoUrl": "https://www.youtube.com/watch?v=roCP6wCXPqo",
+    "searchKeywords": [
+      "bent over dumbbell row",
+      "upper body",
+      "dumbbell",
+      "intermediate",
+      "pull",
+      "bentoverdumbbellrow",
+      "upper back",
+      "lats",
+      "biceps",
+      "dumbbell row",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-pullover",
@@ -259,7 +457,21 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 90,
     "description": "Upper-body movement that trains lats and chest using one dumbbell.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell pullover",
+      "upper body",
+      "dumbbell",
+      "intermediate",
+      "pull",
+      "dumbbellpullover",
+      "lats",
+      "chest",
+      "serratus",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "reverse-snow-angel",
@@ -276,7 +488,20 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 45,
     "description": "Floor-based upper-back movement for posture and shoulder control.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "reverse snow angel",
+      "upper body",
+      "bodyweight",
+      "beginner",
+      "pull",
+      "reversesnowangel",
+      "rear delts",
+      "upper back",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "superman-pull",
@@ -294,7 +519,21 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 45,
     "description": "Prone back-extension pattern with a pull motion for the posterior chain.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "superman pull",
+      "upper body",
+      "bodyweight",
+      "beginner",
+      "pull",
+      "supermanpull",
+      "lower back",
+      "upper back",
+      "glutes",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "dumbbell-biceps-curl",
@@ -310,7 +549,22 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 60,
     "description": "Simple arm curl for building biceps strength.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell biceps curl",
+      "arms",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "dumbbellbicepscurl",
+      "biceps",
+      "dumbbell curl",
+      "bicep curl",
+      "biceps curl",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "hammer-curl",
@@ -328,7 +582,22 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 60,
     "description": "Neutral-grip curl that trains biceps and forearms.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "hammer curl",
+      "arms",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "hammercurl",
+      "biceps",
+      "brachialis",
+      "forearms",
+      "neutral grip curl",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "overhead-triceps-extension",
@@ -344,7 +613,21 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 60,
     "description": "Overhead dumbbell movement for isolating the triceps.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "overhead triceps extension",
+      "arms",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "overheadtricepsextension",
+      "triceps",
+      "tricep extension",
+      "triceps extension",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "triceps-kickback",
@@ -360,7 +643,20 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 60,
     "description": "Dumbbell arm extension performed from a hinged position.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "triceps kickback",
+      "arms",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "tricepskickback",
+      "triceps",
+      "tricep kickback",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "bodyweight-squat",
@@ -378,7 +674,22 @@
     "defaultReps": "10-20",
     "defaultRestSeconds": 75,
     "description": "Foundational lower-body squat using only bodyweight.",
-    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8"
+    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8",
+    "searchKeywords": [
+      "bodyweight squat",
+      "lower body",
+      "bodyweight",
+      "beginner",
+      "squat",
+      "bodyweightsquat",
+      "quads",
+      "glutes",
+      "hamstrings",
+      "air squat",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "goblet-squat",
@@ -396,7 +707,21 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 90,
     "description": "Dumbbell squat variation held in front of the chest.",
-    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8"
+    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8",
+    "searchKeywords": [
+      "goblet squat",
+      "lower body",
+      "dumbbell",
+      "beginner",
+      "squat",
+      "gobletsquat",
+      "quads",
+      "glutes",
+      "core",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "sumo-squat",
@@ -414,7 +739,21 @@
     "defaultReps": "10-18",
     "defaultRestSeconds": 75,
     "description": "Wide-stance squat variation that emphasizes glutes and inner thighs.",
-    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8"
+    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8",
+    "searchKeywords": [
+      "sumo squat",
+      "lower body",
+      "bodyweight",
+      "beginner",
+      "squat",
+      "sumosquat",
+      "glutes",
+      "quads",
+      "adductors",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "split-squat",
@@ -431,7 +770,20 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 90,
     "description": "Stationary single-leg squat pattern for legs and balance.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "split squat",
+      "lower body",
+      "bodyweight",
+      "intermediate",
+      "lunge",
+      "splitsquat",
+      "quads",
+      "glutes",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "reverse-lunge",
@@ -449,7 +801,21 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 75,
     "description": "Backward stepping lunge variation that is often easier to control than forward lunges.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "reverse lunge",
+      "lower body",
+      "bodyweight",
+      "beginner",
+      "lunge",
+      "reverselunge",
+      "quads",
+      "glutes",
+      "hamstrings",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "walking-lunge",
@@ -467,7 +833,21 @@
     "defaultReps": "10-20 total",
     "defaultRestSeconds": 90,
     "description": "Dynamic lunge variation for legs, balance, and coordination.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "walking lunge",
+      "lower body",
+      "bodyweight",
+      "intermediate",
+      "lunge",
+      "walkinglunge",
+      "quads",
+      "glutes",
+      "hamstrings",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "dumbbell-lunge",
@@ -485,7 +865,21 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 90,
     "description": "Loaded lunge variation using dumbbells.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell lunge",
+      "lower body",
+      "dumbbell",
+      "intermediate",
+      "lunge",
+      "dumbbelllunge",
+      "quads",
+      "glutes",
+      "hamstrings",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "bulgarian-split-squat",
@@ -502,7 +896,18 @@
     "defaultReps": "6-10 each side",
     "defaultRestSeconds": 120,
     "description": "Rear-foot-elevated split squat for unilateral leg strength.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "bulgarian split squat",
+      "lower body",
+      "chair",
+      "advanced",
+      "lunge",
+      "bulgariansplitsquat",
+      "quads",
+      "glutes",
+      "rear foot elevated split squat"
+    ]
   },
   {
     "id": "step-up",
@@ -519,7 +924,17 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 75,
     "description": "Single-leg stepping pattern using a stable chair, step, or platform.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "step up",
+      "lower body",
+      "chair",
+      "beginner",
+      "squat",
+      "stepup",
+      "quads",
+      "glutes"
+    ]
   },
   {
     "id": "glute-bridge",
@@ -536,7 +951,20 @@
     "defaultReps": "12-20",
     "defaultRestSeconds": 60,
     "description": "Floor-based hip extension exercise for glutes and hamstrings.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "glute bridge",
+      "lower body",
+      "bodyweight",
+      "beginner",
+      "hinge",
+      "glutebridge",
+      "glutes",
+      "hamstrings",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "single-leg-glute-bridge",
@@ -554,7 +982,22 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 75,
     "description": "Unilateral glute bridge that increases hip and core demand.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "single leg glute bridge",
+      "lower body",
+      "bodyweight",
+      "intermediate",
+      "hinge",
+      "singlelegglutebridge",
+      "glutes",
+      "hamstrings",
+      "core",
+      "one leg glute bridge",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "dumbbell-romanian-deadlift",
@@ -572,7 +1015,24 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 120,
     "description": "Dumbbell hip-hinge movement for posterior chain strength.",
-    "demoUrl": "https://www.youtube.com/watch?v=hQgFixeXdZo"
+    "demoUrl": "https://www.youtube.com/watch?v=hQgFixeXdZo",
+    "searchKeywords": [
+      "dumbbell romanian deadlift",
+      "lower body",
+      "dumbbell",
+      "intermediate",
+      "hinge",
+      "dumbbellromaniandeadlift",
+      "hamstrings",
+      "glutes",
+      "lower back",
+      "dumbbell rdl",
+      "romanian deadlift",
+      "dumbbell deadlift",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "single-leg-romanian-deadlift",
@@ -590,7 +1050,21 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 90,
     "description": "Single-leg hinge pattern for hamstrings, glutes, and balance.",
-    "demoUrl": "https://www.youtube.com/watch?v=hQgFixeXdZo"
+    "demoUrl": "https://www.youtube.com/watch?v=hQgFixeXdZo",
+    "searchKeywords": [
+      "single leg romanian deadlift",
+      "lower body",
+      "bodyweight",
+      "intermediate",
+      "hinge",
+      "singlelegromaniandeadlift",
+      "hamstrings",
+      "glutes",
+      "core",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "calf-raise",
@@ -606,7 +1080,19 @@
     "defaultReps": "12-25",
     "defaultRestSeconds": 45,
     "description": "Simple calf-strength exercise performed standing.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "calf raise",
+      "lower body",
+      "bodyweight",
+      "beginner",
+      "accessory",
+      "calfraise",
+      "calves",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "wall-sit",
@@ -623,7 +1109,20 @@
     "defaultReps": "30-60 sec",
     "defaultRestSeconds": 60,
     "description": "Isometric squat hold against a wall for lower-body endurance.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "wall sit",
+      "lower body",
+      "bodyweight",
+      "beginner",
+      "isometric",
+      "wallsit",
+      "quads",
+      "glutes",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "jump-squat",
@@ -641,7 +1140,22 @@
     "defaultReps": "6-12",
     "defaultRestSeconds": 90,
     "description": "Explosive bodyweight squat variation for power and conditioning.",
-    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8"
+    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8",
+    "searchKeywords": [
+      "jump squat",
+      "lower body",
+      "bodyweight",
+      "intermediate",
+      "power",
+      "jumpsquat",
+      "quads",
+      "glutes",
+      "calves",
+      "squat jump",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "plank",
@@ -659,7 +1173,20 @@
     "defaultReps": "30-60 sec",
     "defaultRestSeconds": 45,
     "description": "Static core hold for trunk stability.",
-    "demoUrl": "https://www.youtube.com/watch?v=pSHjTRCQxIw"
+    "demoUrl": "https://www.youtube.com/watch?v=pSHjTRCQxIw",
+    "searchKeywords": [
+      "plank",
+      "core",
+      "bodyweight",
+      "beginner",
+      "isometric",
+      "abs",
+      "shoulders",
+      "front plank",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "side-plank",
@@ -677,7 +1204,20 @@
     "defaultReps": "20-45 sec each side",
     "defaultRestSeconds": 45,
     "description": "Side-facing core hold that emphasizes obliques.",
-    "demoUrl": "https://www.youtube.com/watch?v=pSHjTRCQxIw"
+    "demoUrl": "https://www.youtube.com/watch?v=pSHjTRCQxIw",
+    "searchKeywords": [
+      "side plank",
+      "core",
+      "bodyweight",
+      "intermediate",
+      "isometric",
+      "sideplank",
+      "obliques",
+      "shoulders",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "dead-bug",
@@ -694,7 +1234,19 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 45,
     "description": "Core stability exercise performed lying on your back.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dead bug",
+      "core",
+      "bodyweight",
+      "beginner",
+      "deadbug",
+      "abs",
+      "deep core",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "bird-dog",
@@ -712,7 +1264,19 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 45,
     "description": "Core and balance movement performed from hands and knees.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "bird dog",
+      "core",
+      "bodyweight",
+      "beginner",
+      "birddog",
+      "lower back",
+      "glutes",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "hollow-body-hold",
@@ -729,7 +1293,20 @@
     "defaultReps": "15-45 sec",
     "defaultRestSeconds": 60,
     "description": "Gymnastics-style core hold for anterior core strength.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "hollow body hold",
+      "core",
+      "bodyweight",
+      "intermediate",
+      "isometric",
+      "hollowbodyhold",
+      "abs",
+      "hip flexors",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "reverse-crunch",
@@ -746,7 +1323,19 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 45,
     "description": "Floor-based core movement that curls the hips toward the ribs.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "reverse crunch",
+      "core",
+      "bodyweight",
+      "beginner",
+      "reversecrunch",
+      "lower abs",
+      "hip flexors",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "bicycle-crunch",
@@ -763,7 +1352,20 @@
     "defaultReps": "12-24 total",
     "defaultRestSeconds": 45,
     "description": "Rotational crunch variation targeting abs and obliques.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "bicycle crunch",
+      "core",
+      "bodyweight",
+      "beginner",
+      "bicyclecrunch",
+      "abs",
+      "obliques",
+      "bicycle crunches",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "russian-twist",
@@ -780,7 +1382,19 @@
     "defaultReps": "16-30 total",
     "defaultRestSeconds": 45,
     "description": "Seated rotational core exercise that can be done with or without a dumbbell.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "russian twist",
+      "core",
+      "bodyweight",
+      "beginner",
+      "russiantwist",
+      "obliques",
+      "abs",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "mountain-climber",
@@ -798,7 +1412,21 @@
     "defaultReps": "30-45 sec",
     "defaultRestSeconds": 45,
     "description": "Fast alternating knee drive from a high plank position.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "mountain climber",
+      "conditioning",
+      "bodyweight",
+      "beginner",
+      "mountainclimber",
+      "core",
+      "hip flexors",
+      "shoulders",
+      "mountain climbers",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "burpee",
@@ -817,7 +1445,21 @@
     "defaultReps": "6-12",
     "defaultRestSeconds": 90,
     "description": "Full-body conditioning movement combining a squat, plank, and jump.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "burpee",
+      "conditioning",
+      "bodyweight",
+      "advanced",
+      "full body",
+      "chest",
+      "legs",
+      "core",
+      "full body conditioning",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "jumping-jack",
@@ -835,7 +1477,21 @@
     "defaultReps": "30-60 sec",
     "defaultRestSeconds": 45,
     "description": "Simple full-body cardio movement for warmups or circuits.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "jumping jack",
+      "conditioning",
+      "bodyweight",
+      "beginner",
+      "jumpingjack",
+      "full body",
+      "calves",
+      "shoulders",
+      "jumping jacks",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "high-knees",
@@ -853,7 +1509,20 @@
     "defaultReps": "30-45 sec",
     "defaultRestSeconds": 45,
     "description": "Running-in-place drill with high knee drive.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "high knees",
+      "conditioning",
+      "bodyweight",
+      "beginner",
+      "highknees",
+      "hip flexors",
+      "core",
+      "calves",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "skater-hop",
@@ -871,7 +1540,20 @@
     "defaultReps": "20-40 total",
     "defaultRestSeconds": 60,
     "description": "Lateral hopping drill for lower-body power and balance.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "skater hop",
+      "conditioning",
+      "bodyweight",
+      "intermediate",
+      "skaterhop",
+      "glutes",
+      "quads",
+      "calves",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "bear-crawl",
@@ -889,7 +1571,20 @@
     "defaultReps": "20-40 sec",
     "defaultRestSeconds": 60,
     "description": "Crawling movement that trains total-body coordination and core stability.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "bear crawl",
+      "conditioning",
+      "bodyweight",
+      "intermediate",
+      "bearcrawl",
+      "core",
+      "shoulders",
+      "quads",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "dumbbell-thruster",
@@ -908,7 +1603,21 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 120,
     "description": "Squat-to-press movement that combines lower-body and upper-body work.",
-    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8"
+    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8",
+    "searchKeywords": [
+      "dumbbell thruster",
+      "full body",
+      "dumbbell",
+      "intermediate",
+      "dumbbellthruster",
+      "quads",
+      "glutes",
+      "shoulders",
+      "triceps",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-clean-to-press",
@@ -927,7 +1636,21 @@
     "defaultReps": "5-8",
     "defaultRestSeconds": 120,
     "description": "Power movement that brings dumbbells from the floor or hang to overhead.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell clean to press",
+      "full body",
+      "dumbbell",
+      "advanced",
+      "dumbbellcleantopress",
+      "shoulders",
+      "glutes",
+      "quads",
+      "core",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "renegade-row",
@@ -945,7 +1668,21 @@
     "defaultReps": "6-10 each side",
     "defaultRestSeconds": 120,
     "description": "Plank-based dumbbell row that combines pulling strength and core stability.",
-    "demoUrl": "https://www.youtube.com/watch?v=roCP6wCXPqo"
+    "demoUrl": "https://www.youtube.com/watch?v=roCP6wCXPqo",
+    "searchKeywords": [
+      "renegade row",
+      "full body",
+      "dumbbell",
+      "advanced",
+      "pull",
+      "renegaderow",
+      "lats",
+      "core",
+      "shoulders",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-suitcase-carry",
@@ -963,7 +1700,21 @@
     "defaultReps": "30-60 sec each side",
     "defaultRestSeconds": 60,
     "description": "Loaded carry using one dumbbell to train grip and anti-lateral-flexion core strength.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "dumbbell suitcase carry",
+      "full body",
+      "dumbbell",
+      "beginner",
+      "carry",
+      "dumbbellsuitcasecarry",
+      "core",
+      "forearms",
+      "traps",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "farmer-carry",
@@ -981,7 +1732,21 @@
     "defaultReps": "30-60 sec",
     "defaultRestSeconds": 60,
     "description": "Loaded carry using two dumbbells for grip, traps, and trunk stability.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "farmer carry",
+      "full body",
+      "dumbbell",
+      "beginner",
+      "carry",
+      "farmercarry",
+      "forearms",
+      "traps",
+      "core",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-swings",
@@ -999,7 +1764,23 @@
     "defaultReps": "12-20",
     "defaultRestSeconds": 90,
     "description": "Hip-hinge power movement using one dumbbell.",
-    "demoUrl": "https://www.youtube.com/watch?v=hQgFixeXdZo"
+    "demoUrl": "https://www.youtube.com/watch?v=hQgFixeXdZo",
+    "searchKeywords": [
+      "dumbbell swings",
+      "dumbbell swing",
+      "full body",
+      "dumbbell",
+      "intermediate",
+      "hinge",
+      "dumbbellswings",
+      "dumbbellswing",
+      "glutes",
+      "hamstrings",
+      "core",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "inchworm",
@@ -1017,7 +1798,19 @@
     "defaultReps": "6-10",
     "defaultRestSeconds": 45,
     "description": "Dynamic movement that combines a hamstring walkout with a plank position.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "inchworm",
+      "mobility",
+      "bodyweight",
+      "beginner",
+      "hamstrings",
+      "core",
+      "shoulders",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "worlds-greatest-stretch",
@@ -1035,7 +1828,22 @@
     "defaultReps": "5-8 each side",
     "defaultRestSeconds": 30,
     "description": "Full-body mobility drill for hips, hamstrings, and upper-back rotation.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "worlds greatest stretch",
+      "world's greatest stretch",
+      "mobility",
+      "bodyweight",
+      "beginner",
+      "worldsgreateststretch",
+      "world'sgreateststretch",
+      "hips",
+      "hamstrings",
+      "thoracic spine",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "scapular-push-up",
@@ -1053,7 +1861,20 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 45,
     "description": "Shoulder blade control drill performed from a high plank.",
-    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4"
+    "demoUrl": "https://www.youtube.com/watch?v=IODxDxX7oi4",
+    "searchKeywords": [
+      "scapular push up",
+      "mobility",
+      "bodyweight",
+      "beginner",
+      "scapularpushup",
+      "serratus",
+      "shoulders",
+      "upper back",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "hip-airplane",
@@ -1071,7 +1892,20 @@
     "defaultReps": "5-8 each side",
     "defaultRestSeconds": 45,
     "description": "Single-leg hip control drill for balance and mobility.",
-    "demoUrl": ""
+    "demoUrl": "",
+    "searchKeywords": [
+      "hip airplane",
+      "mobility",
+      "bodyweight",
+      "advanced",
+      "hipairplane",
+      "glutes",
+      "hips",
+      "core",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "cossack-squat",
@@ -1089,7 +1923,21 @@
     "defaultReps": "6-10 each side",
     "defaultRestSeconds": 90,
     "description": "Side-to-side squat variation for leg strength and hip mobility.",
-    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8"
+    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8",
+    "searchKeywords": [
+      "cossack squat",
+      "mobility",
+      "bodyweight",
+      "advanced",
+      "squat",
+      "cossacksquat",
+      "adductors",
+      "quads",
+      "glutes",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "chair-assisted-pistol-squat",
@@ -1107,7 +1955,18 @@
     "defaultReps": "4-8 each side",
     "defaultRestSeconds": 120,
     "description": "Single-leg squat progression using a chair for support or target depth.",
-    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8"
+    "demoUrl": "https://www.youtube.com/watch?v=P-yaD24bUE8",
+    "searchKeywords": [
+      "chair assisted pistol squat",
+      "lower body",
+      "chair",
+      "advanced",
+      "squat",
+      "chairassistedpistolsquat",
+      "quads",
+      "glutes",
+      "core"
+    ]
   },
   {
     "id": "dumbbell-goblet-squat",
@@ -1125,7 +1984,23 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 90,
     "description": "A front-loaded squat variation that builds legs and trunk control with one dumbbell.",
-    "demoUrl": "https://www.youtube.com/watch?v=MeIiIdhvXT4"
+    "demoUrl": "https://www.youtube.com/watch?v=MeIiIdhvXT4",
+    "searchKeywords": [
+      "dumbbell goblet squat",
+      "lower body",
+      "dumbbell",
+      "beginner",
+      "squat",
+      "dumbbellgobletsquat",
+      "quads",
+      "glutes",
+      "core",
+      "goblet squat",
+      "dumbbell squat",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-bent-over-row",
@@ -1143,7 +2018,21 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 90,
     "description": "A home-friendly rowing movement for building back strength with dumbbells.",
-    "demoUrl": "https://www.youtube.com/watch?v=roCP6wCXPqo"
+    "demoUrl": "https://www.youtube.com/watch?v=roCP6wCXPqo",
+    "searchKeywords": [
+      "dumbbell bent over row",
+      "upper body",
+      "dumbbell",
+      "beginner",
+      "pull",
+      "dumbbellbentoverrow",
+      "back",
+      "biceps",
+      "rear delts",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-overhead-press",
@@ -1161,7 +2050,24 @@
     "defaultReps": "6-12",
     "defaultRestSeconds": 90,
     "description": "A vertical press for shoulder strength using dumbbells while standing or seated.",
-    "demoUrl": "https://www.youtube.com/watch?v=qEwKCR5JCog"
+    "demoUrl": "https://www.youtube.com/watch?v=qEwKCR5JCog",
+    "searchKeywords": [
+      "dumbbell overhead press",
+      "upper body",
+      "dumbbell",
+      "intermediate",
+      "push",
+      "dumbbelloverheadpress",
+      "shoulders",
+      "triceps",
+      "core",
+      "dumbbell shoulder press",
+      "overhead press",
+      "shoulder press",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-reverse-lunge",
@@ -1179,7 +2085,21 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 90,
     "description": "A controlled single-leg movement that trains lower-body strength and balance.",
-    "demoUrl": "https://www.youtube.com/watch?v=wrwwXE_x-pQ"
+    "demoUrl": "https://www.youtube.com/watch?v=wrwwXE_x-pQ",
+    "searchKeywords": [
+      "dumbbell reverse lunge",
+      "lower body",
+      "dumbbell",
+      "intermediate",
+      "lunge",
+      "dumbbellreverselunge",
+      "quads",
+      "glutes",
+      "hamstrings",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-calf-raise",
@@ -1195,7 +2115,19 @@
     "defaultReps": "12-20",
     "defaultRestSeconds": 45,
     "description": "A simple loaded calf movement that can be done on flat ground or a step.",
-    "demoUrl": "https://www.youtube.com/watch?v=-M4-G8p8fmc"
+    "demoUrl": "https://www.youtube.com/watch?v=-M4-G8p8fmc",
+    "searchKeywords": [
+      "dumbbell calf raise",
+      "lower body",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "dumbbellcalfraise",
+      "calves",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-curl",
@@ -1212,7 +2144,20 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 60,
     "description": "A basic arm exercise for building biceps strength with dumbbells.",
-    "demoUrl": "https://www.youtube.com/watch?v=ykJmrZ5v0Oo"
+    "demoUrl": "https://www.youtube.com/watch?v=ykJmrZ5v0Oo",
+    "searchKeywords": [
+      "dumbbell curl",
+      "upper body",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "dumbbellcurl",
+      "biceps",
+      "forearms",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "dumbbell-triceps-extension",
@@ -1228,7 +2173,21 @@
     "defaultReps": "10-15",
     "defaultRestSeconds": 60,
     "description": "An overhead triceps movement that only needs one dumbbell.",
-    "demoUrl": "https://www.youtube.com/watch?v=_gsUck-7M74"
+    "demoUrl": "https://www.youtube.com/watch?v=_gsUck-7M74",
+    "searchKeywords": [
+      "dumbbell triceps extension",
+      "dumbbell overhead triceps extension",
+      "upper body",
+      "dumbbell",
+      "beginner",
+      "accessory",
+      "dumbbelltricepsextension",
+      "dumbbelloverheadtricepsextension",
+      "triceps",
+      "dumbbells",
+      "free weights",
+      "at home weights"
+    ]
   },
   {
     "id": "superman-hold",
@@ -1246,7 +2205,20 @@
     "defaultReps": "15-30 seconds",
     "defaultRestSeconds": 45,
     "description": "A simple posterior-chain hold for back and glute endurance.",
-    "demoUrl": "https://www.youtube.com/watch?v=z6PJMT2y8GQ"
+    "demoUrl": "https://www.youtube.com/watch?v=z6PJMT2y8GQ",
+    "searchKeywords": [
+      "superman hold",
+      "core",
+      "bodyweight",
+      "beginner",
+      "supermanhold",
+      "lower back",
+      "glutes",
+      "upper back",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "chair-step-up",
@@ -1264,7 +2236,18 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 75,
     "description": "A single-leg stepping movement using a sturdy chair or low platform.",
-    "demoUrl": "https://www.youtube.com/watch?v=dQqApCGd5Ss"
+    "demoUrl": "https://www.youtube.com/watch?v=dQqApCGd5Ss",
+    "searchKeywords": [
+      "chair step up",
+      "lower body",
+      "chair",
+      "beginner",
+      "step",
+      "chairstepup",
+      "quads",
+      "glutes",
+      "hamstrings"
+    ]
   },
   {
     "id": "burpee-no-push-up",
@@ -1282,7 +2265,22 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 60,
     "description": "A lower-impact burpee variation for home conditioning without the push-up portion.",
-    "demoUrl": "https://www.youtube.com/watch?v=TU8QYVW0gDU"
+    "demoUrl": "https://www.youtube.com/watch?v=TU8QYVW0gDU",
+    "searchKeywords": [
+      "burpee no push up",
+      "burpee without push up",
+      "conditioning",
+      "bodyweight",
+      "intermediate",
+      "burpeenopushup",
+      "burpeewithoutpushup",
+      "full body",
+      "quads",
+      "core",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "pull-up",
@@ -1300,7 +2298,19 @@
     "defaultReps": "3-8",
     "defaultRestSeconds": 120,
     "description": "A vertical pulling exercise for back and arm strength using a pull-up bar.",
-    "demoUrl": "https://www.youtube.com/results?search_query=proper+pull+up+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=proper+pull+up+form",
+    "searchKeywords": [
+      "pull up",
+      "upper body",
+      "pull up bar",
+      "intermediate",
+      "pull",
+      "pullup",
+      "lats",
+      "upper back",
+      "biceps",
+      "bar pull up"
+    ]
   },
   {
     "id": "chin-up",
@@ -1318,7 +2328,19 @@
     "defaultReps": "3-8",
     "defaultRestSeconds": 120,
     "description": "A supinated-grip pull-up variation that puts more emphasis on the biceps.",
-    "demoUrl": "https://www.youtube.com/results?search_query=chin+up+proper+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=chin+up+proper+form",
+    "searchKeywords": [
+      "chin up",
+      "upper body",
+      "pull up bar",
+      "intermediate",
+      "pull",
+      "chinup",
+      "lats",
+      "biceps",
+      "upper back",
+      "underhand pull up"
+    ]
   },
   {
     "id": "negative-pull-up",
@@ -1336,7 +2358,20 @@
     "defaultReps": "3-6 slow reps",
     "defaultRestSeconds": 120,
     "description": "Start at the top of a pull-up and lower slowly to build pulling strength.",
-    "demoUrl": "https://www.youtube.com/results?search_query=negative+pull+up+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=negative+pull+up+exercise",
+    "searchKeywords": [
+      "negative pull up",
+      "upper body",
+      "pull up bar",
+      "beginner",
+      "pull",
+      "negativepullup",
+      "lats",
+      "upper back",
+      "biceps",
+      "negative pullup",
+      "eccentric pull up"
+    ]
   },
   {
     "id": "scapular-pull-up",
@@ -1354,7 +2389,20 @@
     "defaultReps": "8-12",
     "defaultRestSeconds": 75,
     "description": "A small-range pull-up drill focused on shoulder-blade control and pulling mechanics.",
-    "demoUrl": "https://www.youtube.com/results?search_query=scapular+pull+up+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=scapular+pull+up+form",
+    "searchKeywords": [
+      "scapular pull up",
+      "upper body",
+      "pull up bar",
+      "beginner",
+      "pull",
+      "scapularpullup",
+      "lats",
+      "lower traps",
+      "upper back",
+      "scap pull up",
+      "scapular pullup"
+    ]
   },
   {
     "id": "dead-hang",
@@ -1372,7 +2420,20 @@
     "defaultReps": "20-45 seconds",
     "defaultRestSeconds": 75,
     "description": "A passive hanging hold that builds grip endurance and shoulder tolerance.",
-    "demoUrl": "https://www.youtube.com/results?search_query=dead+hang+exercise+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=dead+hang+exercise+form",
+    "searchKeywords": [
+      "dead hang",
+      "upper body",
+      "pull up bar",
+      "beginner",
+      "hold",
+      "deadhang",
+      "forearms",
+      "grip",
+      "shoulders",
+      "bar hang",
+      "pull up bar hang"
+    ]
   },
   {
     "id": "active-hang",
@@ -1390,7 +2451,19 @@
     "defaultReps": "15-30 seconds",
     "defaultRestSeconds": 75,
     "description": "A hanging hold with the shoulders pulled down and engaged for better pull-up control.",
-    "demoUrl": "https://www.youtube.com/results?search_query=active+hang+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=active+hang+exercise",
+    "searchKeywords": [
+      "active hang",
+      "upper body",
+      "pull up bar",
+      "beginner",
+      "hold",
+      "activehang",
+      "lats",
+      "lower traps",
+      "shoulders",
+      "shoulder hang"
+    ]
   },
   {
     "id": "hanging-knee-raise",
@@ -1408,7 +2481,19 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 90,
     "description": "A hanging core exercise where the knees are lifted toward the chest.",
-    "demoUrl": "https://www.youtube.com/results?search_query=hanging+knee+raise+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=hanging+knee+raise+form",
+    "searchKeywords": [
+      "hanging knee raise",
+      "core",
+      "pull up bar",
+      "intermediate",
+      "hangingkneeraise",
+      "abs",
+      "hip flexors",
+      "grip",
+      "knee raise",
+      "pull up bar abs"
+    ]
   },
   {
     "id": "hanging-leg-raise",
@@ -1426,7 +2511,19 @@
     "defaultReps": "5-12",
     "defaultRestSeconds": 120,
     "description": "A harder hanging core movement using straighter legs for more leverage.",
-    "demoUrl": "https://www.youtube.com/results?search_query=hanging+leg+raise+proper+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=hanging+leg+raise+proper+form",
+    "searchKeywords": [
+      "hanging leg raise",
+      "core",
+      "pull up bar",
+      "advanced",
+      "hanginglegraise",
+      "abs",
+      "hip flexors",
+      "grip",
+      "leg raise",
+      "pull up bar abs"
+    ]
   },
   {
     "id": "toes-to-bar",
@@ -1444,7 +2541,19 @@
     "defaultReps": "4-10",
     "defaultRestSeconds": 120,
     "description": "An advanced hanging core movement bringing the toes toward the bar.",
-    "demoUrl": "https://www.youtube.com/results?search_query=toes+to+bar+exercise+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=toes+to+bar+exercise+form",
+    "searchKeywords": [
+      "toes to bar",
+      "core",
+      "pull up bar",
+      "advanced",
+      "toestobar",
+      "abs",
+      "hip flexors",
+      "lats",
+      "t2b",
+      "pull up bar core"
+    ]
   },
   {
     "id": "l-sit-hang",
@@ -1462,7 +2571,20 @@
     "defaultReps": "10-25 seconds",
     "defaultRestSeconds": 120,
     "description": "A hanging hold with the legs raised forward to challenge the core and grip.",
-    "demoUrl": "https://www.youtube.com/results?search_query=l+sit+hang+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=l+sit+hang+exercise",
+    "searchKeywords": [
+      "l sit hang",
+      "core",
+      "pull up bar",
+      "advanced",
+      "hold",
+      "lsithang",
+      "abs",
+      "hip flexors",
+      "grip",
+      "lsit hang",
+      "pull up bar core"
+    ]
   },
   {
     "id": "commando-pull-up",
@@ -1480,7 +2602,18 @@
     "defaultReps": "3-8 each side",
     "defaultRestSeconds": 120,
     "description": "A pull-up variation performed with the body turned sideways to the bar.",
-    "demoUrl": "https://www.youtube.com/results?search_query=commando+pull+up+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=commando+pull+up+exercise",
+    "searchKeywords": [
+      "commando pull up",
+      "upper body",
+      "pull up bar",
+      "advanced",
+      "pull",
+      "commandopullup",
+      "lats",
+      "biceps",
+      "obliques"
+    ]
   },
   {
     "id": "towel-grip-hang",
@@ -1498,7 +2631,18 @@
     "defaultReps": "10-30 seconds",
     "defaultRestSeconds": 90,
     "description": "Hang from towels draped over a pull-up bar to build grip strength.",
-    "demoUrl": "https://www.youtube.com/results?search_query=towel+grip+hang+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=towel+grip+hang+exercise",
+    "searchKeywords": [
+      "towel grip hang",
+      "upper body",
+      "pull up bar + towel",
+      "intermediate",
+      "hold",
+      "towelgriphang",
+      "forearms",
+      "grip",
+      "lats"
+    ]
   },
   {
     "id": "towel-assisted-pull-up",
@@ -1516,7 +2660,18 @@
     "defaultReps": "3-8 each side",
     "defaultRestSeconds": 120,
     "description": "A pull-up variation using a towel for grip and unilateral pulling practice.",
-    "demoUrl": "https://www.youtube.com/results?search_query=towel+assisted+pull+up"
+    "demoUrl": "https://www.youtube.com/results?search_query=towel+assisted+pull+up",
+    "searchKeywords": [
+      "towel assisted pull up",
+      "upper body",
+      "pull up bar + towel",
+      "intermediate",
+      "pull",
+      "towelassistedpullup",
+      "lats",
+      "upper back",
+      "biceps"
+    ]
   },
   {
     "id": "australian-row",
@@ -1534,7 +2689,18 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 90,
     "description": "A bodyweight row using a low bar, table edge, or sturdy rail.",
-    "demoUrl": "https://www.youtube.com/results?search_query=australian+row+bodyweight+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=australian+row+bodyweight+exercise",
+    "searchKeywords": [
+      "australian row",
+      "upper body",
+      "low bar",
+      "beginner",
+      "pull",
+      "australianrow",
+      "upper back",
+      "lats",
+      "biceps"
+    ]
   },
   {
     "id": "feet-elevated-australian-row",
@@ -1552,7 +2718,18 @@
     "defaultReps": "6-12",
     "defaultRestSeconds": 90,
     "description": "A harder bodyweight row variation with the feet elevated to increase load.",
-    "demoUrl": "https://www.youtube.com/results?search_query=feet+elevated+australian+row"
+    "demoUrl": "https://www.youtube.com/results?search_query=feet+elevated+australian+row",
+    "searchKeywords": [
+      "feet elevated australian row",
+      "upper body",
+      "low bar",
+      "intermediate",
+      "pull",
+      "feetelevatedaustralianrow",
+      "upper back",
+      "lats",
+      "rear delts"
+    ]
   },
   {
     "id": "parallel-bar-dip",
@@ -1570,7 +2747,18 @@
     "defaultReps": "5-12",
     "defaultRestSeconds": 120,
     "description": "A bodyweight pushing exercise using dip bars or parallel handles.",
-    "demoUrl": "https://www.youtube.com/results?search_query=parallel+bar+dip+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=parallel+bar+dip+form",
+    "searchKeywords": [
+      "parallel bar dip",
+      "upper body",
+      "dip bars",
+      "intermediate",
+      "push",
+      "parallelbardip",
+      "triceps",
+      "chest",
+      "shoulders"
+    ]
   },
   {
     "id": "bench-dip",
@@ -1588,7 +2776,18 @@
     "defaultReps": "8-15",
     "defaultRestSeconds": 75,
     "description": "A chair-supported triceps exercise that works well for home workouts.",
-    "demoUrl": "https://www.youtube.com/results?search_query=bench+dip+exercise+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=bench+dip+exercise+form",
+    "searchKeywords": [
+      "bench dip",
+      "upper body",
+      "chair",
+      "beginner",
+      "push",
+      "benchdip",
+      "triceps",
+      "shoulders",
+      "chest"
+    ]
   },
   {
     "id": "straight-bar-dip",
@@ -1606,7 +2805,18 @@
     "defaultReps": "3-8",
     "defaultRestSeconds": 120,
     "description": "A dip performed over a straight bar, useful for advanced calisthenics strength.",
-    "demoUrl": "https://www.youtube.com/results?search_query=straight+bar+dip+calisthenics"
+    "demoUrl": "https://www.youtube.com/results?search_query=straight+bar+dip+calisthenics",
+    "searchKeywords": [
+      "straight bar dip",
+      "upper body",
+      "pull up bar",
+      "advanced",
+      "push",
+      "straightbardip",
+      "triceps",
+      "chest",
+      "shoulders"
+    ]
   },
   {
     "id": "elevated-pike-push-up",
@@ -1624,7 +2834,18 @@
     "defaultReps": "4-10",
     "defaultRestSeconds": 120,
     "description": "A harder pike push-up variation with the feet elevated to increase shoulder loading.",
-    "demoUrl": "https://www.youtube.com/results?search_query=feet+elevated+pike+push+up"
+    "demoUrl": "https://www.youtube.com/results?search_query=feet+elevated+pike+push+up",
+    "searchKeywords": [
+      "elevated pike push up",
+      "upper body",
+      "chair",
+      "advanced",
+      "push",
+      "elevatedpikepushup",
+      "shoulders",
+      "triceps",
+      "upper chest"
+    ]
   },
   {
     "id": "wall-handstand-hold",
@@ -1642,7 +2863,18 @@
     "defaultReps": "15-45 seconds",
     "defaultRestSeconds": 120,
     "description": "A wall-supported inverted hold for shoulder strength and body control.",
-    "demoUrl": "https://www.youtube.com/results?search_query=wall+handstand+hold+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=wall+handstand+hold+exercise",
+    "searchKeywords": [
+      "wall handstand hold",
+      "upper body",
+      "wall",
+      "intermediate",
+      "hold",
+      "wallhandstandhold",
+      "shoulders",
+      "triceps",
+      "core"
+    ]
   },
   {
     "id": "wall-handstand-shoulder-tap",
@@ -1660,7 +2892,18 @@
     "defaultReps": "4-10 each side",
     "defaultRestSeconds": 120,
     "description": "A wall handstand drill that adds alternating shoulder taps for stability and control.",
-    "demoUrl": "https://www.youtube.com/results?search_query=wall+handstand+shoulder+taps"
+    "demoUrl": "https://www.youtube.com/results?search_query=wall+handstand+shoulder+taps",
+    "searchKeywords": [
+      "wall handstand shoulder tap",
+      "upper body",
+      "wall",
+      "advanced",
+      "push",
+      "wallhandstandshouldertap",
+      "shoulders",
+      "triceps",
+      "core"
+    ]
   },
   {
     "id": "pseudo-planche-push-up",
@@ -1678,7 +2921,22 @@
     "defaultReps": "4-10",
     "defaultRestSeconds": 120,
     "description": "A forward-leaning push-up variation that builds planche-style pressing strength.",
-    "demoUrl": "https://www.youtube.com/results?search_query=pseudo+planche+push+up+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=pseudo+planche+push+up+form",
+    "searchKeywords": [
+      "pseudo planche push up",
+      "upper body",
+      "bodyweight",
+      "advanced",
+      "push",
+      "pseudoplanchepushup",
+      "shoulders",
+      "chest",
+      "triceps",
+      "pseudo planche pushup",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "archer-push-up",
@@ -1696,7 +2954,22 @@
     "defaultReps": "3-8 each side",
     "defaultRestSeconds": 120,
     "description": "A side-to-side push-up variation that loads one arm more heavily at a time.",
-    "demoUrl": "https://www.youtube.com/results?search_query=archer+push+up+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=archer+push+up+form",
+    "searchKeywords": [
+      "archer push up",
+      "upper body",
+      "bodyweight",
+      "advanced",
+      "push",
+      "archerpushup",
+      "chest",
+      "triceps",
+      "shoulders",
+      "archer pushup",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "hindu-push-up",
@@ -1714,7 +2987,21 @@
     "defaultReps": "6-15",
     "defaultRestSeconds": 90,
     "description": "A flowing push-up variation that combines pressing strength with shoulder and spine mobility.",
-    "demoUrl": "https://www.youtube.com/results?search_query=hindu+push+up+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=hindu+push+up+form",
+    "searchKeywords": [
+      "hindu push up",
+      "upper body",
+      "bodyweight",
+      "intermediate",
+      "push",
+      "hindupushup",
+      "shoulders",
+      "chest",
+      "triceps",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "typewriter-push-up",
@@ -1732,7 +3019,21 @@
     "defaultReps": "3-8 each side",
     "defaultRestSeconds": 120,
     "description": "An advanced wide push-up variation where the body shifts side to side near the bottom position.",
-    "demoUrl": "https://www.youtube.com/results?search_query=typewriter+push+up+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=typewriter+push+up+exercise",
+    "searchKeywords": [
+      "typewriter push up",
+      "upper body",
+      "bodyweight",
+      "advanced",
+      "push",
+      "typewriterpushup",
+      "chest",
+      "triceps",
+      "shoulders",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "shrimp-squat",
@@ -1750,7 +3051,21 @@
     "defaultReps": "3-8 each side",
     "defaultRestSeconds": 120,
     "description": "A single-leg squat variation that challenges quad strength, balance, and control.",
-    "demoUrl": "https://www.youtube.com/results?search_query=shrimp+squat+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=shrimp+squat+exercise",
+    "searchKeywords": [
+      "shrimp squat",
+      "lower body",
+      "bodyweight",
+      "advanced",
+      "squat",
+      "shrimpsquat",
+      "quads",
+      "glutes",
+      "core",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "assisted-pistol-squat",
@@ -1768,7 +3083,18 @@
     "defaultReps": "4-8 each side",
     "defaultRestSeconds": 120,
     "description": "A single-leg squat using light assistance from a door frame, pole, or sturdy support.",
-    "demoUrl": "https://www.youtube.com/results?search_query=assisted+pistol+squat+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=assisted+pistol+squat+form",
+    "searchKeywords": [
+      "assisted pistol squat",
+      "lower body",
+      "door frame",
+      "intermediate",
+      "squat",
+      "assistedpistolsquat",
+      "quads",
+      "glutes",
+      "core"
+    ]
   },
   {
     "id": "sissy-squat",
@@ -1785,7 +3111,20 @@
     "defaultReps": "5-12",
     "defaultRestSeconds": 120,
     "description": "A quad-focused bodyweight squat variation with a backward lean.",
-    "demoUrl": "https://www.youtube.com/results?search_query=sissy+squat+bodyweight+form"
+    "demoUrl": "https://www.youtube.com/results?search_query=sissy+squat+bodyweight+form",
+    "searchKeywords": [
+      "sissy squat",
+      "lower body",
+      "bodyweight",
+      "advanced",
+      "squat",
+      "sissysquat",
+      "quads",
+      "core",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "nordic-hamstring-curl-assisted",
@@ -1803,7 +3142,20 @@
     "defaultReps": "3-8",
     "defaultRestSeconds": 120,
     "description": "A hamstring-strength exercise using an anchor point for the feet and controlled lowering.",
-    "demoUrl": "https://www.youtube.com/results?search_query=assisted+nordic+hamstring+curl"
+    "demoUrl": "https://www.youtube.com/results?search_query=assisted+nordic+hamstring+curl",
+    "searchKeywords": [
+      "nordic hamstring curl assisted",
+      "assisted nordic hamstring curl",
+      "lower body",
+      "anchor",
+      "advanced",
+      "hinge",
+      "nordichamstringcurlassisted",
+      "assistednordichamstringcurl",
+      "hamstrings",
+      "glutes",
+      "calves"
+    ]
   },
   {
     "id": "reverse-nordic-curl",
@@ -1821,7 +3173,21 @@
     "defaultReps": "4-10",
     "defaultRestSeconds": 120,
     "description": "A kneeling quad-strength movement that trains controlled backward leaning.",
-    "demoUrl": "https://www.youtube.com/results?search_query=reverse+nordic+curl+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=reverse+nordic+curl+exercise",
+    "searchKeywords": [
+      "reverse nordic curl",
+      "lower body",
+      "bodyweight",
+      "advanced",
+      "knee extension",
+      "reversenordiccurl",
+      "quads",
+      "hip flexors",
+      "core",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "dragon-flag-progression",
@@ -1839,7 +3205,17 @@
     "defaultReps": "3-8",
     "defaultRestSeconds": 120,
     "description": "An advanced core progression using a stable anchor behind the head or shoulders.",
-    "demoUrl": "https://www.youtube.com/results?search_query=dragon+flag+progression"
+    "demoUrl": "https://www.youtube.com/results?search_query=dragon+flag+progression",
+    "searchKeywords": [
+      "dragon flag progression",
+      "core",
+      "bench or floor anchor",
+      "advanced",
+      "dragonflagprogression",
+      "abs",
+      "hip flexors",
+      "lats"
+    ]
   },
   {
     "id": "tuck-front-lever-hold",
@@ -1857,7 +3233,18 @@
     "defaultReps": "8-20 seconds",
     "defaultRestSeconds": 120,
     "description": "A calisthenics pulling hold that trains lats, core tension, and straight-arm strength.",
-    "demoUrl": "https://www.youtube.com/results?search_query=tuck+front+lever+hold"
+    "demoUrl": "https://www.youtube.com/results?search_query=tuck+front+lever+hold",
+    "searchKeywords": [
+      "tuck front lever hold",
+      "core",
+      "pull up bar",
+      "advanced",
+      "hold",
+      "tuckfrontleverhold",
+      "lats",
+      "abs",
+      "upper back"
+    ]
   },
   {
     "id": "skin-the-cat",
@@ -1875,7 +3262,17 @@
     "defaultReps": "3-6",
     "defaultRestSeconds": 120,
     "description": "A controlled bar rotation drill for shoulder mobility and body control.",
-    "demoUrl": "https://www.youtube.com/results?search_query=skin+the+cat+calisthenics"
+    "demoUrl": "https://www.youtube.com/results?search_query=skin+the+cat+calisthenics",
+    "searchKeywords": [
+      "skin the cat",
+      "mobility",
+      "pull up bar",
+      "advanced",
+      "skinthecat",
+      "shoulders",
+      "lats",
+      "core"
+    ]
   },
   {
     "id": "hollow-body-rock",
@@ -1893,7 +3290,20 @@
     "defaultReps": "10-25 rocks",
     "defaultRestSeconds": 60,
     "description": "A dynamic hollow-body core drill used often in calisthenics training.",
-    "demoUrl": "https://www.youtube.com/results?search_query=hollow+body+rock+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=hollow+body+rock+exercise",
+    "searchKeywords": [
+      "hollow body rock",
+      "core",
+      "bodyweight",
+      "intermediate",
+      "hollowbodyrock",
+      "abs",
+      "hip flexors",
+      "quads",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   },
   {
     "id": "plank-to-push-up",
@@ -1911,6 +3321,18 @@
     "defaultReps": "8-12 each side",
     "defaultRestSeconds": 75,
     "description": "Move between forearm plank and high plank while keeping the hips controlled.",
-    "demoUrl": "https://www.youtube.com/results?search_query=plank+to+push+up+exercise"
+    "demoUrl": "https://www.youtube.com/results?search_query=plank+to+push+up+exercise",
+    "searchKeywords": [
+      "plank to push up",
+      "core",
+      "bodyweight",
+      "intermediate",
+      "planktopushup",
+      "shoulders",
+      "triceps",
+      "no equipment",
+      "home workout",
+      "calisthenics"
+    ]
   }
 ]

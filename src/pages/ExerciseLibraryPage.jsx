@@ -16,23 +16,15 @@ function ExerciseLibraryPage() {
   const difficultyOptions = useMemo(() => unique(exercises.map((item) => item.difficulty)), []);
 
   const filteredExercises = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+    const queryTokens = tokenizeSearch(query);
 
     return exercises.filter((exercise) => {
       const normalizedEquipment = normalizeEquipment(exercise.equipment);
       const hasDemo = Boolean(toEmbeddableVideoUrl(exercise.demoUrl));
-      const searchableText = [
-        exercise.name,
-        exercise.category,
-        normalizedEquipment,
-        exercise.difficulty,
-        exercise.movementType,
-        exercise.description,
-        ...(exercise.primaryMuscles ?? []),
-      ].join(" ").toLowerCase();
+      const searchableText = buildExerciseSearchText(exercise, normalizedEquipment);
 
       return (
-        (!normalizedQuery || searchableText.includes(normalizedQuery))
+        matchesSearchTokens(searchableText, queryTokens)
         && (category === allOption || exercise.category === category)
         && (equipment === allOption || normalizedEquipment === equipment)
         && (difficulty === allOption || exercise.difficulty === difficulty)
@@ -168,7 +160,7 @@ function TextFilter({ value, onChange }) {
         className="w-full border-2 border-black bg-white px-4 py-3 font-bold outline-none shadow-[3px_3px_0_#050505] focus:bg-[#FFF1E6] focus:shadow-[5px_5px_0_#F97316]"
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder="push-up, legs, dumbbell, core..."
+        placeholder="push up, pull up, legs, dumbbell, core..."
       />
     </label>
   );
@@ -278,6 +270,61 @@ function InfoBadge({ label, value }) {
       <p className="mt-2 font-black">{value}</p>
     </div>
   );
+}
+
+
+function normalizeForSearch(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[-_/]+/g, " ")
+    .replace(/[^a-z0-9\s]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function compactForSearch(value) {
+  return normalizeForSearch(value).replace(/\s+/g, "");
+}
+
+function tokenizeSearch(value) {
+  const normalized = normalizeForSearch(value);
+  if (!normalized) return [];
+
+  return normalized
+    .split(" ")
+    .map((token) => token.trim())
+    .filter(Boolean);
+}
+
+function buildExerciseSearchText(exercise, normalizedEquipment) {
+  const pieces = [
+    exercise.id,
+    exercise.name,
+    exercise.category,
+    normalizedEquipment,
+    exercise.difficulty,
+    exercise.movementType,
+    exercise.description,
+    ...(exercise.primaryMuscles ?? []),
+    ...(exercise.searchKeywords ?? []),
+  ];
+
+  const friendlyText = normalizeForSearch(pieces.join(" "));
+  const compactText = pieces.map(compactForSearch).filter(Boolean).join(" ");
+
+  return `${friendlyText} ${compactText}`;
+}
+
+function matchesSearchTokens(searchableText, queryTokens) {
+  if (queryTokens.length === 0) return true;
+
+  const normalizedText = normalizeForSearch(searchableText);
+  const compactText = compactForSearch(searchableText);
+  const compactQuery = queryTokens.join("");
+
+  return queryTokens.every((token) => normalizedText.includes(token) || compactText.includes(token))
+    || compactText.includes(compactQuery);
 }
 
 function unique(values) {
