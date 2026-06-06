@@ -1,57 +1,37 @@
 # LiftLog Lite
 
-LiftLog Lite is a small frontend-only workout tracker I built for myself to make gym sessions easier to follow. It focuses on the core things I actually need during a workout: tracking how long the session has been running, managing rest timers, logging completed sets, and saving simple notes after finishing.
+LiftLog Lite is a small frontend-only workout tracker built as a fun mini project. It helps track active workout sessions, rest timers, set logs, workout history, and home-friendly exercises.
 
-The app runs fully in the browser.
+The app runs fully in the browser and stores data locally.
 
-## What it does
+## Features
 
-- Tracks the total workout session time
-- Starts a rest timer automatically when a set is completed
-- Logs sets with session-based timestamps
-- Tracks total rest time and sets completed
-- Shows a rest-ended popup with an alarm
-- Lets me delete individual sets if I make a mistake
-- Saves session notes after finishing a workout
-- Supports editing saved session notes
-- Stores workout history locally in the browser
-- Supports JSON backup/import
-- Supports Markdown export for workout reports
+- Workout session timer
+- Rest timer with rest-ended popup
+- Set logging during a workout
+- Saved workout history
+- Session notes and ratings
+- JSON backup and import
+- Markdown export for workout reports
+- Home-friendly exercise library
+- Exercise search and filters by category, equipment, difficulty, and demo availability
 
-## Session notes
-
-When finishing a session, the app asks for a quick review:
-
-- Workout type, such as push day, pull day, leg day, or chest day
-- Thoughts and feelings about the session
-- Energy rating from 0 to 5
-- Difficulty rating from 0 to 5
-- Mood rating from 0 to 5
-- Overall experience rating from 0 to 5
-
-## Local-first storage
-
-For manual backup, the app can export and load JSON files. It can also export workout sessions as Markdown reports.
-
-## Tech stack
+## Tech Stack
 
 - React
 - Vite
 - Tailwind CSS
+- LocalStorage
 
-## Running locally
+## Running Locally
 
 ```bash
 npm install
 npm run dev
-```
-
-## Building
-
-```bash
+Building
 npm run build
 ```
 
 ## Notes
 
-This is mainly a personal mini project for my own workouts. The focus is a simple, fast, local-first workout timer and session logger that feels good to use during actual workouts.
+This is a simple personal mini project, not a full fitness platform. The goal is to make workout tracking quick, local-first, and easy to use.
