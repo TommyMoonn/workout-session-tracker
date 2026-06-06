@@ -683,16 +683,8 @@ function WorkoutSessionPage() {
   }
 
   return (
-    <div className="app-shell">
-      <div className="app-container">
-        <header className="app-header workout-fu">
-          <div className="brand">
-            <span className="brand-mark">LL</span>
-            <span>LiftLog Lite</span>
-          </div>
-        </header>
-
-        <main>
+    <div className="workout-page">
+      <main>
           <section className="grid-top workout-fu">
             <div className="hero-card card card-padding workout-card">
               <p className="kicker">Workout command center</p>
@@ -875,8 +867,7 @@ function WorkoutSessionPage() {
               </div>
             )}
           </section>
-        </main>
-      </div>
+      </main>
 
       {isSetPanelOpen && (
         <SetLogDrawer
