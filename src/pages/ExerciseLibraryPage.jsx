@@ -11,15 +11,16 @@ function ExerciseLibraryPage() {
   const [demoFilter, setDemoFilter] = useState(allOption);
   const [selectedExerciseId, setSelectedExerciseId] = useState(exercises[0]?.id ?? null);
 
-  const categories = useMemo(() => getUniqueValues(exercises.map((item) => item.category)), []);
-  const equipmentOptions = useMemo(() => getUniqueValues(exercises.map((item) => normalizeEquipment(item.equipment))), []);
-  const difficultyOptions = useMemo(() => getUniqueValues(exercises.map((item) => item.difficulty)), []);
+  const categories = useMemo(() => unique(exercises.map((item) => item.category)), []);
+  const equipmentOptions = useMemo(() => unique(exercises.map((item) => normalizeEquipment(item.equipment))), []);
+  const difficultyOptions = useMemo(() => unique(exercises.map((item) => item.difficulty)), []);
 
   const filteredExercises = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return exercises.filter((exercise) => {
       const normalizedEquipment = normalizeEquipment(exercise.equipment);
+      const hasDemo = Boolean(toEmbeddableVideoUrl(exercise.demoUrl));
       const searchableText = [
         exercise.name,
         exercise.category,
@@ -30,16 +31,13 @@ function ExerciseLibraryPage() {
         ...(exercise.primaryMuscles ?? []),
       ].join(" ").toLowerCase();
 
-      const matchesQuery = !normalizedQuery || searchableText.includes(normalizedQuery);
-      const matchesCategory = category === allOption || exercise.category === category;
-      const matchesEquipment = equipment === allOption || normalizedEquipment === equipment;
-      const matchesDifficulty = difficulty === allOption || exercise.difficulty === difficulty;
-      const hasDemo = Boolean(toEmbeddableVideoUrl(exercise.demoUrl));
-      const matchesDemo = demoFilter === allOption
-        || (demoFilter === "Has demo" && hasDemo)
-        || (demoFilter === "No demo" && !hasDemo);
-
-      return matchesQuery && matchesCategory && matchesEquipment && matchesDifficulty && matchesDemo;
+      return (
+        (!normalizedQuery || searchableText.includes(normalizedQuery))
+        && (category === allOption || exercise.category === category)
+        && (equipment === allOption || normalizedEquipment === equipment)
+        && (difficulty === allOption || exercise.difficulty === difficulty)
+        && (demoFilter === allOption || (demoFilter === "Has demo" ? hasDemo : !hasDemo))
+      );
     });
   }, [query, category, equipment, difficulty, demoFilter]);
 
@@ -66,87 +64,94 @@ function ExerciseLibraryPage() {
   }
 
   return (
-    <div className="exercise-page exercise-page-stable workout-fu">
-      <section className="exercise-hero card card-padding workout-card">
+    <div className="space-y-5 font-sans">
+      <section className="flex flex-col gap-4 border-2 border-black bg-white p-5 shadow-[7px_7px_0_#050505] md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="kicker">Exercise library</p>
-          <h1 className="exercise-title">Home-friendly exercises.</h1>
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Exercise library</p>
+          <h1 className="mt-2 text-4xl font-black leading-none tracking-[-0.06em] md:text-6xl">Home-friendly exercises.</h1>
         </div>
-
-        <div className="exercise-summary-card">
-          <p className="metric-label">Exercises</p>
-          <p className="metric-value">{exercises.length}</p>
+        <div className="grid min-h-[92px] min-w-[116px] place-items-center border-2 border-black bg-[#FFF1E6] px-5 py-4 text-center shadow-[4px_4px_0_#050505]">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-neutral-600">Exercises</p>
+            <p className="mt-1 font-mono text-3xl font-black leading-none tracking-[-0.08em]">{exercises.length}</p>
+          </div>
         </div>
       </section>
 
-      <section className="exercise-controls card workout-card" aria-label="Exercise filters">
-        <div className="exercise-control-title">
-          <p className="kicker">Find movement</p>
-          <h2 className="history-title">Browse by goal, equipment, or muscle.</h2>
+      <section className="border-2 border-black bg-white p-5 shadow-[7px_7px_0_#050505]">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Find movement</p>
+            <h2 className="mt-1 text-2xl font-black tracking-[-0.04em]">Browse by goal, equipment, muscle, or demo.</h2>
+          </div>
+          <button
+            type="button"
+            onClick={clearFilters}
+            disabled={activeFilterCount === 0}
+            className="border-2 border-black bg-[#FFF1E6] px-4 py-3 text-xs font-black uppercase tracking-[0.1em] shadow-[4px_4px_0_#050505] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#050505] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0_#050505]"
+          >
+            Clear filters
+          </button>
         </div>
 
-        <div className="exercise-control-grid">
-          <label className="exercise-search-field">
-            <span className="field-label">Search</span>
-            <input
-              className="input"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="push-up, legs, dumbbell, core..."
-            />
-          </label>
-
+        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-[1.4fr_repeat(4,1fr)]">
+          <TextFilter value={query} onChange={setQuery} />
           <FilterSelect label="Category" value={category} options={categories} onChange={setCategory} />
           <FilterSelect label="Equipment" value={equipment} options={equipmentOptions} onChange={setEquipment} />
           <FilterSelect label="Difficulty" value={difficulty} options={difficultyOptions} onChange={setDifficulty} />
           <FilterSelect label="Demo" value={demoFilter} options={["Has demo", "No demo"]} onChange={setDemoFilter} />
         </div>
 
-        <div className="exercise-filter-footer">
-          <p className="exercise-count-line">
-            Showing <strong>{filteredExercises.length}</strong> of <strong>{exercises.length}</strong>
-            {activeFilterCount > 0 ? ` · ${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : ""}
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t-2 border-black pt-4">
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-neutral-600">
+            Showing <span className="text-black">{filteredExercises.length}</span> of <span className="text-black">{exercises.length}</span> exercises
           </p>
-          <button className="btn btn-soft" type="button" onClick={clearFilters} disabled={activeFilterCount === 0}>
-            Clear filters
-          </button>
+          <span className="border-2 border-black bg-[#FFF1E6] px-3 py-2 text-xs font-black uppercase tracking-[0.08em] shadow-[2px_2px_0_#050505]">
+            {activeFilterCount > 0 ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "No active filters"}
+          </span>
         </div>
       </section>
 
-      <section className="exercise-browser card workout-card">
-        <div className="exercise-browser-header">
+      <section className="border-2 border-black bg-white shadow-[7px_7px_0_#050505]">
+        <div className="flex flex-col gap-3 border-b-2 border-black p-5 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="kicker">Results</p>
-            <h2 className="history-title">{filteredExercises.length} exercises found</h2>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Results</p>
+            <h2 className="mt-1 text-3xl font-black tracking-[-0.05em]">{filteredExercises.length} exercises found</h2>
           </div>
-          {selectedExercise && <span className="exercise-selected-pill">Selected: {selectedExercise.name}</span>}
+          {selectedExercise && (
+            <span className="w-fit border-2 border-black bg-[#FFF1E6] px-3 py-2 text-xs font-black uppercase tracking-[0.08em] shadow-[3px_3px_0_#050505]">
+              Selected: {selectedExercise.name}
+            </span>
+          )}
         </div>
 
-        <div className={`exercise-browser-body ${toEmbeddableVideoUrl(selectedExercise?.demoUrl) ? "has-demo" : "no-demo"}`}>
-          <div className="exercise-list" aria-label="Exercise results">
+        <div className="grid items-start lg:grid-cols-[360px_minmax(0,1fr)] xl:grid-cols-[390px_minmax(0,1fr)]">
+          <aside className="h-[980px] overflow-y-auto border-b-2 border-black lg:border-b-0 lg:border-r-2">
             {filteredExercises.length === 0 ? (
-              <div className="empty-state">No exercises match the current filters.</div>
+              <div className="m-5 border-2 border-dashed border-black bg-[#FFF1E6] p-6 text-sm font-black text-neutral-600">
+                No exercises match the current filters.
+              </div>
             ) : (
               filteredExercises.map((exercise) => (
                 <button
                   key={exercise.id}
                   type="button"
                   onClick={() => setSelectedExerciseId(exercise.id)}
-                  className={`exercise-row ${selectedExercise?.id === exercise.id ? "selected" : ""}`}
+                  className={`flex w-full items-start justify-between gap-3 border-b-2 border-black px-4 py-4 text-left transition hover:bg-[#FFF7ED] ${selectedExercise?.id === exercise.id ? "bg-[#FFF1E6]" : "bg-white"}`}
                 >
-                  <div>
-                    <p className="exercise-row-name">{exercise.name}</p>
-                    <p className="exercise-row-meta">
+                  <div className="min-w-0">
+                    <p className="text-base font-black tracking-[-0.02em]">{exercise.name}</p>
+                    <p className="mt-2 text-[11px] font-black uppercase leading-snug tracking-[0.06em] text-slate-600">
                       {exercise.category} · {exercise.difficulty} · {normalizeEquipment(exercise.equipment)}
                     </p>
                   </div>
-                  <div className="exercise-row-actions">
-                    <span className="set-count-pill">{exercise.movementType}</span>
-                  </div>
+                  <span className="shrink-0 border-2 border-black bg-white px-2 py-2 text-xs font-black shadow-[2px_2px_0_#050505]">
+                    {exercise.movementType}
+                  </span>
                 </button>
               ))
             )}
-          </div>
+          </aside>
 
           <ExerciseDetail exercise={selectedExercise} />
         </div>
@@ -155,11 +160,29 @@ function ExerciseLibraryPage() {
   );
 }
 
+function TextFilter({ value, onChange }) {
+  return (
+    <label>
+      <span className="mb-2 block text-xs font-black uppercase tracking-[0.16em] text-black">Search</span>
+      <input
+        className="w-full border-2 border-black bg-white px-4 py-3 font-bold outline-none shadow-[3px_3px_0_#050505] focus:bg-[#FFF1E6] focus:shadow-[5px_5px_0_#F97316]"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder="push-up, legs, dumbbell, core..."
+      />
+    </label>
+  );
+}
+
 function FilterSelect({ label, value, options, onChange }) {
   return (
-    <label className="filter-field">
-      <span className="field-label">{label}</span>
-      <select className="input" value={value} onChange={(event) => onChange(event.target.value)}>
+    <label>
+      <span className="mb-2 block text-xs font-black uppercase tracking-[0.16em] text-black">{label}</span>
+      <select
+        className="w-full border-2 border-black bg-white px-4 py-3 font-bold outline-none shadow-[3px_3px_0_#050505] focus:bg-[#FFF1E6] focus:shadow-[5px_5px_0_#F97316]"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      >
         <option value={allOption}>All</option>
         {options.map((option) => (
           <option key={option} value={option}>{option}</option>
@@ -171,72 +194,61 @@ function FilterSelect({ label, value, options, onChange }) {
 
 function ExerciseDetail({ exercise }) {
   if (!exercise) {
-    return (
-      <div className="exercise-detail">
-        <div className="empty-state">Select an exercise to view details.</div>
-      </div>
-    );
+    return <div className="p-5"><div className="border-2 border-dashed border-black bg-[#FFF1E6] p-6 font-black text-neutral-600">Select an exercise to view details.</div></div>;
   }
 
   const embedUrl = toEmbeddableVideoUrl(exercise.demoUrl);
+
   return (
-    <article className="exercise-detail">
-      <div className="exercise-detail-card">
-        <div className="exercise-detail-top exercise-detail-top-stacked">
-          <div className="exercise-detail-main">
-            <p className="kicker">Exercise detail</p>
-            <h2 className="exercise-detail-title">{exercise.name}</h2>
-            <p className="exercise-detail-copy">{exercise.description}</p>
+    <article className="p-5 lg:p-7">
+      <div className="border-2 border-black bg-white p-5 shadow-[6px_6px_0_#050505]">
+        <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Exercise detail</p>
+        <h2 className="mt-3 text-4xl font-black leading-none tracking-[-0.06em] md:text-6xl">{exercise.name}</h2>
+        <p className="mt-4 text-sm font-black leading-relaxed text-slate-600">{exercise.description}</p>
 
-            <div className="exercise-badge-grid">
-              <InfoBadge label="Category" value={exercise.category} />
-              <InfoBadge label="Difficulty" value={exercise.difficulty} />
-              <InfoBadge label="Equipment" value={normalizeEquipment(exercise.equipment)} />
-              <InfoBadge label="Rest" value={`${exercise.defaultRestSeconds}s`} />
-            </div>
-          </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <InfoBadge label="Category" value={exercise.category} />
+          <InfoBadge label="Difficulty" value={exercise.difficulty} />
+          <InfoBadge label="Equipment" value={normalizeEquipment(exercise.equipment)} />
+          <InfoBadge label="Rest" value={`${exercise.defaultRestSeconds}s`} />
+          <InfoBadge label="Default sets" value={exercise.defaultSets} />
+          <InfoBadge label="Default reps" value={exercise.defaultReps} />
+          <InfoBadge label="Movement" value={exercise.movementType} />
         </div>
 
-        <div className="exercise-prescription exercise-prescription-compact">
-          <div>
-            <p className="metric-label">Default sets</p>
-            <p className="mini-value compact">{exercise.defaultSets}</p>
-          </div>
-          <div>
-            <p className="metric-label">Default reps</p>
-            <p className="mini-value compact">{exercise.defaultReps}</p>
-          </div>
-          <div>
-            <p className="metric-label">Movement</p>
-            <p className="mini-value compact">{exercise.movementType}</p>
-          </div>
-        </div>
-
-        <section className="exercise-section-block exercise-muscle-block">
-          <p className="kicker">Target muscles</p>
-          <div className="pill-wrap">
+        <div className="mt-5 border-t-2 border-black pt-4">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Target muscles</p>
+          <div className="mt-3 flex flex-wrap gap-2">
             {(exercise.primaryMuscles ?? []).map((muscle) => (
-              <span className="rating-pill" key={muscle}>{muscle}</span>
+              <span key={muscle} className="border-2 border-black bg-white px-3 py-2 text-xs font-black uppercase shadow-[2px_2px_0_#050505]">
+                {muscle}
+              </span>
             ))}
           </div>
-        </section>
+        </div>
 
-        <section className="exercise-video-card exercise-video-card-large" aria-label="Demo video">
-          <div className="exercise-demo-header">
+        <section className="mt-6 bg-black p-4 text-white shadow-[5px_5px_0_#050505]">
+          <div className="flex items-start justify-between gap-3 border-b-2 border-white pb-4">
             <div>
-              <p className="kicker">Demo video</p>
-              <h3 className="exercise-video-title">Watch the movement</h3>
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-white">Demo video</p>
+              <h3 className="mt-2 text-2xl font-black tracking-[-0.04em]">Watch the movement</h3>
             </div>
             {exercise.demoUrl && (
-              <a className="exercise-demo-link" href={exercise.demoUrl} target="_blank" rel="noreferrer">
+              <a
+                className="border-2 border-white bg-white px-4 py-3 text-xs font-black uppercase tracking-[0.08em] text-black"
+                href={exercise.demoUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
                 Open video
               </a>
             )}
           </div>
 
           {embedUrl ? (
-            <div className="exercise-video-frame exercise-video-frame-large">
+            <div className="mt-4 aspect-video border-2 border-white bg-black">
               <iframe
+                className="h-full w-full"
                 title={`${exercise.name} demo video`}
                 src={embedUrl}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -244,7 +256,14 @@ function ExerciseDetail({ exercise }) {
               />
             </div>
           ) : (
-            <NoDemoPanel exercise={exercise} />
+            <div className="mt-4 grid aspect-video place-items-center border-2 border-white bg-black p-8 text-center">
+              <div className="border-2 border-dashed border-white px-8 py-10">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-white">No demo video</p>
+                <p className="mt-3 max-w-lg text-3xl font-black leading-tight tracking-[-0.04em]">
+                  No demo video added for this exercise.
+                </p>
+              </div>
+            </div>
           )}
         </section>
       </div>
@@ -252,38 +271,23 @@ function ExerciseDetail({ exercise }) {
   );
 }
 
-function NoDemoPanel({ exercise }) {
-  return (
-    <div className="exercise-no-demo-panel-simple">
-      <div className="exercise-no-demo-message">
-        <p className="kicker">No demo video</p>
-        <h4>No demo video added for this exercise.</h4>
-        {exercise?.demoUrl && (
-          <a className="exercise-demo-link" href={exercise.demoUrl} target="_blank" rel="noreferrer">
-            Open video source
-          </a>
-        )}
-      </div>
-    </div>
-  );
-}
-
 function InfoBadge({ label, value }) {
   return (
-    <div className="info-badge">
-      <p className="metric-label">{label}</p>
-      <p>{value}</p>
+    <div className="border-2 border-black bg-[#FFF1E6] p-4 shadow-[3px_3px_0_#050505]">
+      <p className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-600">{label}</p>
+      <p className="mt-2 font-black">{value}</p>
     </div>
   );
 }
 
-function getUniqueValues(values) {
-  return [...new Set(values.filter(Boolean).map(normalizeEquipment))].sort((a, b) => a.localeCompare(b));
+function unique(values) {
+  return [...new Set(values.filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b)));
 }
 
 function normalizeEquipment(value) {
   const text = String(value ?? "").trim();
-  if (["dumbbells", "dumbells", "dumbell"].includes(text.toLowerCase())) return "Dumbbell";
+  if (!text) return "Bodyweight";
+  if (["dumbells", "dumbell", "dumbbells"].includes(text.toLowerCase())) return "Dumbbell";
   return text;
 }
 
@@ -293,7 +297,7 @@ function toEmbeddableVideoUrl(url) {
   try {
     const parsedUrl = new URL(url);
 
-    if (parsedUrl.hostname.includes("youtube.com") && parsedUrl.pathname === "/watch") {
+    if (parsedUrl.hostname.includes("youtube.com")) {
       const videoId = parsedUrl.searchParams.get("v");
       return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
     }
@@ -301,10 +305,6 @@ function toEmbeddableVideoUrl(url) {
     if (parsedUrl.hostname.includes("youtu.be")) {
       const videoId = parsedUrl.pathname.replace("/", "");
       return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
-    }
-
-    if (parsedUrl.hostname.includes("youtube.com") && parsedUrl.pathname.startsWith("/embed/")) {
-      return url;
     }
 
     if (parsedUrl.hostname.includes("vimeo.com")) {
