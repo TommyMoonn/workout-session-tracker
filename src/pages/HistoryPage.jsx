@@ -1,10 +1,11 @@
+/* history animation fix */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { readWorkoutStorage, saveWorkoutStorage } from "../storage/workoutStorage";
 import { buildSessionMarkdown, downloadFile } from "../utils/workoutExport";
 import { formatClock, formatDateTime, formatDuration, formatFileTimestamp } from "../utils/workoutFormat";
 import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../utils/workoutData";
 
-function HistoryPage() {
+function HistoryPageCharcoalAnimated() {
   const jsonInputRef = useRef(null);
   const storageLoadedRef = useRef(false);
 
@@ -13,6 +14,7 @@ function HistoryPage() {
   const [editingSession, setEditingSession] = useState(null);
   const [editingReview, setEditingReview] = useState(createEmptyReview());
   const [toast, setToast] = useState("");
+  const [motionReady, setMotionReady] = useState(false);
 
   const selectedSession = sessionLogs.find((session) => session.id === selectedSessionId) ?? sessionLogs[0] ?? null;
 
@@ -51,6 +53,7 @@ function HistoryPage() {
     setSessionLogs(savedSessions);
     setSelectedSessionId(data?.selectedSessionId ?? savedSessions[0]?.id ?? null);
     storageLoadedRef.current = true;
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => setMotionReady(true)));
   }
 
   function deleteSessionSet(sessionId, setId) {
@@ -186,33 +189,30 @@ function HistoryPage() {
   }
 
   return (
-    <div className="workout-page">
-      <section className="mb-5 border-2 border-black bg-white p-5 shadow-[6px_6px_0_#050505] md:flex md:items-center md:justify-between">
+    <div className={`workout-page history-motion-page ${motionReady ? "is-ready" : ""}`}>
+      <section className="history-motion-item history-motion-1 mb-5 rounded-xl border border-white/[0.10] bg-[#121212] p-5 shadow-none md:flex md:items-center md:justify-between">
         <div>
-          <p className="kicker">Session history</p>
-          <h1 className="text-4xl font-black tracking-[-0.06em] md:text-6xl">Finished sessions.</h1>
-          <p className="mt-3 max-w-2xl text-sm font-extrabold leading-6 text-neutral-600">
-            Review saved workouts, edit notes, delete set rows, and export your logs without crowding the active timer page.
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">History</p>
+          <h1 className="mt-2 font-serif text-3xl font-semibold tracking-[-0.04em] text-white md:text-4xl">Finished sessions</h1>
         </div>
-        <div className="mt-4 grid min-w-[150px] place-items-center border-2 border-black bg-[#FFF1E6] px-5 py-4 text-center shadow-[4px_4px_0_#050505] md:mt-0">
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-neutral-600">Sessions</p>
-          <p className="font-mono text-4xl font-black tracking-[-0.08em]">{sessionLogs.length}</p>
+        <div className="mt-4 inline-flex items-center gap-3 self-start rounded-lg border border-white/[0.10] bg-white/[0.035] px-4 py-3 text-sm font-semibold text-[#e5e5e5] shadow-none md:mt-0 md:self-auto">
+          <span className="text-[11px] uppercase tracking-[0.18em] text-[#8a8a8a]">Total</span>
+          <span className="font-mono text-2xl font-semibold leading-none tracking-[-0.06em] text-white">{sessionLogs.length}</span>
         </div>
       </section>
 
-      <section className="metric-grid workout-fu workout-fu-2">
+      <section className="history-motion-item history-motion-2 metric-grid workout-fu workout-fu-2">
         <MetricCard label="Total workout time" value={formatDuration(stats.totalWorkoutSeconds)} />
         <MetricCard label="Total rest time" value={formatDuration(stats.totalRestSeconds)} />
         <MetricCard label="Total sets" value={String(stats.totalSets)} />
       </section>
 
-      <section className="card history-card workout-card workout-fu-2">
+      <section className="history-motion-item history-motion-3 card history-card workout-card workout-fu-2">
         <div className="history-header">
           <div>
             <p className="kicker">Saved sessions</p>
-            <h2 className="history-title">Workout archive</h2>
-            <p className="history-subtitle">Each finished session stores its set log, rest totals, notes, ratings, and workout duration.</p>
+            <h2 className="history-title !text-[1.6rem] md:!text-[1.85rem]">Archive</h2>
+            <p className="history-subtitle">Review sessions, notes, and exports.</p>
           </div>
 
           <div className="action-groups">
@@ -566,4 +566,4 @@ function RatingInput({ label, value, onChange }) {
   );
 }
 
-export default HistoryPage;
+export default HistoryPageCharcoalAnimated;

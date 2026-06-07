@@ -7,7 +7,7 @@ import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../utils/w
 
 const defaultRestSeconds = 90;
 const restPresets = [30, 60, 90, 120, 180];
-function WorkoutSessionPage() {
+function TimerPageCharcoal() {
   const workoutTickerRef = useRef(null);
   const restTickerRef = useRef(null);
   const jsonInputRef = useRef(null);
@@ -694,11 +694,9 @@ function WorkoutSessionPage() {
       <main>
         <section className="grid-top workout-fu">
           <div className="hero-card card card-padding workout-card">
-            <p className="kicker">Workout command center</p>
-            <h1 className="hero-title">Log sets while the session runs.</h1>
-            <p className="hero-copy">
-              Start the workout timer, press Complete set after each set, and the rest timer starts automatically using your selected rest length.
-            </p>
+            <p className="kicker">Timer</p>
+            <h1 className="hero-title !text-[2.6rem] !leading-[0.98] md:!text-[4rem]">Track your workout.</h1>
+            <p className="hero-copy">Start the timer, log sets, and manage rest in one place.</p>
 
             <hr className="divider" />
 
@@ -813,17 +811,6 @@ function WorkoutSessionPage() {
               <button className="btn btn-soft" type="button" onClick={clearSetLogs} disabled={setLogs.length === 0}>Clear</button>
             </div>
           </MetricCard>
-        </section>
-
-        <section className="card card-padding workout-card workout-fu-2" style={{ marginTop: "24px" }}>
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="kicker">Session history moved</p>
-              <h2 className="history-title">Finished sessions now live on the History page.</h2>
-              <p className="history-subtitle">Keep this timer focused on the active workout. Review, import, export, edit notes, and manage saved sessions from History.</p>
-            </div>
-            <Link className="btn btn-primary" to="/history">Open history</Link>
-          </div>
         </section>
       </main>
 
@@ -1240,4 +1227,4 @@ function RestCompletePopup({ onClose }) {
   );
 }
 
-export default WorkoutSessionPage;
+export default TimerPageCharcoal;

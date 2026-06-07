@@ -1,9 +1,10 @@
+/* charcoal neutral exercise page */
 import { useEffect, useMemo, useState } from "react";
 import exercises from "../data/exercises.json";
 
 const allOption = "All";
 
-function ExerciseLibraryPage() {
+function ExerciseLibraryPageCharcoal() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(allOption);
   const [equipment, setEquipment] = useState(allOption);
@@ -56,31 +57,31 @@ function ExerciseLibraryPage() {
   }
 
   return (
-    <div className="space-y-5 font-sans">
-      <section className="flex flex-col gap-4 border-2 border-black bg-white p-5 shadow-[7px_7px_0_#050505] md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Exercise library</p>
-          <h1 className="mt-2 text-4xl font-black leading-none tracking-[-0.06em] md:text-6xl">Home-friendly exercises.</h1>
-        </div>
-        <div className="grid min-h-[92px] min-w-[116px] place-items-center border-2 border-black bg-[#FFF1E6] px-5 py-4 text-center shadow-[4px_4px_0_#050505]">
+    <div className="exercise-library-neutral space-y-5 font-sans text-[#f3f4f3]">
+      <section className="library-card overflow-hidden rounded-xl border border-white/10 bg-[#121212] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.24)]">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-neutral-600">Exercises</p>
-            <p className="mt-1 font-mono text-3xl font-black leading-none tracking-[-0.08em]">{exercises.length}</p>
+            <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Exercise library</p>
+            <h1 className="mt-2 font-serif text-3xl font-semibold tracking-[-0.04em] text-white md:text-4xl">Exercises</h1>
+          </div>
+          <div className="inline-flex items-center gap-3 self-start rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-sm font-semibold text-[#d4d4d8] shadow-none sm:self-auto">
+            <span className="text-[11px] uppercase tracking-[0.18em] text-[#a3a3a3]/70">Total</span>
+            <span className="font-mono text-2xl font-semibold leading-none tracking-[-0.06em] text-white">{exercises.length}</span>
           </div>
         </div>
       </section>
 
-      <section className="border-2 border-black bg-white p-5 shadow-[7px_7px_0_#050505]">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
+      <section className="library-card rounded-xl border border-white/10 bg-[#121212] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.22)]">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Find movement</p>
-            <h2 className="mt-1 text-2xl font-black tracking-[-0.04em]">Browse by goal, equipment, muscle, or demo.</h2>
+            <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Filters</p>
+            <h2 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-white">Search and narrow the list.</h2>
           </div>
           <button
             type="button"
             onClick={clearFilters}
             disabled={activeFilterCount === 0}
-            className="border-2 border-black bg-[#FFF1E6] px-4 py-3 text-xs font-black uppercase tracking-[0.1em] shadow-[4px_4px_0_#050505] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#050505] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0_#050505]"
+            className="rounded-md border border-white/10 bg-[#181818] px-4 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-200 transition duration-300 hover:border-white/18 hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-40"
           >
             Clear filters
           </button>
@@ -94,33 +95,33 @@ function ExerciseLibraryPage() {
           <FilterSelect label="Demo" value={demoFilter} options={["Has demo", "No demo"]} onChange={setDemoFilter} />
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t-2 border-black pt-4">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-neutral-600">
-            Showing <span className="text-black">{filteredExercises.length}</span> of <span className="text-black">{exercises.length}</span> exercises
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">
+            Showing <span className="text-white">{filteredExercises.length}</span> of <span className="text-white">{exercises.length}</span> exercises
           </p>
-          <span className="border-2 border-black bg-[#FFF1E6] px-3 py-2 text-xs font-black uppercase tracking-[0.08em] shadow-[2px_2px_0_#050505]">
+          <span className="rounded-md border border-white/10 bg-[#171717] px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#d4d4d8]">
             {activeFilterCount > 0 ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "No active filters"}
           </span>
         </div>
       </section>
 
-      <section className="border-2 border-black bg-white shadow-[7px_7px_0_#050505]">
-        <div className="flex flex-col gap-3 border-b-2 border-black p-5 md:flex-row md:items-center md:justify-between">
+      <section className="library-card overflow-hidden rounded-xl border border-white/10 bg-[#121212] shadow-[0_18px_60px_rgba(0,0,0,0.22)]">
+        <div className="flex flex-col gap-3 border-b border-white/10 p-5 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Results</p>
-            <h2 className="mt-1 text-3xl font-black tracking-[-0.05em]">{filteredExercises.length} exercises found</h2>
+            <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Results</p>
+            <h2 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-white">{filteredExercises.length} exercise{filteredExercises.length === 1 ? "" : "s"}</h2>
           </div>
           {selectedExercise && (
-            <span className="w-fit border-2 border-black bg-[#FFF1E6] px-3 py-2 text-xs font-black uppercase tracking-[0.08em] shadow-[3px_3px_0_#050505]">
+            <span className="w-fit rounded-md border border-white/10 bg-[#181818] px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-300">
               Selected: {selectedExercise.name}
             </span>
           )}
         </div>
 
-        <div className="grid items-start lg:grid-cols-[360px_minmax(0,1fr)] xl:grid-cols-[390px_minmax(0,1fr)]">
-          <aside className="h-[980px] overflow-y-auto border-b-2 border-black lg:border-b-0 lg:border-r-2">
+        <div className="grid items-start lg:grid-cols-[360px_minmax(0,1fr)] xl:grid-cols-[400px_minmax(0,1fr)]">
+          <aside className="h-[980px] overflow-y-auto border-b border-white/10 lg:border-b-0 lg:border-r">
             {filteredExercises.length === 0 ? (
-              <div className="m-5 border-2 border-dashed border-black bg-[#FFF1E6] p-6 text-sm font-black text-neutral-600">
+              <div className="m-5 rounded-lg border border-dashed border-white/12 bg-white/[0.055] p-6 text-sm font-semibold text-slate-300">
                 No exercises match the current filters.
               </div>
             ) : (
@@ -129,15 +130,15 @@ function ExerciseLibraryPage() {
                   key={exercise.id}
                   type="button"
                   onClick={() => setSelectedExerciseId(exercise.id)}
-                  className={`flex w-full items-start justify-between gap-3 border-b-2 border-black px-4 py-4 text-left transition hover:bg-[#FFF7ED] ${selectedExercise?.id === exercise.id ? "bg-[#FFF1E6]" : "bg-white"}`}
+                  className={`group flex w-full items-start justify-between gap-3 border-b border-white/10 px-4 py-4 text-left transition duration-300 hover:bg-[#121212] ${selectedExercise?.id === exercise.id ? "bg-[#1a1a1a]" : "bg-transparent"}`}
                 >
                   <div className="min-w-0">
-                    <p className="text-base font-black tracking-[-0.02em]">{exercise.name}</p>
-                    <p className="mt-2 text-[11px] font-black uppercase leading-snug tracking-[0.06em] text-slate-600">
+                    <p className="font-serif text-lg font-semibold tracking-[-0.03em] text-white">{exercise.name}</p>
+                    <p className="mt-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.08em] text-slate-500 group-hover:text-slate-400">
                       {exercise.category} · {exercise.difficulty} · {normalizeEquipment(exercise.equipment)}
                     </p>
                   </div>
-                  <span className="shrink-0 border-2 border-black bg-white px-2 py-2 text-xs font-black shadow-[2px_2px_0_#050505]">
+                  <span className="shrink-0 rounded-md border border-white/10 bg-[#181818] px-2 py-2 text-xs font-semibold text-slate-300">
                     {exercise.movementType}
                   </span>
                 </button>
@@ -155,9 +156,9 @@ function ExerciseLibraryPage() {
 function TextFilter({ value, onChange }) {
   return (
     <label>
-      <span className="mb-2 block text-xs font-black uppercase tracking-[0.16em] text-black">Search</span>
+      <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">Search</span>
       <input
-        className="w-full border-2 border-black bg-white px-4 py-3 font-bold outline-none shadow-[3px_3px_0_#050505] focus:bg-[#FFF1E6] focus:shadow-[5px_5px_0_#F97316]"
+        className="w-full rounded-md border border-white/10 bg-[#0d0d0d] px-4 py-3 font-medium text-white outline-none transition duration-300 placeholder:text-slate-600 focus:border-white/25 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(255,255,255,0.06)]"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="push up, pull up, legs, dumbbell, core..."
@@ -169,9 +170,9 @@ function TextFilter({ value, onChange }) {
 function FilterSelect({ label, value, options, onChange }) {
   return (
     <label>
-      <span className="mb-2 block text-xs font-black uppercase tracking-[0.16em] text-black">{label}</span>
+      <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{label}</span>
       <select
-        className="w-full border-2 border-black bg-white px-4 py-3 font-bold outline-none shadow-[3px_3px_0_#050505] focus:bg-[#FFF1E6] focus:shadow-[5px_5px_0_#F97316]"
+        className="w-full rounded-md border border-white/10 bg-[#0d0d0d] px-4 py-3 font-medium text-white outline-none transition duration-300 focus:border-white/25 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(255,255,255,0.06)]"
         value={value}
         onChange={(event) => onChange(event.target.value)}
       >
@@ -186,17 +187,17 @@ function FilterSelect({ label, value, options, onChange }) {
 
 function ExerciseDetail({ exercise }) {
   if (!exercise) {
-    return <div className="p-5"><div className="border-2 border-dashed border-black bg-[#FFF1E6] p-6 font-black text-neutral-600">Select an exercise to view details.</div></div>;
+    return <div className="p-5"><div className="rounded-lg border border-dashed border-white/12 bg-white/[0.055] p-6 font-semibold text-slate-300">Select an exercise to view details.</div></div>;
   }
 
   const embedUrl = toEmbeddableVideoUrl(exercise.demoUrl);
 
   return (
     <article className="p-5 lg:p-7">
-      <div className="border-2 border-black bg-white p-5 shadow-[6px_6px_0_#050505]">
-        <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Exercise detail</p>
-        <h2 className="mt-3 text-4xl font-black leading-none tracking-[-0.06em] md:text-6xl">{exercise.name}</h2>
-        <p className="mt-4 text-sm font-black leading-relaxed text-slate-600">{exercise.description}</p>
+      <div className="library-card rounded-xl border border-white/10 bg-[#141414] p-5 shadow-none">
+        <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Exercise detail</p>
+        <h2 className="mt-2 font-serif text-3xl font-semibold leading-tight tracking-[-0.035em] text-white md:text-4xl">{exercise.name}</h2>
+        <p className="mt-3 max-w-4xl text-sm font-medium leading-relaxed text-slate-400">{exercise.description}</p>
 
         <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           <InfoBadge label="Category" value={exercise.category} />
@@ -208,26 +209,26 @@ function ExerciseDetail({ exercise }) {
           <InfoBadge label="Movement" value={exercise.movementType} />
         </div>
 
-        <div className="mt-5 border-t-2 border-black pt-4">
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C2410C]">Target muscles</p>
+        <div className="mt-5 border-t border-white/10 pt-4">
+          <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Target muscles</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {(exercise.primaryMuscles ?? []).map((muscle) => (
-              <span key={muscle} className="border-2 border-black bg-white px-3 py-2 text-xs font-black uppercase shadow-[2px_2px_0_#050505]">
+              <span key={muscle} className="rounded-md border border-white/10 bg-[#181818] px-3 py-2 text-xs font-semibold uppercase text-slate-200">
                 {muscle}
               </span>
             ))}
           </div>
         </div>
 
-        <section className="mt-6 bg-black p-4 text-white shadow-[5px_5px_0_#050505]">
-          <div className="flex items-start justify-between gap-3 border-b-2 border-white pb-4">
+        <section className="mt-6 rounded-xl border border-white/10 bg-[#121212] p-4 text-white shadow-none">
+          <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-white">Demo video</p>
-              <h3 className="mt-2 text-2xl font-black tracking-[-0.04em]">Watch the movement</h3>
+              <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Demo video</p>
+              <h3 className="mt-2 font-serif text-3xl font-semibold tracking-[-0.04em]">Watch the movement</h3>
             </div>
             {exercise.demoUrl && (
               <a
-                className="border-2 border-white bg-white px-4 py-3 text-xs font-black uppercase tracking-[0.08em] text-black"
+                className="rounded-md border border-white/12 bg-white/[0.055] px-4 py-3 text-xs font-semibold uppercase tracking-[0.08em] text-[#d4d4d8] transition hover:bg-white/[0.07]"
                 href={exercise.demoUrl}
                 target="_blank"
                 rel="noreferrer"
@@ -238,7 +239,7 @@ function ExerciseDetail({ exercise }) {
           </div>
 
           {embedUrl ? (
-            <div className="mt-4 aspect-video border-2 border-white bg-black">
+            <div className="mt-4 aspect-video overflow-hidden rounded-lg border border-white/10 bg-black">
               <iframe
                 className="h-full w-full"
                 title={`${exercise.name} demo video`}
@@ -248,10 +249,10 @@ function ExerciseDetail({ exercise }) {
               />
             </div>
           ) : (
-            <div className="mt-4 grid aspect-video place-items-center border-2 border-white bg-black p-8 text-center">
-              <div className="border-2 border-dashed border-white px-8 py-10">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-white">No demo video</p>
-                <p className="mt-3 max-w-lg text-3xl font-black leading-tight tracking-[-0.04em]">
+            <div className="mt-4 grid aspect-video place-items-center rounded-lg border border-white/10 bg-black/70 p-8 text-center">
+              <div className="rounded-lg border border-dashed border-white/20 px-8 py-10">
+                <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">No demo video</p>
+                <p className="mt-3 max-w-lg font-serif text-3xl font-semibold leading-tight tracking-[-0.04em] text-white">
                   No demo video added for this exercise.
                 </p>
               </div>
@@ -265,13 +266,12 @@ function ExerciseDetail({ exercise }) {
 
 function InfoBadge({ label, value }) {
   return (
-    <div className="border-2 border-black bg-[#FFF1E6] p-4 shadow-[3px_3px_0_#050505]">
-      <p className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-600">{label}</p>
-      <p className="mt-2 font-black">{value}</p>
+    <div className="rounded-lg border border-white/10 bg-[#181818] p-4">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
+      <p className="mt-2 font-semibold text-white">{value}</p>
     </div>
   );
 }
-
 
 function normalizeForSearch(value) {
   return String(value ?? "")
@@ -365,4 +365,4 @@ function toEmbeddableVideoUrl(url) {
   }
 }
 
-export default ExerciseLibraryPage;
+export default ExerciseLibraryPageCharcoal;
