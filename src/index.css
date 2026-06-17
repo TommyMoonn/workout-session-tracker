@@ -1572,10 +1572,14 @@ option {
 }
 
 
-/* Aggressive performance mode: avoid repaint-heavy motion by default. */
+/* Performance-safe motion layer: transform + opacity only where possible. */
 :root {
   --nb-shadow: 3px 3px 0 var(--nb-black);
   --nb-shadow-sm: 2px 2px 0 var(--nb-black);
+  --motion-fast: 120ms;
+  --motion-base: 180ms;
+  --motion-slow: 220ms;
+  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 body,
@@ -1587,48 +1591,129 @@ body,
   background-color: var(--nb-white);
 }
 
-*,
-*::before,
-*::after {
-  animation: none !important;
-  transition: none !important;
-  scroll-behavior: auto !important;
+.btn,
+.preset,
+.side-nav-link,
+.session-row,
+.exercise-row,
+.exercise-video-placeholder {
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) linear,
+    color var(--motion-fast) linear,
+    border-color var(--motion-fast) linear,
+    opacity var(--motion-fast) linear;
 }
 
 .btn:hover:not(:disabled),
-.side-nav-link:hover,
+.preset:hover,
 .session-row:hover,
-.exercise-row:hover {
-  transform: none !important;
+.exercise-row:hover,
+.exercise-video-placeholder:hover:not(:disabled) {
+  transform: translate3d(2px, 2px, 0);
 }
 
 .btn:hover:not(:disabled) {
+  background: var(--nb-black);
+  color: var(--nb-white);
   box-shadow: var(--nb-shadow-sm);
 }
 
-.side-nav-link:hover,
+.side-nav-link:not(.active):hover {
+  background: var(--tm-primary-pale);
+  color: var(--nb-black);
+  transform: translate3d(2px, 2px, 0);
+  box-shadow: 2px 2px 0 var(--nb-black);
+}
+
+.side-nav-link.active:hover {
+  background: var(--nb-black);
+  color: var(--nb-white);
+  transform: translate3d(2px, 2px, 0);
+  box-shadow: 2px 2px 0 var(--nb-primary);
+}
+
+.side-nav-link.active:hover .side-nav-number {
+  color: var(--nb-white);
+}
+
 .session-row:hover,
 .exercise-row:hover {
   background: var(--tm-primary-pale);
 }
 
+.session-row.selected:hover,
+.exercise-row.selected:hover {
+  background: var(--nb-primary);
+  color: var(--nb-black);
+}
+
+.preset:hover {
+  background: var(--nb-black);
+  color: var(--nb-white);
+}
+
+.preset.active:hover {
+  background: var(--nb-primary);
+  color: var(--nb-black);
+}
+
+.input,
+.textarea,
+select {
+  transition:
+    background-color var(--motion-fast) linear,
+    box-shadow var(--motion-fast) linear;
+}
+
+.progress-fill {
+  transition: width var(--motion-base) linear;
+}
+
 .pulse-dot.running {
-  opacity: 1 !important;
+  animation: pulseDot 1200ms ease-in-out infinite;
 }
 
 .drawer-overlay,
-.modal-overlay,
-.drawer-panel,
-.modal-panel,
-.toast,
-.rest-alert,
+.modal-overlay {
+  animation: overlayIn var(--motion-base) ease-out both;
+}
+
+.drawer-panel {
+  will-change: transform;
+  animation: drawerIn var(--motion-slow) var(--motion-ease) both;
+}
+
+.modal-panel {
+  will-change: transform, opacity;
+  animation: modalIn var(--motion-base) var(--motion-ease) both;
+}
+
+.toast {
+  will-change: transform, opacity;
+  animation: toastIn var(--motion-base) var(--motion-ease) both;
+}
+
+.rest-alert {
+  will-change: transform, opacity;
+  animation: restAlertIn var(--motion-base) var(--motion-ease) both;
+}
+
 .block-reveal,
-.workout-fu,
+.workout-fu {
+  animation: fadeUp var(--motion-base) var(--motion-ease) both;
+}
+
 .block-reveal-1,
-.workout-fu-1,
+.workout-fu-1 {
+  animation-delay: 35ms;
+}
+
 .block-reveal-2,
 .workout-fu-2 {
-  animation: none !important;
+  animation-delay: 70ms;
 }
 
 .exercise-video-placeholder {
@@ -1661,7 +1746,18 @@ body,
 }
 
 .exercise-video-placeholder:hover:not(:disabled) {
-  background: #111 !important;
-  color: var(--nb-white) !important;
-  box-shadow: none !important;
+  background: #111;
+  color: var(--nb-white);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
 }
