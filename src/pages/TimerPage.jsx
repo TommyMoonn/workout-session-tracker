@@ -9,12 +9,14 @@ const defaultRestSeconds = 90;
 const restPresets = [30, 60, 90, 120, 180];
 const timerTickMs = 1000;
 const storageSyncMs = 10000;
+const restAlertAutoDismissMs = 6000;
 function TimerPage() {
   const workoutTickerRef = useRef(null);
   const restTickerRef = useRef(null);
   const jsonInputRef = useRef(null);
   const storageLoadedRef = useRef(false);
   const alarmLoopRef = useRef(null);
+  const restAlertDismissTimerRef = useRef(null);
   const alarmContextsRef = useRef([]);
 
   const [workoutStartedAt, setWorkoutStartedAt] = useState(null);
@@ -76,6 +78,7 @@ function TimerPage() {
     return () => {
       window.clearInterval(workoutTickerRef.current);
       window.clearInterval(restTickerRef.current);
+      window.clearTimeout(restAlertDismissTimerRef.current);
       stopRestAlarm();
     };
   }, []);
@@ -684,11 +687,15 @@ function TimerPage() {
 
   function showRestEndedAlert() {
     stopRestAlarm();
+    window.clearTimeout(restAlertDismissTimerRef.current);
     setRestAlert(true);
     startRestAlarmLoop();
+    restAlertDismissTimerRef.current = window.setTimeout(closeRestAlert, restAlertAutoDismissMs);
   }
 
   function closeRestAlert() {
+    window.clearTimeout(restAlertDismissTimerRef.current);
+    restAlertDismissTimerRef.current = null;
     stopRestAlarm();
     setRestAlert(false);
   }
