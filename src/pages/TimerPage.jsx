@@ -7,7 +7,9 @@ import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../utils/w
 
 const defaultRestSeconds = 90;
 const restPresets = [30, 60, 90, 120, 180];
-function TimerPageCharcoal() {
+const timerTickMs = 1000;
+const storageSyncMs = 10000;
+function TimerPage() {
   const workoutTickerRef = useRef(null);
   const restTickerRef = useRef(null);
   const jsonInputRef = useRef(null);
@@ -64,7 +66,9 @@ function TimerPageCharcoal() {
     return "Long session";
   }, [workoutElapsed]);
 
-  const selectedSession = sessionLogs.find((session) => session.id === selectedSessionId) ?? sessionLogs[0] ?? null;
+  const selectedSession = useMemo(() => (
+    sessionLogs.find((session) => session.id === selectedSessionId) ?? sessionLogs[0] ?? null
+  ), [sessionLogs, selectedSessionId]);
 
   useEffect(() => {
     loadSavedState();
@@ -78,57 +82,101 @@ function TimerPageCharcoal() {
 
   useEffect(() => {
     window.clearInterval(workoutTickerRef.current);
-
-    if (!isWorkoutRunning || !workoutStartedAt) return;
-
-    workoutTickerRef.current = window.setInterval(() => {
-      setWorkoutElapsed(getCurrentWorkoutSeconds());
-    }, 250);
-
-    return () => window.clearInterval(workoutTickerRef.current);
-  }, [isWorkoutRunning, workoutStartedAt, workoutElapsedBeforeStart]);
-
-  useEffect(() => {
     window.clearInterval(restTickerRef.current);
 
-    if (!isRestRunning || !restStartedAt) return;
+    const shouldTickWorkout = isWorkoutRunning && workoutStartedAt;
+    const shouldTickRest = isRestRunning && restStartedAt;
 
-    restTickerRef.current = window.setInterval(() => {
-      const elapsed = Math.floor((Date.now() - restStartedAt) / 1000);
-      const nextRemaining = Math.max(0, restRemainingAtStart - elapsed);
+    if (!shouldTickWorkout && !shouldTickRest) return;
 
-      setRestRemaining(nextRemaining);
-
-      if (nextRemaining <= 0) {
-        window.clearInterval(restTickerRef.current);
-        completeActiveRest("Rest completed");
-        showToast("Rest complete. Start the next set.");
-        showRestEndedAlert();
+    workoutTickerRef.current = window.setInterval(() => {
+      if (shouldTickWorkout) {
+        const nextElapsed = getCurrentWorkoutSeconds();
+        setWorkoutElapsed((current) => (current === nextElapsed ? current : nextElapsed));
       }
-    }, 200);
 
-    return () => window.clearInterval(restTickerRef.current);
-  }, [isRestRunning, restStartedAt, restRemainingAtStart]);
+      if (shouldTickRest) {
+        const elapsed = Math.floor((Date.now() - restStartedAt) / 1000);
+        const nextRemaining = Math.max(0, restRemainingAtStart - elapsed);
+
+        setRestRemaining((current) => (current === nextRemaining ? current : nextRemaining));
+
+        if (nextRemaining <= 0) {
+          window.clearInterval(workoutTickerRef.current);
+          completeActiveRest("Rest completed");
+          showToast("Rest complete. Start the next set.");
+          showRestEndedAlert();
+        }
+      }
+    }, timerTickMs);
+
+    return () => window.clearInterval(workoutTickerRef.current);
+  }, [
+    isWorkoutRunning,
+    workoutStartedAt,
+    workoutElapsedBeforeStart,
+    isRestRunning,
+    restStartedAt,
+    restRemainingAtStart,
+  ]);
 
   useEffect(() => {
-    if (!storageLoadedRef.current) return;
-
-    const payload = {
-      savedAt: Date.now(),
-      sessionLogs,
-      selectedSessionId,
-      activeSession: buildActiveSessionSnapshot(),
-    };
-
-    saveWorkoutStorage(payload);
+    persistWorkoutStorage();
   }, [
     sessionLogs,
     selectedSessionId,
-    workoutElapsed,
     workoutStatus,
     restDuration,
     restDurationInput,
-    restRemaining,
+    restStatus,
+    activeSetId,
+    setLogs,
+  ]);
+
+  useEffect(() => {
+    if (!storageLoadedRef.current || (!isWorkoutRunning && !isRestRunning)) return;
+
+    const syncTimer = window.setInterval(() => {
+      persistWorkoutStorage();
+    }, storageSyncMs);
+
+    return () => window.clearInterval(syncTimer);
+  }, [
+    isWorkoutRunning,
+    isRestRunning,
+    sessionLogs,
+    selectedSessionId,
+    workoutStatus,
+    restDuration,
+    restDurationInput,
+    restStatus,
+    activeSetId,
+    setLogs,
+  ]);
+
+  useEffect(() => {
+    const persistBeforePageHide = () => persistWorkoutStorage();
+    const persistWhenHidden = () => {
+      if (document.visibilityState === "hidden") persistWorkoutStorage();
+    };
+
+    window.addEventListener("pagehide", persistBeforePageHide);
+    document.addEventListener("visibilitychange", persistWhenHidden);
+
+    return () => {
+      window.removeEventListener("pagehide", persistBeforePageHide);
+      document.removeEventListener("visibilitychange", persistWhenHidden);
+    };
+  }, [
+    sessionLogs,
+    selectedSessionId,
+    workoutStartedAt,
+    workoutElapsedBeforeStart,
+    workoutStatus,
+    restDuration,
+    restDurationInput,
+    restStartedAt,
+    restRemainingAtStart,
     restStatus,
     activeSetId,
     setLogs,
@@ -145,16 +193,34 @@ function TimerPageCharcoal() {
   }
 
   function buildActiveSessionSnapshot() {
+    const currentWorkoutElapsed = workoutStatus === "running"
+      ? getCurrentWorkoutSeconds()
+      : workoutElapsed;
+    const currentRestRemaining = restStatus === "running" && restStartedAt
+      ? Math.max(0, restRemainingAtStart - Math.floor((Date.now() - restStartedAt) / 1000))
+      : restRemaining;
+
     return {
-      workoutElapsed,
+      workoutElapsed: currentWorkoutElapsed,
       workoutStatus,
       restDuration,
       restDurationInput,
-      restRemaining,
+      restRemaining: currentRestRemaining,
       restStatus,
       activeSetId,
       setLogs,
     };
+  }
+
+  function persistWorkoutStorage() {
+    if (!storageLoadedRef.current) return;
+
+    saveWorkoutStorage({
+      savedAt: Date.now(),
+      sessionLogs,
+      selectedSessionId,
+      activeSession: buildActiveSessionSnapshot(),
+    });
   }
 
   function loadSavedState() {
@@ -1227,4 +1293,4 @@ function RestCompletePopup({ onClose }) {
   );
 }
 
-export default TimerPageCharcoal;
+export default TimerPage;

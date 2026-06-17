@@ -1,11 +1,13 @@
-/* history animation fix */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { readWorkoutStorage, saveWorkoutStorage } from "../storage/workoutStorage";
 import { buildSessionMarkdown, downloadFile } from "../utils/workoutExport";
 import { formatClock, formatDateTime, formatDuration, formatFileTimestamp } from "../utils/workoutFormat";
 import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../utils/workoutData";
 
-function HistoryPageCharcoalAnimated() {
+const initialVisibleSessionCount = 40;
+const sessionLoadStep = 40;
+
+function HistoryPage() {
   const jsonInputRef = useRef(null);
   const storageLoadedRef = useRef(false);
 
@@ -14,9 +16,18 @@ function HistoryPageCharcoalAnimated() {
   const [editingSession, setEditingSession] = useState(null);
   const [editingReview, setEditingReview] = useState(createEmptyReview());
   const [toast, setToast] = useState("");
-  const [motionReady, setMotionReady] = useState(false);
+  const [visibleSessionCount, setVisibleSessionCount] = useState(initialVisibleSessionCount);
 
-  const selectedSession = sessionLogs.find((session) => session.id === selectedSessionId) ?? sessionLogs[0] ?? null;
+  const selectedSession = useMemo(() => (
+    sessionLogs.find((session) => session.id === selectedSessionId) ?? sessionLogs[0] ?? null
+  ), [sessionLogs, selectedSessionId]);
+
+  const visibleSessions = useMemo(
+    () => sessionLogs.slice(0, visibleSessionCount),
+    [sessionLogs, visibleSessionCount]
+  );
+
+  const hasMoreSessions = visibleSessionCount < sessionLogs.length;
 
   const stats = useMemo(() => {
     const totalWorkoutSeconds = sessionLogs.reduce((sum, session) => sum + (session.workoutSeconds ?? 0), 0);
@@ -52,8 +63,8 @@ function HistoryPageCharcoalAnimated() {
 
     setSessionLogs(savedSessions);
     setSelectedSessionId(data?.selectedSessionId ?? savedSessions[0]?.id ?? null);
+    setVisibleSessionCount(initialVisibleSessionCount);
     storageLoadedRef.current = true;
-    window.requestAnimationFrame(() => window.requestAnimationFrame(() => setMotionReady(true)));
   }
 
   function deleteSessionSet(sessionId, setId) {
@@ -77,6 +88,7 @@ function HistoryPageCharcoalAnimated() {
   function clearSessionLogs() {
     setSessionLogs([]);
     setSelectedSessionId(null);
+    setVisibleSessionCount(initialVisibleSessionCount);
     showToast("Session history cleared.");
   }
 
@@ -138,6 +150,7 @@ function HistoryPageCharcoalAnimated() {
 
         setSessionLogs(logs);
         setSelectedSessionId(logs[0]?.id ?? null);
+        setVisibleSessionCount(initialVisibleSessionCount);
         showToast(`${logs.length} workout session(s) loaded.`);
       } catch (error) {
         console.error(error);
@@ -189,25 +202,25 @@ function HistoryPageCharcoalAnimated() {
   }
 
   return (
-    <div className={`workout-page history-motion-page ${motionReady ? "is-ready" : ""}`}>
-      <section className="history-motion-item history-motion-1 mb-5 rounded-xl border border-white/[0.10] bg-[#121212] p-5 shadow-none md:flex md:items-center md:justify-between">
+    <div className="workout-page">
+      <section className="page-header block-reveal">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">History</p>
-          <h1 className="mt-2 font-serif text-3xl font-semibold tracking-[-0.04em] text-white md:text-4xl">Finished sessions</h1>
+          <p className="kicker">History</p>
+          <h1 className="page-title">Finished sessions</h1>
         </div>
-        <div className="mt-4 inline-flex items-center gap-3 self-start rounded-lg border border-white/[0.10] bg-white/[0.035] px-4 py-3 text-sm font-semibold text-[#e5e5e5] shadow-none md:mt-0 md:self-auto">
-          <span className="text-[11px] uppercase tracking-[0.18em] text-[#8a8a8a]">Total</span>
-          <span className="font-mono text-2xl font-semibold leading-none tracking-[-0.06em] text-white">{sessionLogs.length}</span>
+        <div className="count-card">
+          <span>Total</span>
+          <strong>{sessionLogs.length}</strong>
         </div>
       </section>
 
-      <section className="history-motion-item history-motion-2 metric-grid workout-fu workout-fu-2">
+      <section className="metric-grid workout-fu workout-fu-2">
         <MetricCard label="Total workout time" value={formatDuration(stats.totalWorkoutSeconds)} />
         <MetricCard label="Total rest time" value={formatDuration(stats.totalRestSeconds)} />
         <MetricCard label="Total sets" value={String(stats.totalSets)} />
       </section>
 
-      <section className="history-motion-item history-motion-3 card history-card workout-card workout-fu-2">
+      <section className="card history-card workout-card workout-fu-2">
         <div className="history-header">
           <div>
             <p className="kicker">Saved sessions</p>
@@ -236,7 +249,7 @@ function HistoryPageCharcoalAnimated() {
         ) : (
           <div className="history-body">
             <div className="session-list">
-              {sessionLogs.map((session, index) => (
+              {visibleSessions.map((session, index) => (
                 <button
                   key={session.id}
                   type="button"
@@ -256,6 +269,18 @@ function HistoryPageCharcoalAnimated() {
                   </div>
                 </button>
               ))}
+
+              {hasMoreSessions && (
+                <div className="history-load-more">
+                  <button
+                    type="button"
+                    className="btn btn-soft"
+                    onClick={() => setVisibleSessionCount((current) => current + sessionLoadStep)}
+                  >
+                    Show {Math.min(sessionLoadStep, sessionLogs.length - visibleSessionCount)} more
+                  </button>
+                </div>
+              )}
             </div>
 
             <SessionDetail
@@ -566,4 +591,4 @@ function RatingInput({ label, value, onChange }) {
   );
 }
 
-export default HistoryPageCharcoalAnimated;
+export default HistoryPage;

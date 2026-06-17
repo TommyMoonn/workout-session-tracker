@@ -1,42 +1,52 @@
-/* charcoal neutral exercise page */
-import { useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import exercises from "../data/exercises.json";
 
 const allOption = "All";
+const demoFilterOptions = ["Has demo", "No demo"];
 
-function ExerciseLibraryPageCharcoal() {
+const searchableExercises = exercises.map((exercise) => {
+  const normalizedEquipment = normalizeEquipment(exercise.equipment);
+  const embedUrl = toEmbeddableVideoUrl(exercise.demoUrl);
+
+  return {
+    ...exercise,
+    normalizedEquipment,
+    embedUrl,
+    hasDemo: Boolean(embedUrl),
+    searchableText: buildExerciseSearchText(exercise, normalizedEquipment),
+  };
+});
+
+function ExerciseLibraryPage() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(allOption);
   const [equipment, setEquipment] = useState(allOption);
   const [difficulty, setDifficulty] = useState(allOption);
   const [demoFilter, setDemoFilter] = useState(allOption);
-  const [selectedExerciseId, setSelectedExerciseId] = useState(exercises[0]?.id ?? null);
+  const [selectedExerciseId, setSelectedExerciseId] = useState(searchableExercises[0]?.id ?? null);
+  const deferredQuery = useDeferredValue(query);
 
-  const categories = useMemo(() => unique(exercises.map((item) => item.category)), []);
-  const equipmentOptions = useMemo(() => unique(exercises.map((item) => normalizeEquipment(item.equipment))), []);
-  const difficultyOptions = useMemo(() => unique(exercises.map((item) => item.difficulty)), []);
+  const categories = useMemo(() => unique(searchableExercises.map((item) => item.category)), []);
+  const equipmentOptions = useMemo(() => unique(searchableExercises.map((item) => item.normalizedEquipment)), []);
+  const difficultyOptions = useMemo(() => unique(searchableExercises.map((item) => item.difficulty)), []);
 
   const filteredExercises = useMemo(() => {
-    const queryTokens = tokenizeSearch(query);
+    const queryTokens = tokenizeSearch(deferredQuery);
 
-    return exercises.filter((exercise) => {
-      const normalizedEquipment = normalizeEquipment(exercise.equipment);
-      const hasDemo = Boolean(toEmbeddableVideoUrl(exercise.demoUrl));
-      const searchableText = buildExerciseSearchText(exercise, normalizedEquipment);
+    return searchableExercises.filter((exercise) => (
+      matchesSearchTokens(exercise.searchableText, queryTokens)
+      && (category === allOption || exercise.category === category)
+      && (equipment === allOption || exercise.normalizedEquipment === equipment)
+      && (difficulty === allOption || exercise.difficulty === difficulty)
+      && (demoFilter === allOption || (demoFilter === "Has demo" ? exercise.hasDemo : !exercise.hasDemo))
+    ));
+  }, [deferredQuery, category, equipment, difficulty, demoFilter]);
 
-      return (
-        matchesSearchTokens(searchableText, queryTokens)
-        && (category === allOption || exercise.category === category)
-        && (equipment === allOption || normalizedEquipment === equipment)
-        && (difficulty === allOption || exercise.difficulty === difficulty)
-        && (demoFilter === allOption || (demoFilter === "Has demo" ? hasDemo : !hasDemo))
-      );
-    });
-  }, [query, category, equipment, difficulty, demoFilter]);
-
-  const selectedExercise = filteredExercises.find((exercise) => exercise.id === selectedExerciseId)
+  const selectedExercise = useMemo(() => (
+    filteredExercises.find((exercise) => exercise.id === selectedExerciseId)
     ?? filteredExercises[0]
-    ?? null;
+    ?? null
+  ), [filteredExercises, selectedExerciseId]);
 
   useEffect(() => {
     if (!filteredExercises.length) return;
@@ -57,90 +67,71 @@ function ExerciseLibraryPageCharcoal() {
   }
 
   return (
-    <div className="exercise-library-neutral space-y-5 font-sans text-[#f3f4f3]">
-      <section className="library-card overflow-hidden rounded-xl border border-white/10 bg-[#121212] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.24)]">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Exercise library</p>
-            <h1 className="mt-2 font-serif text-3xl font-semibold tracking-[-0.04em] text-white md:text-4xl">Exercises</h1>
-          </div>
-          <div className="inline-flex items-center gap-3 self-start rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-sm font-semibold text-[#d4d4d8] shadow-none sm:self-auto">
-            <span className="text-[11px] uppercase tracking-[0.18em] text-[#a3a3a3]/70">Total</span>
-            <span className="font-mono text-2xl font-semibold leading-none tracking-[-0.06em] text-white">{exercises.length}</span>
-          </div>
+    <div className="exercise-page">
+      <section className="page-header block-reveal">
+        <div>
+          <p className="kicker">Exercise library</p>
+          <h1 className="page-title">Exercises</h1>
+        </div>
+        <div className="count-card">
+          <span>Total</span>
+          <strong>{searchableExercises.length}</strong>
         </div>
       </section>
 
-      <section className="library-card rounded-xl border border-white/10 bg-[#121212] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.22)]">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+      <section className="card card-padding block-reveal block-reveal-1">
+        <div className="section-toolbar">
           <div>
-            <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Filters</p>
-            <h2 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-white">Search and narrow the list.</h2>
+            <p className="kicker">Filters</p>
+            <h2 className="section-title">Search and narrow the list</h2>
           </div>
-          <button
-            type="button"
-            onClick={clearFilters}
-            disabled={activeFilterCount === 0}
-            className="rounded-md border border-white/10 bg-[#181818] px-4 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-200 transition duration-300 hover:border-white/18 hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-40"
-          >
+          <button type="button" className="btn btn-soft" onClick={clearFilters} disabled={activeFilterCount === 0}>
             Clear filters
           </button>
         </div>
 
-        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-[1.4fr_repeat(4,1fr)]">
+        <div className="exercise-filter-grid">
           <TextFilter value={query} onChange={setQuery} />
           <FilterSelect label="Category" value={category} options={categories} onChange={setCategory} />
           <FilterSelect label="Equipment" value={equipment} options={equipmentOptions} onChange={setEquipment} />
           <FilterSelect label="Difficulty" value={difficulty} options={difficultyOptions} onChange={setDifficulty} />
-          <FilterSelect label="Demo" value={demoFilter} options={["Has demo", "No demo"]} onChange={setDemoFilter} />
+          <FilterSelect label="Demo" value={demoFilter} options={demoFilterOptions} onChange={setDemoFilter} />
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">
-            Showing <span className="text-white">{filteredExercises.length}</span> of <span className="text-white">{exercises.length}</span> exercises
-          </p>
-          <span className="rounded-md border border-white/10 bg-[#171717] px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#d4d4d8]">
-            {activeFilterCount > 0 ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "No active filters"}
-          </span>
+        <div className="exercise-filter-footer">
+          <p>Showing <strong>{filteredExercises.length}</strong> of <strong>{searchableExercises.length}</strong> exercises</p>
+          <span>{activeFilterCount > 0 ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "No active filters"}</span>
         </div>
       </section>
 
-      <section className="library-card overflow-hidden rounded-xl border border-white/10 bg-[#121212] shadow-[0_18px_60px_rgba(0,0,0,0.22)]">
-        <div className="flex flex-col gap-3 border-b border-white/10 p-5 md:flex-row md:items-center md:justify-between">
+      <section className="card exercise-browser block-reveal block-reveal-2">
+        <div className="exercise-browser-header">
           <div>
-            <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Results</p>
-            <h2 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-white">{filteredExercises.length} exercise{filteredExercises.length === 1 ? "" : "s"}</h2>
+            <p className="kicker">Results</p>
+            <h2 className="section-title">{filteredExercises.length} exercise{filteredExercises.length === 1 ? "" : "s"}</h2>
           </div>
-          {selectedExercise && (
-            <span className="w-fit rounded-md border border-white/10 bg-[#181818] px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-300">
-              Selected: {selectedExercise.name}
-            </span>
-          )}
+          {selectedExercise && <span className="selected-pill">Selected: {selectedExercise.name}</span>}
         </div>
 
-        <div className="grid items-start lg:grid-cols-[360px_minmax(0,1fr)] xl:grid-cols-[400px_minmax(0,1fr)]">
-          <aside className="h-[980px] overflow-y-auto border-b border-white/10 lg:border-b-0 lg:border-r">
+        <div className="exercise-browser-body">
+          <aside className="exercise-list">
             {filteredExercises.length === 0 ? (
-              <div className="m-5 rounded-lg border border-dashed border-white/12 bg-white/[0.055] p-6 text-sm font-semibold text-slate-300">
-                No exercises match the current filters.
-              </div>
+              <div className="empty-state">No exercises match the current filters.</div>
             ) : (
               filteredExercises.map((exercise) => (
                 <button
                   key={exercise.id}
                   type="button"
                   onClick={() => setSelectedExerciseId(exercise.id)}
-                  className={`group flex w-full items-start justify-between gap-3 border-b border-white/10 px-4 py-4 text-left transition duration-300 hover:bg-[#121212] ${selectedExercise?.id === exercise.id ? "bg-[#1a1a1a]" : "bg-transparent"}`}
+                  className={`exercise-row ${selectedExercise?.id === exercise.id ? "selected" : ""}`}
                 >
-                  <div className="min-w-0">
-                    <p className="font-serif text-lg font-semibold tracking-[-0.03em] text-white">{exercise.name}</p>
-                    <p className="mt-2 text-[11px] font-semibold uppercase leading-snug tracking-[0.08em] text-slate-500 group-hover:text-slate-400">
-                      {exercise.category} · {exercise.difficulty} · {normalizeEquipment(exercise.equipment)}
+                  <div>
+                    <p className="exercise-row-name">{exercise.name}</p>
+                    <p className="exercise-row-meta">
+                      {exercise.category} · {exercise.difficulty} · {exercise.normalizedEquipment}
                     </p>
                   </div>
-                  <span className="shrink-0 rounded-md border border-white/10 bg-[#181818] px-2 py-2 text-xs font-semibold text-slate-300">
-                    {exercise.movementType}
-                  </span>
+                  <span className="movement-pill">{exercise.movementType}</span>
                 </button>
               ))
             )}
@@ -155,10 +146,10 @@ function ExerciseLibraryPageCharcoal() {
 
 function TextFilter({ value, onChange }) {
   return (
-    <label>
-      <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">Search</span>
+    <label className="filter-field">
+      <span className="field-label">Search</span>
       <input
-        className="w-full rounded-md border border-white/10 bg-[#0d0d0d] px-4 py-3 font-medium text-white outline-none transition duration-300 placeholder:text-slate-600 focus:border-white/25 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(255,255,255,0.06)]"
+        className="input"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="push up, pull up, legs, dumbbell, core..."
@@ -169,13 +160,9 @@ function TextFilter({ value, onChange }) {
 
 function FilterSelect({ label, value, options, onChange }) {
   return (
-    <label>
-      <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{label}</span>
-      <select
-        className="w-full rounded-md border border-white/10 bg-[#0d0d0d] px-4 py-3 font-medium text-white outline-none transition duration-300 focus:border-white/25 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(255,255,255,0.06)]"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      >
+    <label className="filter-field">
+      <span className="field-label">{label}</span>
+      <select className="input" value={value} onChange={(event) => onChange(event.target.value)}>
         <option value={allOption}>All</option>
         {options.map((option) => (
           <option key={option} value={option}>{option}</option>
@@ -186,76 +173,81 @@ function FilterSelect({ label, value, options, onChange }) {
 }
 
 function ExerciseDetail({ exercise }) {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsVideoLoaded(false);
+  }, [exercise?.id]);
+
   if (!exercise) {
-    return <div className="p-5"><div className="rounded-lg border border-dashed border-white/12 bg-white/[0.055] p-6 font-semibold text-slate-300">Select an exercise to view details.</div></div>;
+    return <div className="exercise-detail"><div className="empty-state">Select an exercise to view details.</div></div>;
   }
 
-  const embedUrl = toEmbeddableVideoUrl(exercise.demoUrl);
-
   return (
-    <article className="p-5 lg:p-7">
-      <div className="library-card rounded-xl border border-white/10 bg-[#141414] p-5 shadow-none">
-        <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Exercise detail</p>
-        <h2 className="mt-2 font-serif text-3xl font-semibold leading-tight tracking-[-0.035em] text-white md:text-4xl">{exercise.name}</h2>
-        <p className="mt-3 max-w-4xl text-sm font-medium leading-relaxed text-slate-400">{exercise.description}</p>
+    <article className="exercise-detail">
+      <div className="exercise-detail-card">
+        <p className="kicker">Exercise detail</p>
+        <h2 className="exercise-detail-title">{exercise.name}</h2>
+        <p className="exercise-detail-copy">{exercise.description}</p>
 
-        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        <div className="exercise-badge-grid">
           <InfoBadge label="Category" value={exercise.category} />
           <InfoBadge label="Difficulty" value={exercise.difficulty} />
-          <InfoBadge label="Equipment" value={normalizeEquipment(exercise.equipment)} />
+          <InfoBadge label="Equipment" value={exercise.normalizedEquipment} />
           <InfoBadge label="Rest" value={`${exercise.defaultRestSeconds}s`} />
           <InfoBadge label="Default sets" value={exercise.defaultSets} />
           <InfoBadge label="Default reps" value={exercise.defaultReps} />
           <InfoBadge label="Movement" value={exercise.movementType} />
         </div>
 
-        <div className="mt-5 border-t border-white/10 pt-4">
-          <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Target muscles</p>
-          <div className="mt-3 flex flex-wrap gap-2">
+        <div className="exercise-section-block">
+          <p className="kicker">Target muscles</p>
+          <div className="pill-wrap">
             {(exercise.primaryMuscles ?? []).map((muscle) => (
-              <span key={muscle} className="rounded-md border border-white/10 bg-[#181818] px-3 py-2 text-xs font-semibold uppercase text-slate-200">
-                {muscle}
-              </span>
+              <span key={muscle} className="muscle-pill">{muscle}</span>
             ))}
           </div>
         </div>
 
-        <section className="mt-6 rounded-xl border border-white/10 bg-[#121212] p-4 text-white shadow-none">
-          <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
+        <section className="exercise-video-card">
+          <div className="exercise-demo-header">
             <div>
-              <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">Demo video</p>
-              <h3 className="mt-2 font-serif text-3xl font-semibold tracking-[-0.04em]">Watch the movement</h3>
+              <p className="kicker">Demo video</p>
+              <h3 className="exercise-video-title">Watch the movement</h3>
             </div>
             {exercise.demoUrl && (
-              <a
-                className="rounded-md border border-white/12 bg-white/[0.055] px-4 py-3 text-xs font-semibold uppercase tracking-[0.08em] text-[#d4d4d8] transition hover:bg-white/[0.07]"
-                href={exercise.demoUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a className="btn btn-soft" href={exercise.demoUrl} target="_blank" rel="noreferrer">
                 Open video
               </a>
             )}
           </div>
 
-          {embedUrl ? (
-            <div className="mt-4 aspect-video overflow-hidden rounded-lg border border-white/10 bg-black">
-              <iframe
-                className="h-full w-full"
-                title={`${exercise.name} demo video`}
-                src={embedUrl}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
+          {exercise.embedUrl ? (
+            <div className="exercise-video-frame">
+              {isVideoLoaded ? (
+                <iframe
+                  title={`${exercise.name} demo video`}
+                  src={exercise.embedUrl}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              ) : (
+                <button
+                  type="button"
+                  className="exercise-video-placeholder"
+                  onClick={() => setIsVideoLoaded(true)}
+                >
+                  <span className="kicker">Video not loaded</span>
+                  <strong>Load demo video</strong>
+                  <span>Embedded players are kept off the page until needed to avoid UI jank.</span>
+                </button>
+              )}
             </div>
           ) : (
-            <div className="mt-4 grid aspect-video place-items-center rounded-lg border border-white/10 bg-black/70 p-8 text-center">
-              <div className="rounded-lg border border-dashed border-white/20 px-8 py-10">
-                <p className="library-kicker text-xs font-semibold uppercase tracking-[0.24em] text-[#a3a3a3]">No demo video</p>
-                <p className="mt-3 max-w-lg font-serif text-3xl font-semibold leading-tight tracking-[-0.04em] text-white">
-                  No demo video added for this exercise.
-                </p>
-              </div>
+            <div className="exercise-demo-empty">
+              <p className="kicker">No demo video</p>
+              <p>No demo video added for this exercise.</p>
             </div>
           )}
         </section>
@@ -266,9 +258,9 @@ function ExerciseDetail({ exercise }) {
 
 function InfoBadge({ label, value }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-[#181818] p-4">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
-      <p className="mt-2 font-semibold text-white">{value}</p>
+    <div className="info-badge">
+      <p className="metric-label">{label}</p>
+      <p>{value}</p>
     </div>
   );
 }
@@ -365,4 +357,7 @@ function toEmbeddableVideoUrl(url) {
   }
 }
 
-export default ExerciseLibraryPageCharcoal;
+
+
+
+export default ExerciseLibraryPage;
