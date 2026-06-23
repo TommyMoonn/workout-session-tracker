@@ -1,5 +1,6 @@
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import exercises from "../data/exercises.json";
+import { buttonClass, cx, EmptyBlock, MarkedPill, MarkerLabel, SelectField, ui } from "../styles/ui";
 
 const allOption = "All";
 const demoFilterOptions = ["Has demo", "No demo"];
@@ -67,30 +68,30 @@ function ExerciseLibraryPage() {
   }
 
   return (
-    <div className="exercise-page">
-      <section className="page-header block-reveal">
+    <div className={ui.page}>
+      <section className={cx(ui.pageHeader, ui.reveal)}>
         <div>
-          <p className="kicker">Exercise library</p>
-          <h1 className="page-title">Exercises</h1>
+          <MarkerLabel>Exercise library</MarkerLabel>
+          <h1 className={ui.pageTitle}>Exercises</h1>
         </div>
-        <div className="count-card">
-          <span>Total</span>
-          <strong>{searchableExercises.length}</strong>
+        <div className={ui.countCard}>
+          <span className={ui.countLabel}>Total</span>
+          <strong className={ui.countValue}>{searchableExercises.length}</strong>
         </div>
       </section>
 
-      <section className="card card-padding block-reveal block-reveal-1">
-        <div className="section-toolbar">
+      <section className={cx(ui.card, ui.cardPadding, ui.reveal1)}>
+        <div className={ui.toolbar}>
           <div>
-            <p className="kicker">Filters</p>
-            <h2 className="section-title">Search and narrow the list</h2>
+            <MarkerLabel>Filters</MarkerLabel>
+            <h2 className={ui.sectionTitle}>Search and narrow the list</h2>
           </div>
-          <button type="button" className="btn btn-soft" onClick={clearFilters} disabled={activeFilterCount === 0}>
+          <button type="button" className={buttonClass("soft")} onClick={clearFilters} disabled={activeFilterCount === 0}>
             Clear filters
           </button>
         </div>
 
-        <div className="exercise-filter-grid">
+        <div className={ui.exerciseFilterGrid}>
           <TextFilter value={query} onChange={setQuery} />
           <FilterSelect label="Category" value={category} options={categories} onChange={setCategory} />
           <FilterSelect label="Equipment" value={equipment} options={equipmentOptions} onChange={setEquipment} />
@@ -98,42 +99,42 @@ function ExerciseLibraryPage() {
           <FilterSelect label="Demo" value={demoFilter} options={demoFilterOptions} onChange={setDemoFilter} />
         </div>
 
-        <div className="exercise-filter-footer">
-          <p>Showing <strong>{filteredExercises.length}</strong> of <strong>{searchableExercises.length}</strong> exercises</p>
-          <span>{activeFilterCount > 0 ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "No active filters"}</span>
-        </div>
       </section>
 
-      <section className="card exercise-browser block-reveal block-reveal-2">
-        <div className="exercise-browser-header">
+      <section className={cx(ui.browserCard, ui.reveal2)}>
+        <div className={ui.browserHeader}>
           <div>
-            <p className="kicker">Results</p>
-            <h2 className="section-title">{filteredExercises.length} exercise{filteredExercises.length === 1 ? "" : "s"}</h2>
+            <MarkerLabel>Results</MarkerLabel>
+            <h2 className={ui.sectionTitle}>{filteredExercises.length} exercise{filteredExercises.length === 1 ? "" : "s"}</h2>
           </div>
-          {selectedExercise && <span className="selected-pill">Selected: {selectedExercise.name}</span>}
+          {selectedExercise && <MarkedPill>Selected: {selectedExercise.name}</MarkedPill>}
         </div>
 
-        <div className="exercise-browser-body">
-          <aside className="exercise-list">
+        <div className={ui.exerciseBrowserBody}>
+          <aside className={ui.exerciseList}>
             {filteredExercises.length === 0 ? (
-              <div className="empty-state">No exercises match the current filters.</div>
+              <EmptyBlock>No exercises match the current filters.</EmptyBlock>
             ) : (
-              filteredExercises.map((exercise) => (
-                <button
-                  key={exercise.id}
-                  type="button"
-                  onClick={() => setSelectedExerciseId(exercise.id)}
-                  className={`exercise-row ${selectedExercise?.id === exercise.id ? "selected" : ""}`}
-                >
-                  <div>
-                    <p className="exercise-row-name">{exercise.name}</p>
-                    <p className="exercise-row-meta">
-                      {exercise.category} · {exercise.difficulty} · {exercise.normalizedEquipment}
-                    </p>
-                  </div>
-                  <span className="movement-pill">{exercise.movementType}</span>
-                </button>
-              ))
+              filteredExercises.map((exercise) => {
+                const isSelected = selectedExercise?.id === exercise.id;
+
+                return (
+                  <button
+                    key={exercise.id}
+                    type="button"
+                    onClick={() => setSelectedExerciseId(exercise.id)}
+                    className={cx(ui.exerciseRow, isSelected && ui.rowSelected)}
+                  >
+                    <div className="min-w-0">
+                      <p className={ui.rowTitle}>{exercise.name}</p>
+                      <p className={cx(ui.rowMeta, isSelected && ui.rowMetaSelected)}>
+                        {exercise.category} · {exercise.difficulty} · {exercise.normalizedEquipment}
+                      </p>
+                    </div>
+                    <MarkedPill selected={isSelected}>{exercise.movementType}</MarkedPill>
+                  </button>
+                );
+              })
             )}
           </aside>
 
@@ -146,13 +147,13 @@ function ExerciseLibraryPage() {
 
 function TextFilter({ value, onChange }) {
   return (
-    <label className="filter-field">
-      <span className="field-label">Search</span>
+    <label className={ui.filterField}>
+      <MarkerLabel as="span">Search</MarkerLabel>
       <input
-        className="input"
+        className={ui.input}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder="push up, pull up, legs, dumbbell, core..."
+        placeholder="Search for workouts"
       />
     </label>
   );
@@ -160,15 +161,12 @@ function TextFilter({ value, onChange }) {
 
 function FilterSelect({ label, value, options, onChange }) {
   return (
-    <label className="filter-field">
-      <span className="field-label">{label}</span>
-      <select className="input" value={value} onChange={(event) => onChange(event.target.value)}>
-        <option value={allOption}>All</option>
-        {options.map((option) => (
-          <option key={option} value={option}>{option}</option>
-        ))}
-      </select>
-    </label>
+    <SelectField label={label} value={value} onChange={(event) => onChange(event.target.value)}>
+      <option value={allOption}>All</option>
+      {options.map((option) => (
+        <option key={option} value={option}>{option}</option>
+      ))}
+    </SelectField>
   );
 }
 
@@ -180,17 +178,17 @@ function ExerciseDetail({ exercise }) {
   }, [exercise?.id]);
 
   if (!exercise) {
-    return <div className="exercise-detail"><div className="empty-state">Select an exercise to view details.</div></div>;
+    return <div className={ui.detailPane}><EmptyBlock>Select an exercise to view details.</EmptyBlock></div>;
   }
 
   return (
-    <article className="exercise-detail">
-      <div className="exercise-detail-card">
-        <p className="kicker">Exercise detail</p>
-        <h2 className="exercise-detail-title">{exercise.name}</h2>
-        <p className="exercise-detail-copy">{exercise.description}</p>
+    <article className={ui.detailPane}>
+      <div className={ui.exerciseDetailCard}>
+        <MarkerLabel>Exercise detail</MarkerLabel>
+        <h2 className={ui.detailTitle}>{exercise.name}</h2>
+        <p className={ui.bodyCopy}>{exercise.description}</p>
 
-        <div className="exercise-badge-grid">
+        <div className={ui.exerciseBadgeGrid}>
           <InfoBadge label="Category" value={exercise.category} />
           <InfoBadge label="Difficulty" value={exercise.difficulty} />
           <InfoBadge label="Equipment" value={exercise.normalizedEquipment} />
@@ -200,30 +198,30 @@ function ExerciseDetail({ exercise }) {
           <InfoBadge label="Movement" value={exercise.movementType} />
         </div>
 
-        <div className="exercise-section-block">
-          <p className="kicker">Target muscles</p>
-          <div className="pill-wrap">
+        <div className={ui.sectionBlock}>
+          <MarkerLabel>Target muscles</MarkerLabel>
+          <div className={ui.pillWrap}>
             {(exercise.primaryMuscles ?? []).map((muscle) => (
-              <span key={muscle} className="muscle-pill">{muscle}</span>
+              <MarkedPill key={muscle}>{muscle}</MarkedPill>
             ))}
           </div>
         </div>
 
-        <section className="exercise-video-card">
-          <div className="exercise-demo-header">
+        <section className={ui.videoCard}>
+          <div className={ui.rowBetween}>
             <div>
-              <p className="kicker">Demo video</p>
-              <h3 className="exercise-video-title">Watch the movement</h3>
+              <MarkerLabel>Demo video</MarkerLabel>
+              <h3 className={ui.smallTitle}>Watch the movement</h3>
             </div>
             {exercise.demoUrl && (
-              <a className="btn btn-soft" href={exercise.demoUrl} target="_blank" rel="noreferrer">
+              <a className={buttonClass("soft")} href={exercise.demoUrl} target="_blank" rel="noreferrer">
                 Open video
               </a>
             )}
           </div>
 
           {exercise.embedUrl ? (
-            <div className="exercise-video-frame">
+            <div className={ui.videoFrame}>
               {isVideoLoaded ? (
                 <iframe
                   title={`${exercise.name} demo video`}
@@ -235,18 +233,20 @@ function ExerciseDetail({ exercise }) {
               ) : (
                 <button
                   type="button"
-                  className="exercise-video-placeholder"
+                  className={ui.videoPlaceholder}
                   onClick={() => setIsVideoLoaded(true)}
                 >
-                  <span className="kicker">Video not loaded</span>
-                  <strong>Load demo video</strong>
-                  <span>Embedded players are kept off the page until needed to avoid UI jank.</span>
+                  <span>
+                    <MarkerLabel as="span">Video not loaded</MarkerLabel>
+                    <strong className={ui.videoPlaceholderTitle}>Load demo video</strong>
+                    <span className={ui.videoPlaceholderCopy}>Embedded players are kept off the page until needed to avoid UI jank.</span>
+                  </span>
                 </button>
               )}
             </div>
           ) : (
-            <div className="exercise-demo-empty">
-              <p className="kicker">No demo video</p>
+            <div className={ui.demoEmpty}>
+              <MarkerLabel>No demo video</MarkerLabel>
               <p>No demo video added for this exercise.</p>
             </div>
           )}
@@ -258,9 +258,9 @@ function ExerciseDetail({ exercise }) {
 
 function InfoBadge({ label, value }) {
   return (
-    <div className="info-badge">
-      <p className="metric-label">{label}</p>
-      <p>{value}</p>
+    <div className={ui.infoBadge}>
+      <MarkerLabel>{label}</MarkerLabel>
+      <p className={ui.infoBadgeValue}>{value}</p>
     </div>
   );
 }
@@ -356,8 +356,5 @@ function toEmbeddableVideoUrl(url) {
     return "";
   }
 }
-
-
-
 
 export default ExerciseLibraryPage;

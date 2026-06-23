@@ -3,6 +3,7 @@ import { readWorkoutStorage, saveWorkoutStorage } from "../storage/workoutStorag
 import { buildSessionMarkdown, downloadFile } from "../utils/workoutExport";
 import { formatClock, formatDateTime, formatDuration, formatFileTimestamp } from "../utils/workoutFormat";
 import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../utils/workoutData";
+import { cx, Toast, ui } from "../styles/ui";
 
 const initialVisibleSessionCount = 40;
 const sessionLoadStep = 40;
@@ -28,18 +29,6 @@ function HistoryPage() {
   );
 
   const hasMoreSessions = visibleSessionCount < sessionLogs.length;
-
-  const stats = useMemo(() => {
-    const totalWorkoutSeconds = sessionLogs.reduce((sum, session) => sum + (session.workoutSeconds ?? 0), 0);
-    const totalRestSeconds = sessionLogs.reduce((sum, session) => sum + (session.totalRestSeconds ?? 0), 0);
-    const totalSets = sessionLogs.reduce((sum, session) => sum + (session.setCount ?? 0), 0);
-
-    return {
-      totalWorkoutSeconds,
-      totalRestSeconds,
-      totalSets,
-    };
-  }, [sessionLogs]);
 
   useEffect(() => {
     loadSavedState();
@@ -202,44 +191,37 @@ function HistoryPage() {
   }
 
   return (
-    <div className="workout-page">
-      <section className="page-header block-reveal">
+    <div className={ui.page}>
+      <section className={cx(ui.pageHeader, ui.reveal)}>
         <div>
-          <p className="kicker">History</p>
-          <h1 className="page-title">Finished sessions</h1>
+          <p className={ui.labelMarker}>History</p>
+          <h1 className={ui.pageTitle}>Finished sessions</h1>
         </div>
-        <div className="count-card">
-          <span>Total</span>
-          <strong>{sessionLogs.length}</strong>
+        <div className={ui.countCard}>
+          <span className={ui.countLabel}>Total</span>
+          <strong className={ui.countValue}>{sessionLogs.length}</strong>
         </div>
       </section>
 
-      <section className="metric-grid workout-fu workout-fu-2">
-        <MetricCard label="Total workout time" value={formatDuration(stats.totalWorkoutSeconds)} />
-        <MetricCard label="Total rest time" value={formatDuration(stats.totalRestSeconds)} />
-        <MetricCard label="Total sets" value={String(stats.totalSets)} />
-      </section>
-
-      <section className="card history-card workout-card workout-fu-2">
-        <div className="history-header">
+      <section className={cx(ui.historyCard, ui.reveal2)}>
+        <div className={ui.historyHeader}>
           <div>
-            <p className="kicker">Saved sessions</p>
-            <h2 className="history-title !text-[1.6rem] md:!text-[1.85rem]">Archive</h2>
-            <p className="history-subtitle">Review sessions, notes, and exports.</p>
+            <p className={cx(ui.labelMarker, "whitespace-nowrap")}>Saved sessions</p>
+            <h2 className={ui.sectionTitle}>Archive</h2>
           </div>
 
-          <div className="action-groups">
+          <div className={ui.actionGroups}>
             <input ref={jsonInputRef} type="file" accept="application/json,.json" hidden onChange={importWorkoutHistoryJson} />
             <ActionGroup label="Backup JSON">
-              <ActionButton iconType="download" label="Export" onClick={exportWorkoutHistoryJson} disabled={sessionLogs.length === 0} />
-              <ActionButton iconType="upload" label="Load" onClick={openJsonImport} />
+              <ActionButton label="Export" onClick={exportWorkoutHistoryJson} disabled={sessionLogs.length === 0} />
+              <ActionButton label="Load" onClick={openJsonImport} />
             </ActionGroup>
             <ActionGroup label="Markdown report">
-              <ActionButton iconType="file" label="Selected" onClick={exportSelectedMarkdown} disabled={!selectedSession} primary />
-              <ActionButton iconType="list" label="All" onClick={exportAllMarkdown} disabled={sessionLogs.length === 0} />
+              <ActionButton label="Selected" onClick={exportSelectedMarkdown} disabled={!selectedSession} primary />
+              <ActionButton label="All" onClick={exportAllMarkdown} disabled={sessionLogs.length === 0} />
             </ActionGroup>
             <ActionGroup label="Manage">
-              <ActionButton iconType="trash" label="Clear" onClick={clearSessionLogs} disabled={sessionLogs.length === 0} danger />
+              <ActionButton label="Clear" onClick={clearSessionLogs} disabled={sessionLogs.length === 0} danger />
             </ActionGroup>
           </div>
         </div>
@@ -247,23 +229,23 @@ function HistoryPage() {
         {sessionLogs.length === 0 ? (
           <EmptyState text="No sessions logged yet. Finish a workout from the timer page to save the full session summary." />
         ) : (
-          <div className="history-body">
-            <div className="session-list">
+          <div className={ui.browserBody}>
+            <div className={ui.listPanel}>
               {visibleSessions.map((session, index) => (
                 <button
                   key={session.id}
                   type="button"
                   onClick={() => setSelectedSessionId(session.id)}
-                  className={`session-row ${selectedSession?.id === session.id ? "selected" : ""}`}
+                  className={cx(ui.rowButton, "[contain-intrinsic-size:116px]", selectedSession?.id === session.id && ui.rowSelected)}
                 >
-                  <div className="session-row-top">
+                  <div className={ui.rowTop}>
                     <div>
-                      <p className="kicker">Session {sessionLogs.length - index}</p>
-                      <p className="session-date">{formatDateTime(session.startedAt)}</p>
+                      <p className={ui.labelMarker}>Session {sessionLogs.length - index}</p>
+                      <p className={ui.rowTitle}>{formatDateTime(session.startedAt)}</p>
                     </div>
-                    <span className="set-count-pill">{session.setCount} sets</span>
+                    <span className={cx(ui.pillMarked, selectedSession?.id === session.id && "border-current text-current before:text-current")}>{session.setCount} sets</span>
                   </div>
-                  <div className="session-row-meta">
+                  <div className={cx(ui.rowMeta, selectedSession?.id === session.id && ui.rowMetaSelected)}>
                     <span>Workout {formatDuration(session.workoutSeconds)}</span>
                     <span>Rest {formatDuration(session.totalRestSeconds)}</span>
                   </div>
@@ -271,10 +253,10 @@ function HistoryPage() {
               ))}
 
               {hasMoreSessions && (
-                <div className="history-load-more">
+                <div className="p-4">
                   <button
                     type="button"
-                    className="btn btn-soft"
+                    className={cx(ui.buttonBase, ui.buttonSoft)}
                     onClick={() => setVisibleSessionCount((current) => current + sessionLoadStep)}
                   >
                     Show {Math.min(sessionLoadStep, sessionLogs.length - visibleSessionCount)} more
@@ -304,113 +286,33 @@ function HistoryPage() {
         />
       )}
 
-      {toast && <div className="toast">{toast}</div>}
+      <Toast message={toast} />
     </div>
   );
 }
 
-function MetricCard({ label, value, children }) {
-  return (
-    <div className="metric-card workout-card">
-      <p className="metric-label">{label}</p>
-      <p className="metric-value">{value}</p>
-      {children}
-    </div>
-  );
-}
 
 function ActionGroup({ label, children }) {
   return (
-    <div className="action-group">
-      <p className="action-group-label">{label}</p>
-      <div className="action-group-buttons">{children}</div>
+    <div className={ui.actionGroup}>
+      <p className={cx(ui.labelMarker, "whitespace-nowrap")}>{label}</p>
+      <div className={ui.actionButtons}>{children}</div>
     </div>
   );
 }
 
-function ActionButton({ iconType, label, onClick, disabled = false, primary = false, danger = false }) {
-  let className = "btn action-btn";
-  if (primary) className += " btn-primary";
-  if (danger) className += " btn-dark";
+function ActionButton({ label, onClick, disabled = false, primary = false, danger = false }) {
+  const className = cx(ui.buttonBase, "min-h-9 px-3 py-0 text-xs", primary && ui.buttonPrimary, danger && ui.buttonDanger);
 
   return (
     <button type="button" className={className} onClick={onClick} disabled={disabled}>
-      <ActionIcon type={iconType} />
-      <span>{label}</span>
+      {label}
     </button>
   );
 }
 
-function ActionIcon({ type }) {
-  const commonProps = {
-    className: "action-icon",
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2.4",
-    strokeLinecap: "square",
-    strokeLinejoin: "miter",
-    "aria-hidden": "true",
-  };
-
-  if (type === "download") {
-    return (
-      <svg {...commonProps}>
-        <path d="M12 3v11" />
-        <path d="M7 10l5 5 5-5" />
-        <path d="M5 20h14" />
-      </svg>
-    );
-  }
-
-  if (type === "upload") {
-    return (
-      <svg {...commonProps}>
-        <path d="M12 21V10" />
-        <path d="M7 14l5-5 5 5" />
-        <path d="M5 4h14" />
-      </svg>
-    );
-  }
-
-  if (type === "file") {
-    return (
-      <svg {...commonProps}>
-        <path d="M6 3h9l3 3v15H6z" />
-        <path d="M15 3v4h4" />
-        <path d="M9 12h6" />
-        <path d="M9 16h6" />
-      </svg>
-    );
-  }
-
-  if (type === "list") {
-    return (
-      <svg {...commonProps}>
-        <path d="M8 7h11" />
-        <path d="M8 12h11" />
-        <path d="M8 17h11" />
-        <path d="M4 7h1" />
-        <path d="M4 12h1" />
-        <path d="M4 17h1" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg {...commonProps}>
-      <path d="M6 7h12" />
-      <path d="M10 7V5h4v2" />
-      <path d="M8 10v9" />
-      <path d="M12 10v9" />
-      <path d="M16 10v9" />
-      <path d="M7 7l1 14h8l1-14" />
-    </svg>
-  );
-}
-
 function EmptyState({ text }) {
-  return <div className="empty-state">{text}</div>;
+  return <div className={ui.emptyMarked}>{text}</div>;
 }
 
 function SessionDetail({ session, onDeleteSet, onEditReview }) {
@@ -419,8 +321,8 @@ function SessionDetail({ session, onDeleteSet, onEditReview }) {
   const sets = Array.isArray(session.sets) ? session.sets : [];
 
   return (
-    <div className="session-detail">
-      <div className="detail-metrics">
+    <div className={ui.detailPane}>
+      <div className={ui.detailMetrics}>
         <MiniMetric label="Workout time" value={formatDuration(session.workoutSeconds)} />
         <MiniMetric label="Total rest time" value={formatDuration(session.totalRestSeconds)} />
         <MiniMetric label="Sets" value={String(session.setCount)} />
@@ -428,9 +330,9 @@ function SessionDetail({ session, onDeleteSet, onEditReview }) {
 
       <SessionReviewSummary session={session} onEditReview={() => onEditReview(session)} />
 
-      <div className="table-panel">
-        <div className="table-title">Sets inside this session</div>
-        <div className="table-scroll">
+      <div className={ui.tablePanel}>
+        <div className={ui.tableTitleMarked}>Sets inside this session</div>
+        <div className={ui.tableScroll}>
           <SetTable
             sets={sets}
             emptyText="This session has no sets."
@@ -444,9 +346,9 @@ function SessionDetail({ session, onDeleteSet, onEditReview }) {
 
 function MiniMetric({ label, value }) {
   return (
-    <div className="mini-metric">
-      <p className="metric-label">{label}</p>
-      <p className="mini-value">{value}</p>
+    <div className={ui.miniMetric}>
+      <p className={ui.labelMarker}>{label}</p>
+      <p className={ui.miniValue}>{value}</p>
     </div>
   );
 }
@@ -455,30 +357,30 @@ function SessionReviewSummary({ session, onEditReview }) {
   const review = normalizeReview(session?.review);
 
   return (
-    <div className="review-box">
-      <div className="review-top">
+    <div className={ui.reviewBox}>
+      <div className={ui.rowBetween}>
         <div>
-          <p className="kicker">Session notes</p>
-          <h3 className="review-title">{review.workoutType.trim() || "No workout type added"}</h3>
+          <p className={ui.labelMarker}>Session notes</p>
+          <h3 className={ui.smallTitle}>{review.workoutType.trim() || "No workout type added"}</h3>
         </div>
-        <button type="button" className="btn btn-soft" onClick={onEditReview}>Edit notes</button>
+        <button type="button" className={cx(ui.buttonBase, ui.buttonSoft)} onClick={onEditReview}>Edit notes</button>
       </div>
 
-      <div className="rating-grid">
+      <div className={ui.ratingGrid}>
         <RatingPill label="Energy" value={review.energy} />
         <RatingPill label="Difficulty" value={review.difficulty} />
         <RatingPill label="Mood" value={review.mood} />
         <RatingPill label="Experience" value={review.overallExperience} />
       </div>
 
-      <p className="review-thoughts">{review.thoughts.trim() || "No thoughts added."}</p>
+      <p className={ui.reviewThoughts}>{review.thoughts.trim() || "No thoughts added."}</p>
     </div>
   );
 }
 
 function RatingPill({ label, value }) {
   return (
-    <div className="rating-pill">
+    <div className={ui.pillMarked}>
       {label}: {value ?? 0}/5
     </div>
   );
@@ -486,7 +388,7 @@ function RatingPill({ label, value }) {
 
 function SetTable({ sets, emptyText, onDeleteSet }) {
   return (
-    <table className="log-table">
+    <table className={ui.table}>
       <thead>
         <tr>
           <th>Set</th>
@@ -502,7 +404,7 @@ function SetTable({ sets, emptyText, onDeleteSet }) {
       <tbody>
         {sets.length === 0 ? (
           <tr>
-            <td className="empty-table-cell" colSpan={8}>{emptyText}</td>
+            <td className={ui.emptyTableCell} colSpan={8}>{emptyText}</td>
           </tr>
         ) : (
           sets.map((set) => (
@@ -515,7 +417,7 @@ function SetTable({ sets, emptyText, onDeleteSet }) {
               <td>{formatClock(set.restStartedAtSessionSeconds ?? 0)}</td>
               <td>{set.restEndedAtSessionSeconds == null ? "—" : formatClock(set.restEndedAtSessionSeconds)}</td>
               <td>
-                <button type="button" className="btn btn-soft" onClick={() => onDeleteSet(set.id)}>Delete</button>
+                <button type="button" className={cx(ui.buttonBase, ui.buttonSoft)} onClick={() => onDeleteSet(set.id)}>Delete</button>
               </td>
             </tr>
           ))
@@ -531,22 +433,22 @@ function ReviewModal({ title, subtitle, review, onChange, onCancel, onSave, mode
   }
 
   return (
-    <div className="modal-overlay" onMouseDown={onCancel}>
-      <section className="modal-panel" onMouseDown={(event) => event.stopPropagation()}>
-        <div className="modal-header">
+    <div className={ui.modalOverlay} onMouseDown={onCancel}>
+      <section className={ui.modalPanel} onMouseDown={(event) => event.stopPropagation()}>
+        <div className={ui.modalHeader}>
           <div>
-            <p className="kicker">{mode === "edit" ? "Edit session notes" : "Finish workout"}</p>
-            <h2 className="modal-title">{title}</h2>
-            <p className="history-subtitle">{subtitle}</p>
+            <p className={ui.labelMarker}>{mode === "edit" ? "Edit session notes" : "Finish workout"}</p>
+            <h2 className={ui.sectionTitle}>{title}</h2>
+            <p className={ui.bodyCopy}>{subtitle}</p>
           </div>
-          <button type="button" className="btn btn-soft" onClick={onCancel}>X</button>
+          <button type="button" className={cx(ui.buttonBase, ui.buttonSoft)} onClick={onCancel}>X</button>
         </div>
 
-        <div className="form-grid">
-          <label className="full-span">
-            <span className="field-label">Workout type</span>
+        <div className={ui.formGrid}>
+          <label className={ui.fullSpan}>
+            <span className={ui.labelMarker}>Workout type</span>
             <input
-              className="input"
+              className={ui.input}
               value={review.workoutType}
               onChange={(event) => update("workoutType", event.target.value)}
               placeholder="Push day, pull + legs, chest day..."
@@ -558,10 +460,10 @@ function ReviewModal({ title, subtitle, review, onChange, onCancel, onSave, mode
           <RatingInput label="Mood" value={review.mood} onChange={(value) => update("mood", value)} />
           <RatingInput label="Experience" value={review.overallExperience} onChange={(value) => update("overallExperience", value)} />
 
-          <label className="full-span">
-            <span className="field-label">Thoughts and feelings</span>
+          <label className={ui.fullSpan}>
+            <span className={ui.labelMarker}>Thoughts and feelings</span>
             <textarea
-              className="textarea"
+              className={ui.textarea}
               rows={5}
               value={review.thoughts}
               onChange={(event) => update("thoughts", event.target.value)}
@@ -570,9 +472,9 @@ function ReviewModal({ title, subtitle, review, onChange, onCancel, onSave, mode
           </label>
         </div>
 
-        <footer className="modal-footer">
-          <button type="button" className="btn" onClick={onCancel}>Cancel</button>
-          <button type="button" className="btn btn-primary" onClick={onSave}>{mode === "edit" ? "Save notes" : "Save session"}</button>
+        <footer className={ui.modalFooter}>
+          <button type="button" className={ui.buttonBase} onClick={onCancel}>Cancel</button>
+          <button type="button" className={cx(ui.buttonBase, ui.buttonPrimary)} onClick={onSave}>{mode === "edit" ? "Save notes" : "Save session"}</button>
         </footer>
       </section>
     </div>
@@ -581,11 +483,11 @@ function ReviewModal({ title, subtitle, review, onChange, onCancel, onSave, mode
 
 function RatingInput({ label, value, onChange }) {
   return (
-    <label className="rating-input">
-      <span className="field-label">{label}</span>
-      <div className="rating-row">
+    <label className={ui.ratingInput}>
+      <span className={ui.labelMarker}>{label}</span>
+      <div className={ui.ratingRow}>
         <input type="range" min="0" max="5" step="1" value={value} onChange={(event) => onChange(Number(event.target.value))} />
-        <span className="rating-number">{value}</span>
+        <span className={ui.ratingNumber}>{value}</span>
       </div>
     </label>
   );
