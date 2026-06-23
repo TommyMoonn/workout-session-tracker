@@ -1,0 +1,54 @@
+import { Button } from "../../../components/ui";
+import { cx } from "../../../lib/cx";
+import { ui } from "../../../styles";
+
+export function ArchiveActions({
+  hasSelectedSession,
+  hasSessions,
+  jsonInputRef,
+  onClear,
+  onExportAllMarkdown,
+  onExportJson,
+  onExportSelectedMarkdown,
+  onImportJson,
+  onOpenImport,
+}) {
+  return (
+    <div className={ui.actionGroups}>
+      <input ref={jsonInputRef} type="file" accept="application/json,.json" hidden onChange={onImportJson} />
+      <ActionGroup label="Backup JSON">
+        <ActionButton label="Export" onClick={onExportJson} disabled={!hasSessions} />
+        <ActionButton label="Load" onClick={onOpenImport} />
+      </ActionGroup>
+      <ActionGroup label="Markdown report">
+        <ActionButton label="Selected" onClick={onExportSelectedMarkdown} disabled={!hasSelectedSession} primary />
+        <ActionButton label="All" onClick={onExportAllMarkdown} disabled={!hasSessions} />
+      </ActionGroup>
+      <ActionGroup label="Manage">
+        <ActionButton label="Clear" onClick={onClear} disabled={!hasSessions} danger />
+      </ActionGroup>
+    </div>
+  );
+}
+
+function ActionGroup({ label, children }) {
+  return (
+    <div className={ui.actionGroup}>
+      <p className={cx(ui.labelMarker, "whitespace-nowrap")}>{label}</p>
+      <div className={ui.actionButtons}>{children}</div>
+    </div>
+  );
+}
+
+function ActionButton({ label, onClick, disabled = false, primary = false, danger = false }) {
+  return (
+    <Button
+      variant={primary ? "primary" : danger ? "danger" : "default"}
+      className="min-h-9 px-3 py-0 text-xs"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {label}
+    </Button>
+  );
+}

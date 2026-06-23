@@ -1,0 +1,16 @@
+export const historyStyles = {
+  historyCard: "mt-4 overflow-hidden border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-0 text-[var(--oc-ink)]",
+  historyHeader: "grid grid-cols-[minmax(260px,1fr)_auto] items-start gap-4 border-b border-[var(--oc-hairline)] p-6 max-[1120px]:grid-cols-1 max-[1120px]:items-stretch max-[760px]:p-4",
+  actionGroups: "flex flex-wrap items-start justify-end gap-2 max-[1120px]:justify-start",
+  actionGroup: "border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] px-2 py-1.5 text-[var(--oc-ink)]",
+  actionButtons: "mt-1 grid grid-cols-2 gap-1.5 max-[760px]:grid-cols-1",
+  browserBody: "grid h-[clamp(560px,calc(100vh-220px),760px)] min-h-0 grid-cols-[minmax(280px,0.44fr)_minmax(0,1fr)] items-stretch overflow-hidden max-[1120px]:h-auto max-[1120px]:overflow-visible max-[1120px]:grid-cols-1",
+  listPanel: "grid h-full min-h-0 content-start self-stretch overflow-y-scroll overscroll-contain border-r border-[var(--oc-hairline)] max-[1120px]:max-h-[430px] max-[1120px]:border-r-0 max-[1120px]:border-b",
+  rowButton: "w-full border-0 border-b border-[var(--oc-hairline)] bg-transparent p-4 text-left text-[var(--oc-body)] transition-colors hover:bg-[var(--oc-surface-soft)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-accent)] [contain:layout_paint_style] [content-visibility:auto]",
+  rowSelected: "border-l-2 border-l-[var(--oc-accent)] bg-[var(--oc-accent-softer)] text-[var(--oc-ink)] hover:bg-[var(--oc-accent-softer)] hover:text-[var(--oc-ink)]",
+  rowTop: "flex items-start justify-between gap-4 max-[760px]:flex-col max-[760px]:items-stretch",
+  rowTitle: "text-base font-bold leading-[1.45] text-current",
+  rowMeta: "mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs uppercase leading-normal text-[var(--oc-muted)]",
+  rowMetaSelected: "text-[var(--oc-muted)]",
+  detailPane: "h-full min-h-0 min-w-0 overflow-y-auto p-4 max-[1120px]:h-auto max-[1120px]:overflow-visible max-[760px]:p-3",
+};

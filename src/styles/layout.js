@@ -1,0 +1,12 @@
+export const layoutStyles = {
+  page: "mx-auto w-full max-w-[1120px]",
+  reveal: "motion-safe:animate-[fadeUp_var(--transition-base)_both]",
+  reveal1: "motion-safe:animate-[fadeUp_var(--transition-base)_both] motion-safe:[animation-delay:35ms]",
+  reveal2: "motion-safe:animate-[fadeUp_var(--transition-base)_both] motion-safe:[animation-delay:70ms]",
+  card: "border border-[var(--oc-hairline)] bg-[var(--oc-surface)] text-[var(--oc-ink)] shadow-none",
+  cardPadding: "p-6 max-[760px]:p-4",
+  pageHeader: "mb-6 flex items-end justify-between gap-6 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-6 text-[var(--oc-ink)] max-[1120px]:items-stretch max-[760px]:flex-col max-[760px]:p-4",
+  rowBetween: "flex items-start justify-between gap-4 max-[760px]:flex-col max-[760px]:items-stretch",
+  toolbar: "flex items-start justify-between gap-4 max-[1120px]:items-stretch max-[760px]:flex-col max-[760px]:items-stretch",
+  divider: "my-4 border-0 border-t border-[var(--oc-hairline)]",
+};
