@@ -4,7 +4,7 @@ import { allOption, demoFilterOptions } from "../utils/exerciseSearch";
 
 export function ExerciseFilters({ state, actions }) {
   return (
-    <section className={ui.card + " " + ui.cardPadding}>
+    <section className={`${ui.card} ${ui.cardPadding} relative overflow-visible`}>
       <div className={ui.toolbar}>
         <div>
           <MarkerLabel>Filters</MarkerLabel>
@@ -41,12 +41,17 @@ function TextFilter({ value, onChange }) {
 }
 
 function FilterSelect({ label, value, options, onChange }) {
+  const dropdownOptions = [allOption, ...options].map((option) => ({
+    value: option,
+    label: option,
+  }));
+
   return (
-    <SelectField label={label} value={value} onChange={(event) => onChange(event.target.value)}>
-      <option value={allOption}>All</option>
-      {options.map((option) => (
-        <option key={option} value={option}>{option}</option>
-      ))}
-    </SelectField>
+    <SelectField
+      label={label}
+      value={value}
+      options={dropdownOptions}
+      onChange={onChange}
+    />
   );
 }

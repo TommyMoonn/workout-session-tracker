@@ -7,5 +7,12 @@ export const controlStyles = {
   textarea: "min-h-[132px] w-full resize-y rounded-[4px] border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] px-3 py-2 text-base font-normal leading-normal text-[var(--oc-ink)] outline-none transition-colors placeholder:text-[var(--oc-stone)] focus:border-[var(--oc-accent)] focus:bg-[var(--oc-canvas-deep)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-accent)]",
   selectWrap: "relative block oc-select-wrap",
   select: "min-h-10 w-full appearance-none rounded-[4px] border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] px-3 py-2 pr-12 text-base font-normal leading-normal text-[var(--oc-ink)] outline-none transition-colors focus:border-[var(--oc-accent)] focus:bg-[var(--oc-canvas-deep)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-accent)]",
+  dropdownRoot: "relative",
+  dropdownButton: "flex min-h-10 w-full items-center justify-between gap-3 rounded-[4px] border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] px-3 py-2 text-left text-base font-normal leading-normal text-[var(--oc-ink)] outline-none transition-colors hover:border-[var(--oc-hairline-strong)] hover:bg-[var(--oc-surface-muted)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-accent)]",
+  dropdownButtonOpen: "border-[var(--oc-accent)] bg-[var(--oc-canvas-deep)]",
+  dropdownIndicator: "shrink-0 text-xs font-bold leading-none text-[var(--oc-muted)]",
+  dropdownPanel: "absolute left-0 right-0 top-[calc(100%+4px)] z-[120] max-h-64 overflow-auto rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] p-1 text-[var(--oc-ink)] shadow-none",
+  dropdownOption: "flex min-h-9 w-full items-center rounded-[4px] border border-transparent bg-transparent px-3 py-2 text-left text-sm leading-normal text-[var(--oc-body)] transition-colors hover:border-[var(--oc-hairline)] hover:bg-[var(--oc-surface-soft)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-accent)]",
+  dropdownOptionSelected: "border-[var(--oc-hairline-strong)] bg-[var(--oc-primary-soft)] text-[var(--oc-ink)]",
   filterField: "grid gap-1",
 };

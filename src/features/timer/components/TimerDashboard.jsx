@@ -14,8 +14,9 @@ export function TimerDashboard({ state, actions }) {
   return (
     <div className={ui.page}>
       <main>
-        <section className={cx(ui.gridTop, ui.reveal)}>
+        <section className={cx(ui.timerLayoutGrid, ui.reveal)}>
           <TimerHeroCard
+            className={ui.timerHeroArea}
             hasActiveSession={state.hasActiveSession}
             isWorkoutRunning={state.isWorkoutRunning}
             onFinishWorkout={actions.finishWorkout}
@@ -28,6 +29,7 @@ export function TimerDashboard({ state, actions }) {
           />
 
           <RestFlowCard
+            className={ui.timerRestArea}
             activeSetId={state.activeSetId}
             isRestRunning={state.isRestRunning}
             onChangeRestDurationInput={actions.changeRestDurationInput}
@@ -43,10 +45,8 @@ export function TimerDashboard({ state, actions }) {
             restRemaining={state.restRemaining}
             restStatus={state.restStatus}
           />
-        </section>
-
-        <section className={cx(ui.reveal, ui.reveal2)}>
           <TimerMetrics
+            className={ui.timerMetricsArea}
             onClearSetLogs={actions.clearSetLogs}
             onOpenSetLog={() => actions.setIsSetPanelOpen(true)}
             setCount={state.setLogs.length}

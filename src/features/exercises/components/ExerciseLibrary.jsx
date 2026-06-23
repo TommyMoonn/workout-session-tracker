@@ -11,11 +11,11 @@ export function ExerciseLibrary({ state, actions }) {
         <ExercisePageHeader totalExerciseCount={state.totalExerciseCount} />
       </div>
 
-      <div className={ui.reveal1}>
+      <div className={cx(ui.reveal1, "relative z-30")}>
         <ExerciseFilters state={state} actions={actions} />
       </div>
 
-      <div className={cx(ui.reveal, ui.reveal2)}>
+      <div className={cx(ui.reveal, ui.reveal2, "relative z-0")}>
         <ExerciseBrowser state={state} actions={actions} />
       </div>
     </div>

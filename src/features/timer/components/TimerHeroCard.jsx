@@ -13,9 +13,10 @@ export function TimerHeroCard({
   workoutElapsed,
   workoutStatus,
   workoutSummary,
+  className = "",
 }) {
   return (
-    <div className={cx(ui.card, ui.cardPadding)}>
+    <div className={cx(ui.card, ui.cardPadding, className)}>
       <p className={ui.labelMarker}>Timer</p>
       <h1 className={ui.heroTitle}>Track your workout.</h1>
 

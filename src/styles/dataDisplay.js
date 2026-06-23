@@ -2,7 +2,7 @@ export const dataDisplayStyles = {
   countCard: "grid min-w-[132px] border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] px-4 py-3 text-center",
   countLabel: "text-xs font-bold uppercase leading-normal text-[var(--oc-muted)]",
   countValue: "mt-1 text-[34px] font-bold leading-[1.15] text-[var(--oc-ink)]",
-  metricGrid: "mt-4 grid grid-cols-3 gap-4 max-[1120px]:grid-cols-2 max-[760px]:grid-cols-1",
+  metricGrid: "grid grid-cols-3 gap-4 max-[1120px]:grid-cols-2 max-[760px]:grid-cols-1",
   metricCard: "flex min-h-[136px] flex-col gap-2 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-6 text-[var(--oc-ink)] max-[760px]:p-4",
   metricValue: "text-[clamp(28px,4vw,40px)] font-bold leading-[1.2] text-[var(--oc-ink)]",
   miniMetric: "border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-6 text-[var(--oc-ink)] max-[760px]:p-4",

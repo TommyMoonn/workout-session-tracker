@@ -1,10 +1,11 @@
 import { Button } from "../../../components/ui";
+import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
 import { formatDuration } from "../../../utils/workoutFormat";
 
-export function TimerMetrics({ onClearSetLogs, onOpenSetLog, setCount, totalRestSeconds, workoutElapsed }) {
+export function TimerMetrics({ onClearSetLogs, onOpenSetLog, setCount, totalRestSeconds, workoutElapsed, className = "" }) {
   return (
-    <section className={ui.metricGrid}>
+    <section className={cx(ui.metricGrid, className)}>
       <MetricCard label="Workout time" value={formatDuration(workoutElapsed)} />
       <MetricCard label="Total rest time" value={formatDuration(totalRestSeconds)} />
       <MetricCard label="Sets logged" value={String(setCount)}>

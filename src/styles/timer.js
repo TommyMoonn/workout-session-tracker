@@ -1,5 +1,9 @@
 export const timerStyles = {
   gridTop: "grid grid-cols-[minmax(0,1.7fr)_minmax(320px,0.95fr)] items-stretch gap-4 max-[1120px]:grid-cols-1",
+  timerLayoutGrid: "grid grid-cols-3 items-stretch gap-4 max-[1120px]:grid-cols-1",
+  timerHeroArea: "col-span-2 max-[1120px]:col-span-1",
+  timerRestArea: "col-span-1",
+  timerMetricsArea: "col-span-full",
   timerSummaryMarked: "mt-4 border-t border-[var(--oc-hairline)] pt-3 text-xs font-bold uppercase leading-normal text-[var(--oc-muted)] oc-status-before",
   timerSummary: "mt-4 border-t border-[var(--oc-hairline)] pt-3 text-xs font-bold uppercase leading-normal text-[var(--oc-muted)]",
   timerPanel: "overflow-hidden border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] p-6 text-[var(--oc-ink)] max-[760px]:p-4",

@@ -19,9 +19,10 @@ export function RestFlowCard({
   restRemaining,
   restStatus,
   activeSetId,
+  className = "",
 }) {
   return (
-    <aside className={cx(ui.card, ui.cardPadding, ui.restCard, ui.reveal1)}>
+    <aside className={cx(ui.card, ui.cardPadding, ui.restCard, className)}>
       <div>
         <p className={ui.labelMarker}>Set + rest flow</p>
         <h2 className={ui.sectionTitle}>Complete set, then rest.</h2>
