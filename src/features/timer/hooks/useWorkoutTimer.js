@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../../../utils/workoutData";
+import { readWorkoutStorage, saveWorkoutStorage } from "../../../storage/workoutStorage";
 import { clampSeconds } from "../../../utils/workoutFormat";
 import {
   defaultRestSeconds,
@@ -253,8 +254,13 @@ export function useWorkoutTimer() {
       ...finishDraft,
       review: normalizeReview(sessionReview),
     };
+    const nextSessionLogs = [
+      session,
+      ...sessionLogs.filter((savedSession) => savedSession.id !== session.id),
+    ];
 
-    setSessionLogs((current) => [session, ...current]);
+    saveLoggedSession(nextSessionLogs, session.id);
+    setSessionLogs(nextSessionLogs);
     setSelectedSessionId(session.id);
     setFinishDraft(null);
     setSessionReview(createEmptyReview());
@@ -265,6 +271,31 @@ export function useWorkoutTimer() {
       totalRestSeconds: session.totalRestSeconds,
       setCount: session.setCount,
     });
+  }
+
+  function saveLoggedSession(nextSessionLogs, nextSelectedSessionId) {
+    const currentState = readWorkoutStorage();
+
+    saveWorkoutStorage({
+      ...currentState,
+      savedAt: Date.now(),
+      sessionLogs: nextSessionLogs,
+      selectedSessionId: nextSelectedSessionId,
+      activeSession: buildResetActiveSessionSnapshot(restDuration),
+    });
+  }
+
+  function buildResetActiveSessionSnapshot(seconds) {
+    return {
+      workoutElapsed: 0,
+      workoutStatus: "idle",
+      restDuration: seconds,
+      restDurationInput: String(seconds),
+      restRemaining: seconds,
+      restStatus: "idle",
+      activeSetId: null,
+      setLogs: [],
+    };
   }
 
   function cancelFinishWorkout() {

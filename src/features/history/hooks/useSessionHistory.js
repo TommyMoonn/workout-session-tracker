@@ -8,7 +8,7 @@ import { initialVisibleSessionCount, sessionLoadStep } from "../constants";
 
 export function useSessionHistory() {
   const jsonInputRef = useRef(null);
-  const storageLoadedRef = useRef(false);
+  const [hasLoadedStorage, setHasLoadedStorage] = useState(false);
 
   const [sessionLogs, setSessionLogs] = useState([]);
   const [selectedSessionId, setSelectedSessionId] = useState(null);
@@ -33,7 +33,7 @@ export function useSessionHistory() {
   }, []);
 
   useEffect(() => {
-    if (!storageLoadedRef.current) return;
+    if (!hasLoadedStorage) return;
 
     const currentState = readWorkoutStorage();
     saveWorkoutStorage({
@@ -42,7 +42,7 @@ export function useSessionHistory() {
       sessionLogs,
       selectedSessionId,
     });
-  }, [sessionLogs, selectedSessionId]);
+  }, [hasLoadedStorage, sessionLogs, selectedSessionId]);
 
   function loadSavedState() {
     const data = readWorkoutStorage();
@@ -51,7 +51,7 @@ export function useSessionHistory() {
     setSessionLogs(savedSessions);
     setSelectedSessionId(data?.selectedSessionId ?? savedSessions[0]?.id ?? null);
     setVisibleSessionCount(initialVisibleSessionCount);
-    storageLoadedRef.current = true;
+    setHasLoadedStorage(true);
   }
 
   function deleteSessionSet(sessionId, setId) {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { readWorkoutStorage, saveWorkoutStorage } from "../../../storage/workoutStorage";
 import { storageSyncMs } from "../constants";
 
@@ -23,15 +23,18 @@ export function useWorkoutPersistence({
   workoutStartedAt,
   workoutStatus,
 }) {
-  const storageLoadedRef = useRef(false);
+  const [hasLoadedStorage, setHasLoadedStorage] = useState(false);
 
   useEffect(() => {
     loadSavedState();
   }, []);
 
   useEffect(() => {
+    if (!hasLoadedStorage) return;
+
     persistWorkoutStorage();
   }, [
+    hasLoadedStorage,
     sessionLogs,
     selectedSessionId,
     workoutStatus,
@@ -43,7 +46,7 @@ export function useWorkoutPersistence({
   ]);
 
   useEffect(() => {
-    if (!storageLoadedRef.current || (!isWorkoutRunning && !isRestRunning)) return undefined;
+    if (!hasLoadedStorage || (!isWorkoutRunning && !isRestRunning)) return undefined;
 
     const syncTimer = window.setInterval(() => {
       persistWorkoutStorage();
@@ -51,6 +54,7 @@ export function useWorkoutPersistence({
 
     return () => window.clearInterval(syncTimer);
   }, [
+    hasLoadedStorage,
     isWorkoutRunning,
     isRestRunning,
     sessionLogs,
@@ -77,6 +81,7 @@ export function useWorkoutPersistence({
       document.removeEventListener("visibilitychange", persistWhenHidden);
     };
   }, [
+    hasLoadedStorage,
     sessionLogs,
     selectedSessionId,
     workoutStartedAt,
@@ -92,7 +97,7 @@ export function useWorkoutPersistence({
   ]);
 
   function persistWorkoutStorage() {
-    if (!storageLoadedRef.current) return;
+    if (!hasLoadedStorage) return;
 
     saveWorkoutStorage({
       savedAt: Date.now(),
@@ -106,7 +111,7 @@ export function useWorkoutPersistence({
     try {
       const data = readWorkoutStorage();
       if (!Object.keys(data).length) {
-        storageLoadedRef.current = true;
+        setHasLoadedStorage(true);
         return;
       }
       const savedSessions = Array.isArray(data?.sessionLogs) ? data.sessionLogs : [];
@@ -118,7 +123,7 @@ export function useWorkoutPersistence({
       console.error(error);
       showToast("Could not load saved workout data.");
     } finally {
-      storageLoadedRef.current = true;
+      setHasLoadedStorage(true);
     }
   }
 }
