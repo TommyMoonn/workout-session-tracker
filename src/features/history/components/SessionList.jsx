@@ -1,7 +1,7 @@
 import { Button, MarkedPill } from "../../../components/ui";
 import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
-import { formatDateTime, formatDuration } from "../../../utils/workoutFormat";
+import { formatDateTime } from "../../../utils/workoutFormat";
 import { sessionLoadStep } from "../constants";
 
 export function SessionList({
@@ -23,18 +23,14 @@ export function SessionList({
             key={session.id}
             type="button"
             onClick={() => onSelectSession(session.id)}
-            className={cx(ui.rowButton, "[contain-intrinsic-size:116px]", isSelected && ui.rowSelected)}
+            className={cx(ui.rowButton, "[contain-intrinsic-size:92px]", isSelected && ui.rowSelected)}
           >
             <div className={ui.rowTop}>
               <div>
                 <p className={ui.labelMarker}>Session {sessionCount - index}</p>
                 <p className={ui.rowTitle}>{formatDateTime(session.startedAt)}</p>
               </div>
-              <MarkedPill selected={isSelected}>{session.setCount} sets</MarkedPill>
-            </div>
-            <div className={cx(ui.rowMeta, isSelected && ui.rowMetaSelected)}>
-              <span>Workout {formatDuration(session.workoutSeconds)}</span>
-              <span>Rest {formatDuration(session.totalRestSeconds)}</span>
+              <MarkedPill selected={isSelected} className="shrink-0">{session.setCount} sets</MarkedPill>
             </div>
           </button>
         );
