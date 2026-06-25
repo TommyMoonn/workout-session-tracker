@@ -46,7 +46,7 @@ export function getWorkoutTypeLabel(value) {
 export function getWorkoutTagsLabel(values) {
   const tags = Array.isArray(values) ? values : [values];
   const labels = tags.map(getWorkoutTypeLabel).filter((label) => label !== "No tag");
-  return labels.length > 0 ? labels.join(" · ") : "No tags";
+  return labels.length > 0 ? labels.join(" · ") : "NO TAG";
 }
 
 export function getReviewWorkoutTagOptions(currentValues) {

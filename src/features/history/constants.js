@@ -1,1 +1,1 @@
-export const historyPageSize = 10;
+export const historyPageSize = 6;

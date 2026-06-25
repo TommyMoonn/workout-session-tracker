@@ -2,6 +2,7 @@ import { MarkedPill } from "../../../components/ui";
 import { ui } from "../../../styles";
 import { formatDateTime } from "../../../utils/workoutFormat";
 import { getWorkoutTags, getWorkoutTagsLabel } from "../../../domain/workoutTypes";
+import { historyPageSize } from "../constants";
 
 export function SessionList({
   displayMode = "list",
@@ -10,6 +11,8 @@ export function SessionList({
   sessionCount,
   visibleSessions,
 }) {
+  const placeholderCount = Math.max(historyPageSize - visibleSessions.length, 0);
+
   return (
     <div className={displayMode === "card" ? ui.sessionCardGrid : ui.sessionListPanel}>
       {visibleSessions.map((session, index) => (
@@ -23,7 +26,19 @@ export function SessionList({
           sessionCount={sessionCount}
         />
       ))}
+      {Array.from({ length: placeholderCount }, (_, index) => (
+        <SessionPlaceholder displayMode={displayMode} key={`session-placeholder-${index}`} />
+      ))}
     </div>
+  );
+}
+
+function SessionPlaceholder({ displayMode }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={displayMode === "card" ? ui.sessionCardPlaceholder : ui.sessionListPlaceholder}
+    />
   );
 }
 
@@ -44,7 +59,7 @@ function SessionSummaryItem({ displayMode, index, onOpenSession, pageSessionStar
           <MarkedPill marker="[sets]" className="shrink-0">{session.setCount}</MarkedPill>
         </div>
         <p className={ui.sessionCardTitle}>{formatDateTime(session.startedAt)}</p>
-        {workoutTags.length > 0 && <p className={ui.sessionCardMeta}>{workoutTagsLabel}</p>}
+        <p className={ui.sessionCardMeta}>{workoutTagsLabel}</p>
       </button>
     );
   }
@@ -59,7 +74,7 @@ function SessionSummaryItem({ displayMode, index, onOpenSession, pageSessionStar
         <div className="min-w-0">
           <p className={ui.labelMarker}>Session {sessionNumber}</p>
           <p className={ui.rowTitle}>{formatDateTime(session.startedAt)}</p>
-          {workoutTags.length > 0 && <p className={ui.sessionListMeta}>{workoutTagsLabel}</p>}
+          <p className={ui.sessionListMeta}>{workoutTagsLabel}</p>
         </div>
         <MarkedPill marker="[sets]" className="shrink-0">{session.setCount}</MarkedPill>
       </div>

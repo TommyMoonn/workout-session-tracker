@@ -11,7 +11,7 @@ export function buildSessionMarkdown(session) {
     `- Workout time: ${formatDuration(session.workoutSeconds)}`,
     `- Total rest time: ${formatDuration(session.totalRestSeconds)}`,
     `- Sets: ${session.setCount}`,
-    `- Workout tags: ${review.workoutTags.length > 0 ? getWorkoutTagsLabel(review.workoutTags) : "Not added"}`,
+    `- Workout tags: ${getWorkoutTagsLabel(review.workoutTags)}`,
     `- Energy: ${review.energy}/5`,
     `- Difficulty: ${review.difficulty}/5`,
     `- Mood: ${review.mood}/5`,
