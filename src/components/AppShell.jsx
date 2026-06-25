@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { SettingsPanel } from "./settings";
 import SideNav from "./SideNav";
 import { ShortcutProvider, useKeyboardShortcuts } from "../features/shortcuts";
+import { SoundSettingsProvider } from "../features/soundSettings";
 
 const navigationShortcuts = [
   { id: "nav.timer", path: "/timer" },
@@ -53,9 +54,11 @@ function AppShellContent() {
 
 function AppShell() {
   return (
-    <ShortcutProvider>
-      <AppShellContent />
-    </ShortcutProvider>
+    <SoundSettingsProvider>
+      <ShortcutProvider>
+        <AppShellContent />
+      </ShortcutProvider>
+    </SoundSettingsProvider>
   );
 }
 

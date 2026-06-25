@@ -3,7 +3,7 @@ import { cx } from "../../lib/cx";
 import { ui } from "../../styles";
 import { MarkerLabel } from "./MarkerLabel";
 
-export function SelectField({ label, value, options, onChange, className = "" }) {
+export function SelectField({ label, value, options, onChange, className = "", hideLabel = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const fieldId = useId();
   const rootRef = useRef(null);
@@ -40,7 +40,7 @@ export function SelectField({ label, value, options, onChange, className = "" })
 
   return (
     <div ref={rootRef} className={cx(ui.filterField, className)}>
-      <MarkerLabel as="span">{label}</MarkerLabel>
+      <MarkerLabel as="span" className={hideLabel ? "sr-only" : ""}>{label}</MarkerLabel>
       <div className={cx(ui.dropdownRoot, isOpen && "z-[120]")}>
         <button
           type="button"

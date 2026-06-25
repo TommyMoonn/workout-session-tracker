@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useSoundSettings } from "../../soundSettings";
 import { restAlertAutoDismissMs } from "../constants";
 import { playChillAlarm } from "../utils/restAlarm";
 
@@ -7,17 +8,27 @@ export function useRestAlarm() {
   const restAlertDismissTimerRef = useRef(null);
   const alarmContextsRef = useRef([]);
   const [restAlert, setRestAlert] = useState(false);
+  const { settings } = useSoundSettings();
 
   useEffect(() => () => {
     window.clearTimeout(restAlertDismissTimerRef.current);
     stopRestAlarm();
   }, []);
 
+  useEffect(() => {
+    if (!restAlert || settings.restAlertSoundEnabled) return;
+    stopRestAlarm();
+  }, [restAlert, settings.restAlertSoundEnabled]);
+
   function showRestEndedAlert() {
     stopRestAlarm();
     window.clearTimeout(restAlertDismissTimerRef.current);
     setRestAlert(true);
-    startRestAlarmLoop();
+
+    if (settings.restAlertSoundEnabled) {
+      startRestAlarmLoop();
+    }
+
     restAlertDismissTimerRef.current = window.setTimeout(closeRestAlert, restAlertAutoDismissMs);
   }
 
@@ -29,8 +40,14 @@ export function useRestAlarm() {
   }
 
   function startRestAlarmLoop() {
-    playChillAlarm(alarmContextsRef);
-    alarmLoopRef.current = window.setInterval(() => playChillAlarm(alarmContextsRef), 1750);
+    playChillAlarm(alarmContextsRef, settings.restAlertVolume);
+
+    if (!settings.restAlertRepeatEnabled) return;
+
+    alarmLoopRef.current = window.setInterval(
+      () => playChillAlarm(alarmContextsRef, settings.restAlertVolume),
+      1750
+    );
   }
 
   function stopRestAlarm() {

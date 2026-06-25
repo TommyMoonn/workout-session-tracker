@@ -1,4 +1,10 @@
-export function playChillAlarm(alarmContextsRef) {
+const restAlarmVolumeMap = {
+  low: 0.04,
+  medium: 0.075,
+  high: 0.12,
+};
+
+export function playChillAlarm(alarmContextsRef, volume = "medium") {
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
@@ -6,8 +12,10 @@ export function playChillAlarm(alarmContextsRef) {
     const audioContext = new AudioContext();
     alarmContextsRef.current = [...alarmContextsRef.current, audioContext];
     const masterGain = audioContext.createGain();
+    const peakVolume = restAlarmVolumeMap[volume] ?? restAlarmVolumeMap.medium;
+
     masterGain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-    masterGain.gain.exponentialRampToValueAtTime(0.075, audioContext.currentTime + 0.03);
+    masterGain.gain.exponentialRampToValueAtTime(peakVolume, audioContext.currentTime + 0.03);
     masterGain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.55);
     masterGain.connect(audioContext.destination);
 
