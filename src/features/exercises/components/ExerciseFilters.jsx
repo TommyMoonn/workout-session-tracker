@@ -1,8 +1,9 @@
+import { forwardRef } from "react";
 import { Button, MarkerLabel, SelectField } from "../../../components/ui";
 import { ui } from "../../../styles";
 import { allOption, demoFilterOptions } from "../utils/exerciseSearch";
 
-export function ExerciseFilters({ state, actions }) {
+export function ExerciseFilters({ state, actions, searchInputRef }) {
   return (
     <section className={`${ui.card} ${ui.cardPadding} relative overflow-visible`}>
       <div className={ui.toolbar}>
@@ -16,7 +17,7 @@ export function ExerciseFilters({ state, actions }) {
       </div>
 
       <div className={ui.exerciseFilterGrid}>
-        <TextFilter value={state.query} onChange={actions.setQuery} />
+        <TextFilter ref={searchInputRef} value={state.query} onChange={actions.setQuery} />
         <FilterSelect label="Category" value={state.category} options={state.categories} onChange={actions.setCategory} />
         <FilterSelect label="Equipment" value={state.equipment} options={state.equipmentOptions} onChange={actions.setEquipment} />
         <FilterSelect label="Difficulty" value={state.difficulty} options={state.difficultyOptions} onChange={actions.setDifficulty} />
@@ -26,11 +27,12 @@ export function ExerciseFilters({ state, actions }) {
   );
 }
 
-function TextFilter({ value, onChange }) {
+const TextFilter = forwardRef(function TextFilter({ value, onChange }, ref) {
   return (
     <label className={ui.filterField}>
       <MarkerLabel as="span">Search</MarkerLabel>
       <input
+        ref={ref}
         className={ui.input}
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -38,7 +40,7 @@ function TextFilter({ value, onChange }) {
       />
     </label>
   );
-}
+});
 
 function FilterSelect({ label, value, options, onChange }) {
   const dropdownOptions = [allOption, ...options].map((option) => ({

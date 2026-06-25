@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { ReviewModal } from "../../../components/session";
 import { Toast } from "../../../components/ui";
 import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
+import { useKeyboardShortcuts } from "../../shortcuts";
 import { formatDuration } from "../../../utils/workoutFormat";
 import { RestCompletePopup } from "./RestCompletePopup";
 import { RestFlowCard } from "./RestFlowCard";
@@ -11,8 +13,69 @@ import { TimerHeroCard } from "./TimerHeroCard";
 import { TimerMetrics } from "./TimerMetrics";
 
 export function TimerDashboard({ state, actions }) {
+  const timerShortcuts = useMemo(() => [
+    {
+      id: "timer.startPause",
+      disabled: Boolean(state.finishDraft || state.loggedSessionNotice),
+      handler: () => {
+        if (state.isWorkoutRunning) {
+          actions.pauseWorkout();
+        } else {
+          actions.startWorkout();
+        }
+      },
+    },
+    {
+      id: "timer.completeSetRest",
+      disabled: Boolean(state.finishDraft || state.loggedSessionNotice),
+      handler: () => {
+        if (state.isRestRunning) {
+          actions.pauseRest();
+        } else if (state.restStatus === "paused") {
+          actions.resumeRest();
+        } else {
+          actions.completeSetAndStartRest();
+        }
+      },
+    },
+    {
+      id: "timer.openSetLog",
+      disabled: Boolean(state.finishDraft || state.loggedSessionNotice),
+      handler: () => actions.setIsSetPanelOpen(!state.isSetPanelOpen),
+    },
+    {
+      id: "timer.finishSession",
+      disabled: !state.hasActiveSession || Boolean(state.finishDraft || state.loggedSessionNotice),
+      handler: actions.finishWorkout,
+    },
+    {
+      id: "global.close",
+      allowInEditable: true,
+      handler: () => {
+        if (state.finishDraft) {
+          actions.cancelFinishWorkout();
+          return;
+        }
+        if (state.loggedSessionNotice) {
+          actions.setLoggedSessionNotice(null);
+          return;
+        }
+        if (state.isSetPanelOpen) {
+          actions.setIsSetPanelOpen(false);
+          return;
+        }
+        if (state.restAlert) {
+          actions.closeRestAlert();
+        }
+      },
+    },
+  ], [actions, state.finishDraft, state.hasActiveSession, state.isRestRunning, state.isSetPanelOpen, state.isWorkoutRunning, state.loggedSessionNotice, state.restAlert, state.restStatus]);
+
+  useKeyboardShortcuts(timerShortcuts);
+
   return (
     <div className={ui.page}>
+      {state.restAlert && <RestCompletePopup onClose={actions.closeRestAlert} />}
       <main>
         <section className={cx(ui.timerLayoutGrid, ui.reveal)}>
           <TimerHeroCard
@@ -84,7 +147,6 @@ export function TimerDashboard({ state, actions }) {
         />
       )}
 
-      {state.restAlert && <RestCompletePopup onClose={actions.closeRestAlert} />}
       <Toast message={state.toast} />
     </div>
   );

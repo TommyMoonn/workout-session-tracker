@@ -1,6 +1,8 @@
+import { useMemo } from "react";
 import { ReviewModal } from "../../../components/session";
 import { EmptyState, Toast } from "../../../components/ui";
 import { ui } from "../../../styles";
+import { useKeyboardShortcuts } from "../../shortcuts";
 import { formatDateTime, formatDuration } from "../../../utils/workoutFormat";
 import { ArchiveActions } from "./ArchiveActions";
 import { HistoryDetailView } from "./HistoryDetailView";
@@ -10,6 +12,43 @@ import { HistoryPageHeader } from "./HistoryPageHeader";
 export function HistoryArchive({ state, actions, refs }) {
   const hasSessions = state.sessionLogs.length > 0;
   const isDetailView = Boolean(state.selectedSession);
+  const historyShortcuts = useMemo(() => [
+    {
+      id: "history.listView",
+      disabled: isDetailView || state.editingSession || state.historyDisplayMode === "list",
+      handler: () => actions.setHistoryDisplayMode("list"),
+    },
+    {
+      id: "history.cardView",
+      disabled: isDetailView || state.editingSession || state.historyDisplayMode === "card",
+      handler: () => actions.setHistoryDisplayMode("card"),
+    },
+    {
+      id: "history.previousPage",
+      disabled: isDetailView || state.editingSession || state.currentHistoryPage <= 1,
+      handler: actions.previousHistoryPage,
+    },
+    {
+      id: "history.nextPage",
+      disabled: isDetailView || state.editingSession || state.currentHistoryPage >= state.totalHistoryPages,
+      handler: actions.nextHistoryPage,
+    },
+    {
+      id: "global.close",
+      allowInEditable: true,
+      handler: () => {
+        if (state.editingSession) {
+          actions.cancelEditSessionReview();
+          return;
+        }
+        if (isDetailView) {
+          actions.closeSessionDetail();
+        }
+      },
+    },
+  ], [actions, isDetailView, state.currentHistoryPage, state.editingSession, state.historyDisplayMode, state.totalHistoryPages]);
+
+  useKeyboardShortcuts(historyShortcuts);
 
   return (
     <div className={ui.page}>
