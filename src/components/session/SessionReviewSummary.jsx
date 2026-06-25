@@ -4,15 +4,17 @@ import { normalizeReview } from "../../utils/workoutData";
 
 export function SessionReviewSummary({ session, onEditReview }) {
   const review = normalizeReview(session?.review);
+  const workoutType = review.workoutType.trim();
+  const thoughts = review.thoughts.trim();
 
   return (
-    <div className={ui.reviewBox}>
+    <section className={ui.reviewBox}>
       <div className={ui.rowBetween}>
-        <div>
-          <p className={ui.labelMarker}>Session notes</p>
-          <h3 className={ui.smallTitle}>{review.workoutType.trim() || "No workout type added"}</h3>
+        <div className="min-w-0">
+          <p className={ui.labelMarker}>Review</p>
+          <h3 className={ui.smallTitle}>{workoutType || "Untitled workout"}</h3>
         </div>
-        <Button variant="soft" className="h-10 w-10 px-0 text-lg leading-none" onClick={onEditReview} aria-label="Edit notes" title="Edit notes">
+        <Button variant="soft" className="h-9 w-9 shrink-0 px-0 text-base leading-none" onClick={onEditReview} aria-label="Edit review" title="Edit review">
           ✎
         </Button>
       </div>
@@ -24,8 +26,8 @@ export function SessionReviewSummary({ session, onEditReview }) {
         <RatingPill label="Experience" value={review.overallExperience} />
       </div>
 
-      <p className={ui.reviewThoughts}>{review.thoughts.trim() || "No thoughts added."}</p>
-    </div>
+      <p className={ui.reviewThoughts}>{thoughts || "No notes."}</p>
+    </section>
   );
 }
 

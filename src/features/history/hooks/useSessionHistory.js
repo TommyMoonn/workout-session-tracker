@@ -4,7 +4,7 @@ import { readWorkoutStorage, saveWorkoutStorage } from "../../../storage/workout
 import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../../../utils/workoutData";
 import { buildSessionMarkdown, downloadFile } from "../../../utils/workoutExport";
 import { formatFileTimestamp } from "../../../utils/workoutFormat";
-import { initialVisibleSessionCount, sessionLoadStep } from "../constants";
+import { historyPageSize } from "../constants";
 
 export function useSessionHistory() {
   const jsonInputRef = useRef(null);
@@ -12,25 +12,33 @@ export function useSessionHistory() {
 
   const [sessionLogs, setSessionLogs] = useState([]);
   const [selectedSessionId, setSelectedSessionId] = useState(null);
+  const [historyDisplayMode, setHistoryDisplayMode] = useState("list");
+  const [historyPage, setHistoryPage] = useState(1);
   const [editingSession, setEditingSession] = useState(null);
   const [editingReview, setEditingReview] = useState(createEmptyReview());
-  const [visibleSessionCount, setVisibleSessionCount] = useState(initialVisibleSessionCount);
   const { toast, showToast } = useToast();
 
   const selectedSession = useMemo(() => (
-    sessionLogs.find((session) => session.id === selectedSessionId) ?? sessionLogs[0] ?? null
+    sessionLogs.find((session) => session.id === selectedSessionId) ?? null
   ), [sessionLogs, selectedSessionId]);
 
-  const visibleSessions = useMemo(
-    () => sessionLogs.slice(0, visibleSessionCount),
-    [sessionLogs, visibleSessionCount]
-  );
+  const totalHistoryPages = Math.max(1, Math.ceil(sessionLogs.length / historyPageSize));
+  const currentHistoryPage = Math.min(historyPage, totalHistoryPages);
+  const pageSessionStart = (currentHistoryPage - 1) * historyPageSize;
 
-  const hasMoreSessions = visibleSessionCount < sessionLogs.length;
+  const visibleSessions = useMemo(
+    () => sessionLogs.slice(pageSessionStart, pageSessionStart + historyPageSize),
+    [pageSessionStart, sessionLogs]
+  );
 
   useEffect(() => {
     loadSavedState();
   }, []);
+
+  useEffect(() => {
+    if (historyPage <= totalHistoryPages) return;
+    setHistoryPage(totalHistoryPages);
+  }, [historyPage, totalHistoryPages]);
 
   useEffect(() => {
     if (!hasLoadedStorage) return;
@@ -41,16 +49,20 @@ export function useSessionHistory() {
       savedAt: Date.now(),
       sessionLogs,
       selectedSessionId,
+      historyDisplayMode,
+      historyPage: currentHistoryPage,
     });
-  }, [hasLoadedStorage, sessionLogs, selectedSessionId]);
+  }, [currentHistoryPage, hasLoadedStorage, historyDisplayMode, sessionLogs, selectedSessionId]);
 
   function loadSavedState() {
     const data = readWorkoutStorage();
     const savedSessions = Array.isArray(data?.sessionLogs) ? data.sessionLogs : [];
+    const savedPage = Number.isInteger(data?.historyPage) && data.historyPage > 0 ? data.historyPage : 1;
 
     setSessionLogs(savedSessions);
-    setSelectedSessionId(data?.selectedSessionId ?? savedSessions[0]?.id ?? null);
-    setVisibleSessionCount(initialVisibleSessionCount);
+    setSelectedSessionId(null);
+    setHistoryDisplayMode(data?.historyDisplayMode === "card" ? "card" : "list");
+    setHistoryPage(savedPage);
     setHasLoadedStorage(true);
   }
 
@@ -75,7 +87,8 @@ export function useSessionHistory() {
   function clearSessionLogs() {
     setSessionLogs([]);
     setSelectedSessionId(null);
-    setVisibleSessionCount(initialVisibleSessionCount);
+    setHistoryDisplayMode("list");
+    setHistoryPage(1);
     showToast("Session history cleared.");
   }
 
@@ -136,8 +149,8 @@ export function useSessionHistory() {
         }
 
         setSessionLogs(logs);
-        setSelectedSessionId(logs[0]?.id ?? null);
-        setVisibleSessionCount(initialVisibleSessionCount);
+        setSelectedSessionId(null);
+        setHistoryPage(1);
         showToast(`${logs.length} workout session(s) loaded.`);
       } catch (error) {
         console.error(error);
@@ -151,6 +164,14 @@ export function useSessionHistory() {
       event.target.value = "";
     };
     reader.readAsText(file);
+  }
+
+  function openSessionDetail(sessionId) {
+    setSelectedSessionId(sessionId);
+  }
+
+  function closeSessionDetail() {
+    setSelectedSessionId(null);
   }
 
   function exportSelectedMarkdown() {
@@ -182,19 +203,26 @@ export function useSessionHistory() {
     showToast("All sessions markdown exported.");
   }
 
-  function showMoreSessions() {
-    setVisibleSessionCount((current) => current + sessionLoadStep);
+  function previousHistoryPage() {
+    setHistoryPage((current) => Math.max(1, current - 1));
+  }
+
+  function nextHistoryPage() {
+    setHistoryPage((current) => Math.min(totalHistoryPages, current + 1));
   }
 
   return {
     state: {
+      currentHistoryPage,
       editingReview,
       editingSession,
-      hasMoreSessions,
+      historyDisplayMode,
+      historyPageSize,
+      pageSessionStart,
       selectedSession,
       sessionLogs,
       toast,
-      visibleSessionCount,
+      totalHistoryPages,
       visibleSessions,
     },
     refs: {
@@ -202,18 +230,22 @@ export function useSessionHistory() {
     },
     actions: {
       cancelEditSessionReview,
+      closeSessionDetail,
       clearSessionLogs,
       deleteSessionSet,
       exportAllMarkdown,
       exportSelectedMarkdown,
       exportWorkoutHistoryJson,
       importWorkoutHistoryJson,
+      nextHistoryPage,
       openEditSessionReview,
+      openSessionDetail,
       openJsonImport,
+      previousHistoryPage,
       saveEditSessionReview,
       setEditingReview,
+      setHistoryDisplayMode,
       setSelectedSessionId,
-      showMoreSessions,
     },
   };
 }
