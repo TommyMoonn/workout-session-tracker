@@ -7,14 +7,14 @@ export function SetTable({ sets, emptyText, onDeleteSet }) {
     <table className={ui.table}>
       <thead>
         <tr>
-          <th>Set</th>
-          <th>Time to complete</th>
-          <th>Completed at</th>
-          <th>Rest target</th>
+          <th className={ui.tableSetCell}>Set</th>
+          <th>Duration</th>
+          <th>Completed</th>
+          <th>Rest goal</th>
           <th>Rest actual</th>
           <th>Rest start</th>
           <th>Rest end</th>
-          <th>Action</th>
+          <th className={ui.tableActionHeader}>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -25,15 +25,15 @@ export function SetTable({ sets, emptyText, onDeleteSet }) {
         ) : (
           sets.map((set) => (
             <tr key={set.id}>
-              <td>Set {set.setNumber}</td>
-              <td>{formatClock(set.timeToCompleteSetSeconds ?? 0)}</td>
-              <td>{formatClock(set.completedAtSessionSeconds ?? 0)}</td>
-              <td>{formatClock(set.restTargetSeconds ?? 0)}</td>
-              <td>{set.restActualSeconds == null ? "—" : formatClock(set.restActualSeconds)}</td>
-              <td>{formatClock(set.restStartedAtSessionSeconds ?? 0)}</td>
-              <td>{set.restEndedAtSessionSeconds == null ? "—" : formatClock(set.restEndedAtSessionSeconds)}</td>
-              <td>
-                <Button variant="soft" onClick={() => onDeleteSet(set.id)}>Delete</Button>
+              <td className={ui.tableSetCell}>Set {set.setNumber}</td>
+              <td className={ui.tableTimeCell}>{formatClock(set.timeToCompleteSetSeconds ?? 0)}</td>
+              <td className={ui.tableTimeCell}>{formatClock(set.completedAtSessionSeconds ?? 0)}</td>
+              <td className={ui.tableTimeCell}>{formatClock(set.restTargetSeconds ?? 0)}</td>
+              <td className={ui.tableTimeCell}>{set.restActualSeconds == null ? "—" : formatClock(set.restActualSeconds)}</td>
+              <td className={ui.tableTimeCell}>{formatClock(set.restStartedAtSessionSeconds ?? 0)}</td>
+              <td className={ui.tableTimeCell}>{set.restEndedAtSessionSeconds == null ? "—" : formatClock(set.restEndedAtSessionSeconds)}</td>
+              <td className={ui.tableActionCell}>
+                <Button variant="soft" className={ui.tableActionButton} onClick={() => onDeleteSet(set.id)}>Delete</Button>
               </td>
             </tr>
           ))

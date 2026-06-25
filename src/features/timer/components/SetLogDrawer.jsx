@@ -8,13 +8,11 @@ export function SetLogDrawer({ setLogs, onClose, onClear, onDeleteSet }) {
       <div className={ui.overlay} onMouseDown={onClose} />
       <aside className={ui.drawerPanel} onMouseDown={(event) => event.stopPropagation()}>
         <div className={ui.drawerHeader}>
-          <div className={ui.rowBetween}>
-            <div>
-              <p className={ui.labelMarker}>Current set log</p>
-              <h2 className={ui.sectionTitle}>{setLogs.length} sets logged</h2>
-            </div>
-            <Button variant="soft" onClick={onClose}>Close</Button>
+          <div>
+            <p className={ui.labelMarker}>Current set log</p>
+            <h2 className={ui.sectionTitle}>{setLogs.length} sets logged</h2>
           </div>
+          <Button variant="soft" className={ui.drawerClose} onClick={onClose} aria-label="Close set log">×</Button>
         </div>
         <div className={ui.drawerBody}>
           <div className={ui.tablePanel}>
