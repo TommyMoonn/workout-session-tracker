@@ -25,7 +25,7 @@ const navItems = [
 function SideNav({ onOpenSettings }) {
   return (
     <aside className="sticky top-0 z-20 h-screen border-r border-[var(--oc-hairline)] bg-[var(--oc-canvas-deep)] p-4 text-[var(--oc-ink)] max-[1120px]:static max-[1120px]:h-auto max-[1120px]:border-b max-[1120px]:border-r-0 max-[1120px]:p-3">
-      <div className="grid grid-cols-[40px_minmax(0,1fr)_40px] items-center gap-3 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-3 max-[760px]:grid-cols-[38px_minmax(0,1fr)_38px]">
+      <div className="grid grid-cols-[40px_minmax(0,1fr)] items-center gap-3 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-3 max-[760px]:grid-cols-[38px_minmax(0,1fr)]">
         <button
           type="button"
           className="grid h-10 w-10 place-items-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] text-base leading-none text-[var(--oc-ink)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-accent)] max-[760px]:h-[38px] max-[760px]:w-[38px]"
@@ -37,9 +37,7 @@ function SideNav({ onOpenSettings }) {
         </button>
         <div className="min-w-0">
           <p className="truncate text-base font-bold leading-tight text-[var(--oc-ink)]">LiftLog Lite</p>
-          <p className="mt-1 truncate text-xs font-normal leading-tight text-[var(--oc-muted)]">Local workout tracker</p>
         </div>
-        <span className="grid h-10 w-10 place-items-center rounded-[4px] border border-[var(--oc-hairline)] bg-transparent text-xs font-bold leading-none text-[var(--oc-marker)] max-[760px]:h-[38px] max-[760px]:w-[38px]">[LL]</span>
       </div>
 
       <nav className="mt-4 grid gap-2 max-[1120px]:grid-cols-3 max-[760px]:grid-cols-1" aria-label="Primary navigation">
