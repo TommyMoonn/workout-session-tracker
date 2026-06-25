@@ -1,9 +1,18 @@
-import { Button } from "../ui";
+import { getReviewWorkoutTagOptions, maxWorkoutTagsPerSession } from "../../domain/workoutTypes";
 import { ui } from "../../styles";
+import { Button, MultiSelectField } from "../ui";
 
 export function ReviewModal({ title, subtitle, review, onChange, onCancel, onSave, mode }) {
   function update(field, value) {
     onChange({ ...review, [field]: value });
+  }
+
+  function updateWorkoutTags(workoutTags) {
+    onChange({
+      ...review,
+      workoutTags,
+      workoutType: workoutTags[0] ?? "",
+    });
   }
 
   return (
@@ -19,15 +28,15 @@ export function ReviewModal({ title, subtitle, review, onChange, onCancel, onSav
         </div>
 
         <div className={ui.formGrid}>
-          <label className={ui.fullSpan}>
-            <span className={ui.labelMarker}>Workout type</span>
-            <input
-              className={ui.input}
-              value={review.workoutType}
-              onChange={(event) => update("workoutType", event.target.value)}
-              placeholder="Push day, pull + legs, chest day..."
+          <div className={ui.fullSpan}>
+            <MultiSelectField
+              label="Workout tags"
+              values={review.workoutTags}
+              options={getReviewWorkoutTagOptions(review.workoutTags)}
+              maxSelections={maxWorkoutTagsPerSession}
+              onChange={updateWorkoutTags}
             />
-          </label>
+          </div>
 
           <RatingInput label="Energy" value={review.energy} onChange={(value) => update("energy", value)} />
           <RatingInput label="Difficulty" value={review.difficulty} onChange={(value) => update("difficulty", value)} />

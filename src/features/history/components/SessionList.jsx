@@ -1,7 +1,7 @@
 import { MarkedPill } from "../../../components/ui";
 import { ui } from "../../../styles";
 import { formatDateTime } from "../../../utils/workoutFormat";
-import { normalizeReview } from "../../../utils/workoutData";
+import { getWorkoutTags, getWorkoutTagsLabel } from "../../../domain/workoutTypes";
 
 export function SessionList({
   displayMode = "list",
@@ -28,8 +28,8 @@ export function SessionList({
 }
 
 function SessionSummaryItem({ displayMode, index, onOpenSession, pageSessionStart, session, sessionCount }) {
-  const review = normalizeReview(session.review);
-  const workoutType = review.workoutType.trim();
+  const workoutTags = getWorkoutTags(session);
+  const workoutTagsLabel = getWorkoutTagsLabel(workoutTags);
   const sessionNumber = sessionCount - pageSessionStart - index;
 
   if (displayMode === "card") {
@@ -44,7 +44,7 @@ function SessionSummaryItem({ displayMode, index, onOpenSession, pageSessionStar
           <MarkedPill marker="[sets]" className="shrink-0">{session.setCount}</MarkedPill>
         </div>
         <p className={ui.sessionCardTitle}>{formatDateTime(session.startedAt)}</p>
-        {workoutType && <p className={ui.sessionCardMeta}>{workoutType}</p>}
+        {workoutTags.length > 0 && <p className={ui.sessionCardMeta}>{workoutTagsLabel}</p>}
       </button>
     );
   }
@@ -59,7 +59,7 @@ function SessionSummaryItem({ displayMode, index, onOpenSession, pageSessionStar
         <div className="min-w-0">
           <p className={ui.labelMarker}>Session {sessionNumber}</p>
           <p className={ui.rowTitle}>{formatDateTime(session.startedAt)}</p>
-          {workoutType && <p className={ui.sessionListMeta}>{workoutType}</p>}
+          {workoutTags.length > 0 && <p className={ui.sessionListMeta}>{workoutTagsLabel}</p>}
         </div>
         <MarkedPill marker="[sets]" className="shrink-0">{session.setCount}</MarkedPill>
       </div>

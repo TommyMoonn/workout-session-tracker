@@ -1,10 +1,11 @@
 import { Button } from "../ui";
 import { ui } from "../../styles";
+import { getWorkoutTagsLabel } from "../../domain/workoutTypes";
 import { normalizeReview } from "../../utils/workoutData";
 
 export function SessionReviewSummary({ session, onEditReview }) {
   const review = normalizeReview(session?.review);
-  const workoutType = review.workoutType.trim();
+  const workoutTagsLabel = getWorkoutTagsLabel(review.workoutTags);
   const thoughts = review.thoughts.trim();
 
   return (
@@ -12,7 +13,7 @@ export function SessionReviewSummary({ session, onEditReview }) {
       <div className={ui.rowBetween}>
         <div className="min-w-0">
           <p className={ui.labelMarker}>Review</p>
-          <h3 className={ui.smallTitle}>{workoutType || "Untitled workout"}</h3>
+          <h3 className={ui.smallTitle}>{workoutTagsLabel}</h3>
         </div>
         <Button variant="soft" className="h-9 w-9 shrink-0 px-0 text-base leading-none" onClick={onEditReview} aria-label="Edit review" title="Edit review">
           ✎

@@ -1,12 +1,25 @@
+import { MarkedPill } from "../ui";
+import { getWorkoutTags, getWorkoutTypeLabel } from "../../domain/workoutTypes";
 import { ui } from "../../styles";
 import { formatDateTime, formatDuration } from "../../utils/workoutFormat";
 
 export function SessionDetailHeader({ session }) {
+  const workoutTags = getWorkoutTags(session);
+
   return (
     <header className={ui.sessionDetailHeader}>
       <div className="min-w-0">
         <p className={ui.labelMarker}>Selected session</p>
         <h3 className={ui.sessionDetailTitle}>{formatDateTime(session.startedAt)}</h3>
+        {workoutTags.length > 0 && (
+          <div className={ui.tagPillRow}>
+            {workoutTags.map((tag) => (
+              <MarkedPill key={tag} marker="[tag]">
+                {getWorkoutTypeLabel(tag)}
+              </MarkedPill>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className={ui.sessionStatStrip} aria-label="Session totals">

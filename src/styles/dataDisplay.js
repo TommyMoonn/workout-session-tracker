@@ -10,6 +10,7 @@ export const dataDisplayStyles = {
   detailMetrics: "grid grid-cols-3 gap-3 max-[1120px]:grid-cols-2 max-[760px]:grid-cols-1",
   sessionDetailHeader: "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-6 text-[var(--oc-ink)] max-[900px]:grid-cols-1 max-[760px]:p-4",
   sessionDetailTitle: "mt-1 text-[clamp(20px,2.4vw,28px)] font-bold leading-[1.25] text-[var(--oc-ink)]",
+  tagPillRow: "mt-3 flex flex-wrap gap-2",
   sessionStatStrip: "grid min-w-[360px] grid-cols-3 border border-[var(--oc-hairline)] bg-[var(--oc-canvas-deep)] max-[900px]:min-w-0 max-[520px]:grid-cols-1",
   sessionStatItem: "border-r border-[var(--oc-hairline)] px-3 py-2 last:border-r-0 max-[520px]:border-r-0 max-[520px]:border-b max-[520px]:last:border-b-0",
   sessionStatLabel: "block text-[11px] font-bold uppercase leading-normal text-[var(--oc-muted)]",

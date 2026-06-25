@@ -48,14 +48,17 @@ export function HistoryArchive({ state, actions, refs }) {
           <HistoryListView
             currentPage={state.currentHistoryPage}
             displayMode={state.historyDisplayMode}
+            filteredSessionCount={state.filteredSessionCount}
             onChangeDisplayMode={actions.setHistoryDisplayMode}
+            onChangeWorkoutTypeFilter={actions.setWorkoutTypeFilter}
             onNextPage={actions.nextHistoryPage}
             onOpenSession={actions.openSessionDetail}
             onPreviousPage={actions.previousHistoryPage}
             pageSessionStart={state.pageSessionStart}
-            sessionCount={state.sessionLogs.length}
             totalPages={state.totalHistoryPages}
             visibleSessions={state.visibleSessions}
+            workoutTypeFilter={state.workoutTypeFilter}
+            workoutTypeFilterOptions={state.workoutTypeFilterOptions}
           />
         )}
       </section>
