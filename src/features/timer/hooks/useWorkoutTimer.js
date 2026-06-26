@@ -529,6 +529,7 @@ export function useWorkoutTimer() {
     state: {
       activeSetId,
       autoStartRestAfterSet: timerSettings.autoStartRestAfterSet,
+      confirmResetSession: timerSettings.confirmResetSession,
       finishDraft,
       hasActiveSession,
       isRestRunning,

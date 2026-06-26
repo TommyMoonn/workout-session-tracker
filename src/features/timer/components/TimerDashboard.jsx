@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { ReviewModal } from "../../../components/session";
-import { Toast } from "../../../components/ui";
+import { ConfirmationDialog, Toast } from "../../../components/ui";
+import { useConfirmation } from "../../../hooks/useConfirmation";
 import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
 import { useKeyboardShortcuts } from "../../shortcuts";
@@ -13,6 +14,13 @@ import { TimerHeroCard } from "./TimerHeroCard";
 import { TimerMetrics } from "./TimerMetrics";
 
 export function TimerDashboard({ state, actions }) {
+  const {
+    cancelConfirmation,
+    confirmation,
+    confirmAction,
+    requestConfirmation,
+  } = useConfirmation();
+
   const timerShortcuts = useMemo(() => [
     {
       id: "timer.startPause",
@@ -73,6 +81,40 @@ export function TimerDashboard({ state, actions }) {
 
   useKeyboardShortcuts(timerShortcuts);
 
+  function resetWorkout() {
+    if (!state.hasActiveSession || !state.confirmResetSession) {
+      actions.resetWorkout();
+      return;
+    }
+
+    requestConfirmation({
+      title: "Reset active session?",
+      message: "This clears the active workout timer, rest timer, and current set log. Saved history is not affected.",
+      confirmLabel: "Reset session",
+      onConfirm: actions.resetWorkout,
+    });
+  }
+
+  function clearSetLogs() {
+    if (state.setLogs.length === 0) return;
+
+    requestConfirmation({
+      title: "Clear current set log?",
+      message: "This removes every set from the active workout. The workout timer will stay available.",
+      confirmLabel: "Clear sets",
+      onConfirm: actions.clearSetLogs,
+    });
+  }
+
+  function deleteCurrentSet(setId) {
+    requestConfirmation({
+      title: "Delete this set?",
+      message: "This removes the set from the current workout log and renumbers the remaining sets.",
+      confirmLabel: "Delete set",
+      onConfirm: () => actions.deleteCurrentSet(setId),
+    });
+  }
+
   return (
     <div className={ui.page}>
       {state.restAlert && <RestCompletePopup onClose={actions.closeRestAlert} />}
@@ -84,7 +126,7 @@ export function TimerDashboard({ state, actions }) {
             isWorkoutRunning={state.isWorkoutRunning}
             onFinishWorkout={actions.finishWorkout}
             onPauseWorkout={actions.pauseWorkout}
-            onResetWorkout={actions.resetWorkout}
+            onResetWorkout={resetWorkout}
             onStartWorkout={actions.startWorkout}
             workoutElapsed={state.workoutElapsed}
             workoutStatus={state.workoutStatus}
@@ -112,7 +154,7 @@ export function TimerDashboard({ state, actions }) {
           />
           <TimerMetrics
             className={ui.timerMetricsArea}
-            onClearSetLogs={actions.clearSetLogs}
+            onClearSetLogs={clearSetLogs}
             onOpenSetLog={() => actions.setIsSetPanelOpen(true)}
             setCount={state.setLogs.length}
             totalRestSeconds={state.totalRestSeconds}
@@ -125,8 +167,8 @@ export function TimerDashboard({ state, actions }) {
         <SetLogDrawer
           setLogs={state.setLogs}
           onClose={() => actions.setIsSetPanelOpen(false)}
-          onClear={actions.clearSetLogs}
-          onDeleteSet={actions.deleteCurrentSet}
+          onClear={clearSetLogs}
+          onDeleteSet={deleteCurrentSet}
         />
       )}
 
@@ -146,6 +188,14 @@ export function TimerDashboard({ state, actions }) {
         <SessionLoggedPopup
           session={state.loggedSessionNotice}
           onClose={() => actions.setLoggedSessionNotice(null)}
+        />
+      )}
+
+      {confirmation && (
+        <ConfirmationDialog
+          {...confirmation}
+          onCancel={cancelConfirmation}
+          onConfirm={confirmAction}
         />
       )}
 

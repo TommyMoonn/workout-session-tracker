@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { ReviewModal } from "../../../components/session";
-import { EmptyState, Toast } from "../../../components/ui";
+import { ConfirmationDialog, EmptyState, Toast } from "../../../components/ui";
+import { useConfirmation } from "../../../hooks/useConfirmation";
 import { ui } from "../../../styles";
 import { useKeyboardShortcuts } from "../../shortcuts";
 import { formatDateTime, formatDuration } from "../../../utils/workoutFormat";
@@ -10,6 +11,12 @@ import { HistoryListView } from "./HistoryListView";
 import { HistoryPageHeader } from "./HistoryPageHeader";
 
 export function HistoryArchive({ state, actions, refs }) {
+  const {
+    cancelConfirmation,
+    confirmation,
+    confirmAction,
+    requestConfirmation,
+  } = useConfirmation();
   const hasSessions = state.sessionLogs.length > 0;
   const isDetailView = Boolean(state.selectedSession);
   const historyShortcuts = useMemo(() => [
@@ -50,6 +57,26 @@ export function HistoryArchive({ state, actions, refs }) {
 
   useKeyboardShortcuts(historyShortcuts);
 
+  function clearSessionLogs() {
+    if (!hasSessions) return;
+
+    requestConfirmation({
+      title: "Clear session history?",
+      message: "This deletes every saved workout session from this browser. Export a backup first if you need to keep them.",
+      confirmLabel: "Clear history",
+      onConfirm: actions.clearSessionLogs,
+    });
+  }
+
+  function deleteSessionSet(sessionId, setId) {
+    requestConfirmation({
+      title: "Delete this saved set?",
+      message: "This removes the set from the saved session and updates that session's set count and total rest time.",
+      confirmLabel: "Delete set",
+      onConfirm: () => actions.deleteSessionSet(sessionId, setId),
+    });
+  }
+
   return (
     <div className={ui.page}>
       <HistoryPageHeader sessionCount={state.sessionLogs.length} />
@@ -65,7 +92,7 @@ export function HistoryArchive({ state, actions, refs }) {
             hasSelectedSession={isDetailView}
             hasSessions={hasSessions}
             jsonInputRef={refs.jsonInputRef}
-            onClear={actions.clearSessionLogs}
+            onClear={clearSessionLogs}
             onExportAllMarkdown={actions.exportAllMarkdown}
             onExportJson={actions.exportWorkoutHistoryJson}
             onExportSelectedMarkdown={actions.exportSelectedMarkdown}
@@ -80,7 +107,7 @@ export function HistoryArchive({ state, actions, refs }) {
           <HistoryDetailView
             session={state.selectedSession}
             onBack={actions.closeSessionDetail}
-            onDeleteSet={actions.deleteSessionSet}
+            onDeleteSet={deleteSessionSet}
             onEditReview={actions.openEditSessionReview}
           />
         ) : (
@@ -111,6 +138,14 @@ export function HistoryArchive({ state, actions, refs }) {
           onChange={actions.setEditingReview}
           onCancel={actions.cancelEditSessionReview}
           onSave={actions.saveEditSessionReview}
+        />
+      )}
+
+      {confirmation && (
+        <ConfirmationDialog
+          {...confirmation}
+          onCancel={cancelConfirmation}
+          onConfirm={confirmAction}
         />
       )}
 
