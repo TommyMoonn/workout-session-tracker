@@ -6,11 +6,11 @@ export function HistoryPagination({ currentPage, totalPages, onNextPage, onPrevi
 
   return (
     <div className={ui.historyPagination}>
-      <Button variant="soft" className="!min-h-7 h-7 px-2 py-0 text-[11px] leading-none max-[520px]:w-auto" onClick={onPreviousPage} disabled={currentPage <= 1}>
+      <Button variant="soft" className="!min-h-8 h-8 px-3 py-0 text-[11px] leading-none max-[520px]:w-auto" onClick={onPreviousPage} disabled={currentPage <= 1}>
         Prev
       </Button>
       <span className={ui.historyPageIndicator}>Page {currentPage} / {totalPages}</span>
-      <Button variant="soft" className="!min-h-7 h-7 px-2 py-0 text-[11px] leading-none max-[520px]:w-auto" onClick={onNextPage} disabled={currentPage >= totalPages}>
+      <Button variant="soft" className="!min-h-8 h-8 px-3 py-0 text-[11px] leading-none max-[520px]:w-auto" onClick={onNextPage} disabled={currentPage >= totalPages}>
         Next
       </Button>
     </div>
