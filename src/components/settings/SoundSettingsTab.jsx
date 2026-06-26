@@ -38,7 +38,7 @@ export function SoundSettingsTab() {
             />
           </SettingRow>
 
-          <div className="grid grid-cols-[minmax(0,1fr)_minmax(180px,220px)] items-center gap-3 px-3 py-2 text-sm max-[620px]:grid-cols-1">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(180px,220px)] items-center gap-3 px-3 py-2 text-sm max-[620px]:grid-cols-1 max-[520px]:py-3">
             <span className="text-[var(--oc-body)]">Volume</span>
             <SelectField
               label="Volume"
@@ -51,7 +51,7 @@ export function SoundSettingsTab() {
         </div>
       </section>
 
-      <div className="flex flex-wrap justify-end gap-2 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] px-3 py-2">
+      <div className="flex flex-wrap justify-end gap-2 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] px-3 py-2 max-[520px]:grid max-[520px]:grid-cols-2">
         <Button type="button" variant="soft" className="min-h-8 px-3 py-1 text-xs" onClick={playPreview} disabled={!settings.restAlertSoundEnabled}>
           Test sound
         </Button>
@@ -65,7 +65,7 @@ export function SoundSettingsTab() {
 
 function SettingRow({ label, children }) {
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-2 text-sm max-[620px]:grid-cols-1">
+    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-2 text-sm max-[620px]:grid-cols-1 max-[520px]:py-3">
       <span className="text-[var(--oc-body)]">{label}</span>
       {children}
     </div>
@@ -74,7 +74,7 @@ function SettingRow({ label, children }) {
 
 function ToggleButton({ disabled = false, isActive, offLabel, onChange, onLabel }) {
   return (
-    <div className="inline-grid grid-cols-2 rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] p-1 text-xs">
+    <div className="inline-grid grid-cols-2 rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] p-1 text-xs max-[520px]:w-full">
       <button
         type="button"
         className={toggleButtonClass(isActive)}
@@ -99,7 +99,7 @@ function ToggleButton({ disabled = false, isActive, offLabel, onChange, onLabel 
 
 function toggleButtonClass(isActive) {
   return [
-    "min-h-7 min-w-14 rounded-[4px] px-3 font-bold uppercase tracking-[0.12em] transition-colors disabled:cursor-not-allowed disabled:opacity-40",
+    "min-h-8 min-w-14 rounded-[4px] px-3 font-bold uppercase tracking-[0.12em] transition-colors disabled:cursor-not-allowed disabled:opacity-40",
     isActive
       ? "border border-[var(--oc-hairline-strong)] bg-[var(--oc-primary-soft)] text-[var(--oc-ink)]"
       : "border border-transparent text-[var(--oc-muted)] hover:text-[var(--oc-ink)]",

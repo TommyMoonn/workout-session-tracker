@@ -63,7 +63,7 @@ export function ShortcutSettingsTab() {
 
   return (
     <div className="grid gap-3">
-      <div className="flex flex-wrap items-center justify-between gap-3 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] px-3 py-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] px-3 py-2 max-[520px]:grid max-[520px]:grid-cols-1">
         <p className="text-sm text-[var(--oc-body)]">
           {statusMessage || "Select Change, then press a new shortcut."}
         </p>
@@ -82,12 +82,12 @@ export function ShortcutSettingsTab() {
               const isEditing = editingShortcutId === shortcut.id;
 
               return (
-                <div key={`${group.title}-${shortcut.id}`} className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-3 px-3 py-2 text-sm max-[620px]:grid-cols-1 max-[620px]:gap-2">
+                <div key={`${group.title}-${shortcut.id}`} className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-3 px-3 py-2 text-sm max-[620px]:grid-cols-1 max-[620px]:gap-2 max-[520px]:py-3">
                   <span className="text-[var(--oc-body)]">{shortcut.label}</span>
-                  <kbd className="inline-flex min-h-7 min-w-[92px] items-center justify-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] px-2 text-xs font-bold text-[var(--oc-ink)] max-[620px]:justify-start">
+                  <kbd className="inline-flex min-h-8 min-w-[92px] items-center justify-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] px-2 text-xs font-bold text-[var(--oc-ink)] max-[620px]:justify-start">
                     {isEditing ? "Press keys" : formatShortcutKeys(bindings[shortcut.id])}
                   </kbd>
-                  <span className="flex justify-end gap-2 max-[620px]:justify-start">
+                  <span className="flex justify-end gap-2 max-[620px]:justify-start max-[520px]:grid max-[520px]:grid-cols-2">
                     <Button
                       type="button"
                       variant={isEditing ? "primary" : "soft"}
