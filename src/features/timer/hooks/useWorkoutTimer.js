@@ -383,9 +383,32 @@ export function useWorkoutTimer() {
     showToast("Rest stopped and saved to set log.");
   }
 
-  function completeActiveRest(status) {
+  function adjustActiveRest(deltaSeconds) {
+    if (!isRestRunning || !restStartedAt) return;
+
+    const now = Date.now();
+    const elapsedSegment = Math.floor((now - restStartedAt) / 1000);
+    const currentRemaining = Math.max(0, restRemainingAtStart - elapsedSegment);
+    const nextRemaining = Math.max(0, currentRemaining + deltaSeconds);
+    const nextElapsedBeforeStart = restElapsedBeforeStart + elapsedSegment;
+
+    if (nextRemaining <= 0) {
+      setRestRemaining(0);
+      completeActiveRest("Rest completed");
+      showToast("Rest complete. Start the next set.");
+      showRestEndedAlert();
+      return;
+    }
+
+    setRestRemaining(nextRemaining);
+    setRestRemainingAtStart(nextRemaining);
+    setRestElapsedBeforeStart(nextElapsedBeforeStart);
+    setRestStartedAt(now);
+  }
+
+  function completeActiveRest(status, resetSeconds = restDuration) {
     updateActiveSetRest(status, Date.now(), getCurrentRestSeconds(), getCurrentWorkoutSeconds());
-    resetRestState(restDuration, "done");
+    resetRestState(resetSeconds, "done");
   }
 
   function updateActiveSetRest(status, endedAt, actualSeconds, endedAtSessionSeconds = getCurrentWorkoutSeconds()) {
@@ -502,6 +525,7 @@ export function useWorkoutTimer() {
       workoutSummary,
     },
     actions: {
+      adjustActiveRest,
       cancelFinishWorkout,
       changeRestDurationInput,
       clearSetLogs,

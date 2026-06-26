@@ -95,6 +95,7 @@ export function TimerDashboard({ state, actions }) {
             className={ui.timerRestArea}
             activeSetId={state.activeSetId}
             isRestRunning={state.isRestRunning}
+            onAdjustActiveRest={actions.adjustActiveRest}
             onChangeRestDurationInput={actions.changeRestDurationInput}
             onCommitRestDurationInput={actions.commitRestDurationInput}
             onCompleteSetAndStartRest={actions.completeSetAndStartRest}

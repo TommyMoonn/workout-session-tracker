@@ -12,6 +12,8 @@ export const timerStyles = {
   pulseDotRunning: "bg-[var(--oc-success)] motion-safe:animate-[pulseDot_1200ms_ease-in-out_infinite]",
   restCard: "flex flex-col gap-4",
   restDisplay: "border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] p-4 text-[var(--oc-ink)]",
+  restAdjustments: "mt-3 grid grid-cols-2 gap-2",
+  restAdjustmentButton: "inline-flex min-h-8 items-center justify-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] px-3 py-1 text-xs font-bold uppercase leading-normal text-[var(--oc-ink)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] disabled:cursor-not-allowed disabled:opacity-45",
   restTime: "mt-1 text-[clamp(36px,5vw,54px)] font-bold leading-[1.15] text-[var(--oc-ink)]",
   restStatus: "text-right text-xs font-bold uppercase leading-normal text-[var(--oc-muted)] max-[760px]:text-left",
   progressShell: "mt-4 h-3.5 overflow-hidden rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)]",

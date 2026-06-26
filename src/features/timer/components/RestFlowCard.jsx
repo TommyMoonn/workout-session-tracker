@@ -8,6 +8,7 @@ export function RestFlowCard({
   isRestRunning,
   onChangeRestDurationInput,
   onCommitRestDurationInput,
+  onAdjustActiveRest,
   onCompleteSetAndStartRest,
   onPauseRest,
   onResetRest,
@@ -39,6 +40,24 @@ export function RestFlowCard({
             <p className={ui.restTime}>{formatClock(restRemaining)}</p>
           </div>
           <p className={ui.restStatus}>{restStatus === "idle" ? "Not running" : restStatus}</p>
+        </div>
+        <div className={ui.restAdjustments} aria-label="Adjust active rest timer">
+          <button
+            type="button"
+            className={ui.restAdjustmentButton}
+            onClick={() => onAdjustActiveRest(-10)}
+            disabled={!isRestRunning || restRemaining <= 0}
+          >
+            -10s
+          </button>
+          <button
+            type="button"
+            className={ui.restAdjustmentButton}
+            onClick={() => onAdjustActiveRest(10)}
+            disabled={!isRestRunning}
+          >
+            +10s
+          </button>
         </div>
         <div className={ui.progressShell}>
           <div className={ui.progressFill} style={{ width: `${restProgress}%` }} />
