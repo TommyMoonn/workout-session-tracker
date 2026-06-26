@@ -1,4 +1,5 @@
-export { Button, buttonClass } from "./Button";
+export { Button } from "./Button";
+export { buttonClass } from "./buttonClass";
 export { EmptyBlock, EmptyState } from "./EmptyBlock";
 export { MarkedPill } from "./MarkedPill";
 export { MarkerLabel } from "./MarkerLabel";

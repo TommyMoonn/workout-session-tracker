@@ -13,23 +13,29 @@ import { useWorkoutPersistence } from "./useWorkoutPersistence";
 export function useWorkoutTimer() {
   const workoutTickerRef = useRef(null);
   const restTickerRef = useRef(null);
-  const [workoutStartedAt, setWorkoutStartedAt] = useState(null);
-  const [workoutElapsedBeforeStart, setWorkoutElapsedBeforeStart] = useState(0);
-  const [workoutElapsed, setWorkoutElapsed] = useState(0);
-  const [workoutStatus, setWorkoutStatus] = useState("idle");
+  const completeActiveRestRef = useRef(null);
+  const getCurrentWorkoutSecondsRef = useRef(null);
+  const showRestEndedAlertRef = useRef(null);
+  const showToastRef = useRef(null);
+  const stopRestAlarmRef = useRef(null);
+  const [initialTimerState] = useState(readInitialWorkoutTimerState);
+  const [workoutStartedAt, setWorkoutStartedAt] = useState(initialTimerState.workoutStartedAt);
+  const [workoutElapsedBeforeStart, setWorkoutElapsedBeforeStart] = useState(initialTimerState.workoutElapsedBeforeStart);
+  const [workoutElapsed, setWorkoutElapsed] = useState(initialTimerState.workoutElapsed);
+  const [workoutStatus, setWorkoutStatus] = useState(initialTimerState.workoutStatus);
 
-  const [restDuration, setRestDuration] = useState(defaultRestSeconds);
-  const [restDurationInput, setRestDurationInput] = useState(String(defaultRestSeconds));
-  const [restRemaining, setRestRemaining] = useState(defaultRestSeconds);
-  const [restStartedAt, setRestStartedAt] = useState(null);
-  const [restRemainingAtStart, setRestRemainingAtStart] = useState(defaultRestSeconds);
-  const [restElapsedBeforeStart, setRestElapsedBeforeStart] = useState(0);
-  const [restStatus, setRestStatus] = useState("idle");
-  const [activeSetId, setActiveSetId] = useState(null);
+  const [restDuration, setRestDuration] = useState(initialTimerState.restDuration);
+  const [restDurationInput, setRestDurationInput] = useState(initialTimerState.restDurationInput);
+  const [restRemaining, setRestRemaining] = useState(initialTimerState.restRemaining);
+  const [restStartedAt, setRestStartedAt] = useState(initialTimerState.restStartedAt);
+  const [restRemainingAtStart, setRestRemainingAtStart] = useState(initialTimerState.restRemainingAtStart);
+  const [restElapsedBeforeStart, setRestElapsedBeforeStart] = useState(initialTimerState.restElapsedBeforeStart);
+  const [restStatus, setRestStatus] = useState(initialTimerState.restStatus);
+  const [activeSetId, setActiveSetId] = useState(initialTimerState.activeSetId);
 
-  const [setLogs, setSetLogs] = useState([]);
-  const [sessionLogs, setSessionLogs] = useState([]);
-  const [selectedSessionId, setSelectedSessionId] = useState(null);
+  const [setLogs, setSetLogs] = useState(initialTimerState.setLogs);
+  const [sessionLogs, setSessionLogs] = useState(initialTimerState.sessionLogs);
+  const [selectedSessionId, setSelectedSessionId] = useState(initialTimerState.selectedSessionId);
 
   const { toast, showToast } = useToast();
   const { restAlert, closeRestAlert, showRestEndedAlert, stopRestAlarm } = useRestAlarm();
@@ -67,25 +73,25 @@ export function useWorkoutTimer() {
     isWorkoutRunning,
     restDuration,
     restDurationInput,
-    restRemainingAtStart,
-    restStartedAt,
     restStatus,
     selectedSessionId,
     sessionLogs,
     setLogs,
-    showToast,
-    restoreActiveSession,
-    setSelectedSessionId,
-    setSessionLogs,
-    workoutElapsedBeforeStart,
-    workoutStartedAt,
     workoutStatus,
+  });
+
+  useEffect(() => {
+    completeActiveRestRef.current = completeActiveRest;
+    getCurrentWorkoutSecondsRef.current = getCurrentWorkoutSeconds;
+    showRestEndedAlertRef.current = showRestEndedAlert;
+    showToastRef.current = showToast;
+    stopRestAlarmRef.current = stopRestAlarm;
   });
 
   useEffect(() => () => {
     window.clearInterval(workoutTickerRef.current);
     window.clearInterval(restTickerRef.current);
-    stopRestAlarm();
+    stopRestAlarmRef.current?.();
   }, []);
 
   useEffect(() => {
@@ -99,7 +105,7 @@ export function useWorkoutTimer() {
 
     workoutTickerRef.current = window.setInterval(() => {
       if (shouldTickWorkout) {
-        const nextElapsed = getCurrentWorkoutSeconds();
+        const nextElapsed = getCurrentWorkoutSecondsRef.current?.() ?? 0;
         setWorkoutElapsed((current) => (current === nextElapsed ? current : nextElapsed));
       }
 
@@ -111,9 +117,9 @@ export function useWorkoutTimer() {
 
         if (nextRemaining <= 0) {
           window.clearInterval(workoutTickerRef.current);
-          completeActiveRest("Rest completed");
-          showToast("Rest complete. Start the next set.");
-          showRestEndedAlert();
+          completeActiveRestRef.current?.("Rest completed");
+          showToastRef.current?.("Rest complete. Start the next set.");
+          showRestEndedAlertRef.current?.();
         }
       }
     }, timerTickMs);
@@ -156,31 +162,6 @@ export function useWorkoutTimer() {
       activeSetId,
       setLogs,
     };
-  }
-
-  function restoreActiveSession(activeSession) {
-    if (!activeSession || typeof activeSession !== "object") return;
-
-    const savedRestDuration = clampSeconds(Number(activeSession.restDuration || defaultRestSeconds));
-    const savedWorkoutStatus = activeSession.workoutStatus === "running" ? "paused" : activeSession.workoutStatus;
-    const savedRestStatus = activeSession.restStatus === "running" ? "paused" : activeSession.restStatus;
-    const savedWorkoutElapsed = Math.max(0, Math.floor(activeSession.workoutElapsed || 0));
-    const savedRestRemaining = Math.max(0, Math.floor(activeSession.restRemaining ?? savedRestDuration));
-
-    setWorkoutStartedAt(null);
-    setWorkoutElapsedBeforeStart(savedWorkoutElapsed);
-    setWorkoutElapsed(savedWorkoutElapsed);
-    setWorkoutStatus(["idle", "paused", "finished"].includes(savedWorkoutStatus) ? savedWorkoutStatus : "idle");
-
-    setRestDuration(savedRestDuration);
-    setRestDurationInput(String(activeSession.restDurationInput || savedRestDuration));
-    setRestRemaining(savedRestRemaining);
-    setRestRemainingAtStart(savedRestRemaining);
-    setRestElapsedBeforeStart(Math.max(0, savedRestDuration - savedRestRemaining));
-    setRestStartedAt(null);
-    setRestStatus(["idle", "paused", "done"].includes(savedRestStatus) ? savedRestStatus : "idle");
-    setActiveSetId(activeSession.activeSetId ?? null);
-    setSetLogs(Array.isArray(activeSession.setLogs) ? activeSession.setLogs : []);
   }
 
   function startWorkout() {
@@ -542,4 +523,65 @@ export function useWorkoutTimer() {
       submitFinishWorkout,
     },
   };
+}
+
+function readInitialWorkoutTimerState() {
+  const fallback = {
+    activeSetId: null,
+    restDuration: defaultRestSeconds,
+    restDurationInput: String(defaultRestSeconds),
+    restElapsedBeforeStart: 0,
+    restRemaining: defaultRestSeconds,
+    restRemainingAtStart: defaultRestSeconds,
+    restStartedAt: null,
+    restStatus: "idle",
+    selectedSessionId: null,
+    sessionLogs: [],
+    setLogs: [],
+    workoutElapsed: 0,
+    workoutElapsedBeforeStart: 0,
+    workoutStartedAt: null,
+    workoutStatus: "idle",
+  };
+
+  try {
+    const data = readWorkoutStorage();
+    const savedSessions = Array.isArray(data?.sessionLogs) ? data.sessionLogs : [];
+    const activeSession = data?.activeSession;
+
+    if (!activeSession || typeof activeSession !== "object") {
+      return {
+        ...fallback,
+        selectedSessionId: data?.selectedSessionId ?? savedSessions[0]?.id ?? null,
+        sessionLogs: savedSessions,
+      };
+    }
+
+    const savedRestDuration = clampSeconds(Number(activeSession.restDuration || defaultRestSeconds));
+    const savedWorkoutStatus = activeSession.workoutStatus === "running" ? "paused" : activeSession.workoutStatus;
+    const savedRestStatus = activeSession.restStatus === "running" ? "paused" : activeSession.restStatus;
+    const savedWorkoutElapsed = Math.max(0, Math.floor(activeSession.workoutElapsed || 0));
+    const savedRestRemaining = Math.max(0, Math.floor(activeSession.restRemaining ?? savedRestDuration));
+
+    return {
+      activeSetId: activeSession.activeSetId ?? null,
+      restDuration: savedRestDuration,
+      restDurationInput: String(activeSession.restDurationInput || savedRestDuration),
+      restElapsedBeforeStart: Math.max(0, savedRestDuration - savedRestRemaining),
+      restRemaining: savedRestRemaining,
+      restRemainingAtStart: savedRestRemaining,
+      restStartedAt: null,
+      restStatus: ["idle", "paused", "done"].includes(savedRestStatus) ? savedRestStatus : "idle",
+      selectedSessionId: data?.selectedSessionId ?? savedSessions[0]?.id ?? null,
+      sessionLogs: savedSessions,
+      setLogs: Array.isArray(activeSession.setLogs) ? activeSession.setLogs : [],
+      workoutElapsed: savedWorkoutElapsed,
+      workoutElapsedBeforeStart: savedWorkoutElapsed,
+      workoutStartedAt: null,
+      workoutStatus: ["idle", "paused", "finished"].includes(savedWorkoutStatus) ? savedWorkoutStatus : "idle",
+    };
+  } catch (error) {
+    console.error(error);
+    return fallback;
+  }
 }

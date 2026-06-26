@@ -1,23 +1,16 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { playChillAlarm } from "../timer/utils/restAlarm";
+import { SoundSettingsContext } from "./SoundSettingsContext";
 import { defaultSoundSettings, normalizeSoundSettings } from "./soundSettingsRegistry";
 
 const soundSettingsStorageKey = "liftlog-lite.sound-settings.v1";
-const SoundSettingsContext = createContext(null);
 
 export function SoundSettingsProvider({ children }) {
-  const [hasLoaded, setHasLoaded] = useState(false);
-  const [settings, setSettings] = useState(defaultSoundSettings);
+  const [settings, setSettings] = useState(loadSoundSettings);
 
   useEffect(() => {
-    setSettings(loadSoundSettings());
-    setHasLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hasLoaded) return;
     saveSoundSettings(settings);
-  }, [hasLoaded, settings]);
+  }, [settings]);
 
   const value = useMemo(() => ({
     settings,
@@ -51,14 +44,6 @@ export function SoundSettingsProvider({ children }) {
       {children}
     </SoundSettingsContext.Provider>
   );
-}
-
-export function useSoundSettings() {
-  const context = useContext(SoundSettingsContext);
-  if (!context) {
-    throw new Error("useSoundSettings must be used inside SoundSettingsProvider.");
-  }
-  return context;
 }
 
 function loadSoundSettings() {

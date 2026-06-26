@@ -10,13 +10,12 @@ import { historyPageSize } from "../constants";
 
 export function useSessionHistory() {
   const jsonInputRef = useRef(null);
-  const [hasLoadedStorage, setHasLoadedStorage] = useState(false);
-
-  const [sessionLogs, setSessionLogs] = useState([]);
+  const [initialHistoryState] = useState(readInitialHistoryState);
+  const [sessionLogs, setSessionLogs] = useState(initialHistoryState.sessionLogs);
   const [selectedSessionId, setSelectedSessionId] = useState(null);
-  const [historyDisplayMode, setHistoryDisplayMode] = useState("list");
-  const [historyPage, setHistoryPage] = useState(1);
-  const [workoutTypeFilter, setWorkoutTypeFilter] = useState(allWorkoutTypesValue);
+  const [historyDisplayMode, setHistoryDisplayMode] = useState(initialHistoryState.historyDisplayMode);
+  const [historyPage, setHistoryPage] = useState(initialHistoryState.historyPage);
+  const [workoutTypeFilter, setWorkoutTypeFilter] = useState(initialHistoryState.workoutTypeFilter);
   const [editingSession, setEditingSession] = useState(null);
   const [editingReview, setEditingReview] = useState(createEmptyReview());
   const { toast, showToast } = useToast();
@@ -30,9 +29,13 @@ export function useSessionHistory() {
     [sessionLogs]
   );
 
+  const activeWorkoutTypeFilter = workoutTypeFilterOptions.some((option) => option.value === workoutTypeFilter)
+    ? workoutTypeFilter
+    : allWorkoutTypesValue;
+
   const filteredSessions = useMemo(
-    () => sessionLogs.filter((session) => matchesWorkoutTypeFilter(session, workoutTypeFilter)),
-    [sessionLogs, workoutTypeFilter]
+    () => sessionLogs.filter((session) => matchesWorkoutTypeFilter(session, activeWorkoutTypeFilter)),
+    [activeWorkoutTypeFilter, sessionLogs]
   );
 
   const totalHistoryPages = Math.max(1, Math.ceil(filteredSessions.length / historyPageSize));
@@ -45,23 +48,6 @@ export function useSessionHistory() {
   );
 
   useEffect(() => {
-    loadSavedState();
-  }, []);
-
-  useEffect(() => {
-    if (historyPage <= totalHistoryPages) return;
-    setHistoryPage(totalHistoryPages);
-  }, [historyPage, totalHistoryPages]);
-
-  useEffect(() => {
-    if (workoutTypeFilterOptions.some((option) => option.value === workoutTypeFilter)) return;
-    setWorkoutTypeFilter(allWorkoutTypesValue);
-    setHistoryPage(1);
-  }, [workoutTypeFilter, workoutTypeFilterOptions]);
-
-  useEffect(() => {
-    if (!hasLoadedStorage) return;
-
     const currentState = readWorkoutStorage();
     saveWorkoutStorage({
       ...currentState,
@@ -70,22 +56,9 @@ export function useSessionHistory() {
       selectedSessionId,
       historyDisplayMode,
       historyPage: currentHistoryPage,
-      workoutTypeFilter,
+      workoutTypeFilter: activeWorkoutTypeFilter,
     });
-  }, [currentHistoryPage, hasLoadedStorage, historyDisplayMode, sessionLogs, selectedSessionId, workoutTypeFilter]);
-
-  function loadSavedState() {
-    const data = readWorkoutStorage();
-    const savedSessions = Array.isArray(data?.sessionLogs) ? data.sessionLogs : [];
-    const savedPage = Number.isInteger(data?.historyPage) && data.historyPage > 0 ? data.historyPage : 1;
-
-    setSessionLogs(savedSessions);
-    setSelectedSessionId(null);
-    setHistoryDisplayMode(data?.historyDisplayMode === "card" ? "card" : "list");
-    setWorkoutTypeFilter(typeof data?.workoutTypeFilter === "string" ? data.workoutTypeFilter : allWorkoutTypesValue);
-    setHistoryPage(savedPage);
-    setHasLoadedStorage(true);
-  }
+  }, [activeWorkoutTypeFilter, currentHistoryPage, historyDisplayMode, sessionLogs, selectedSessionId]);
 
   function deleteSessionSet(sessionId, setId) {
     setSessionLogs((current) => current.map((session) => {
@@ -250,7 +223,7 @@ export function useSessionHistory() {
       toast,
       totalHistoryPages,
       visibleSessions,
-      workoutTypeFilter,
+      workoutTypeFilter: activeWorkoutTypeFilter,
       workoutTypeFilterOptions,
     },
     refs: {
@@ -279,5 +252,16 @@ export function useSessionHistory() {
         setHistoryPage(1);
       },
     },
+  };
+}
+
+function readInitialHistoryState() {
+  const data = readWorkoutStorage();
+
+  return {
+    sessionLogs: Array.isArray(data?.sessionLogs) ? data.sessionLogs : [],
+    historyDisplayMode: data?.historyDisplayMode === "card" ? "card" : "list",
+    historyPage: Number.isInteger(data?.historyPage) && data.historyPage > 0 ? data.historyPage : 1,
+    workoutTypeFilter: typeof data?.workoutTypeFilter === "string" ? data.workoutTypeFilter : allWorkoutTypesValue,
   };
 }

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { readWorkoutStorage, saveWorkoutStorage } from "../../../storage/workoutStorage";
+import { useCallback, useEffect } from "react";
+import { saveWorkoutStorage } from "../../../storage/workoutStorage";
 import { storageSyncMs } from "../constants";
 
 export function useWorkoutPersistence({
@@ -9,63 +9,34 @@ export function useWorkoutPersistence({
   isWorkoutRunning,
   restDuration,
   restDurationInput,
-  restRemainingAtStart,
-  restStartedAt,
   restStatus,
   selectedSessionId,
   sessionLogs,
   setLogs,
-  showToast,
-  restoreActiveSession,
-  setSelectedSessionId,
-  setSessionLogs,
-  workoutElapsedBeforeStart,
-  workoutStartedAt,
   workoutStatus,
 }) {
-  const [hasLoadedStorage, setHasLoadedStorage] = useState(false);
+  const persistWorkoutStorage = useCallback(() => {
+    saveWorkoutStorage({
+      savedAt: Date.now(),
+      sessionLogs,
+      selectedSessionId,
+      activeSession: buildActiveSessionSnapshot(),
+    });
+  }, [buildActiveSessionSnapshot, selectedSessionId, sessionLogs]);
 
   useEffect(() => {
-    loadSavedState();
-  }, []);
-
-  useEffect(() => {
-    if (!hasLoadedStorage) return;
-
     persistWorkoutStorage();
-  }, [
-    hasLoadedStorage,
-    sessionLogs,
-    selectedSessionId,
-    workoutStatus,
-    restDuration,
-    restDurationInput,
-    restStatus,
-    activeSetId,
-    setLogs,
-  ]);
+  }, [activeSetId, persistWorkoutStorage, restDuration, restDurationInput, restStatus, setLogs, workoutStatus]);
 
   useEffect(() => {
-    if (!hasLoadedStorage || (!isWorkoutRunning && !isRestRunning)) return undefined;
+    if (!isWorkoutRunning && !isRestRunning) return undefined;
 
     const syncTimer = window.setInterval(() => {
       persistWorkoutStorage();
     }, storageSyncMs);
 
     return () => window.clearInterval(syncTimer);
-  }, [
-    hasLoadedStorage,
-    isWorkoutRunning,
-    isRestRunning,
-    sessionLogs,
-    selectedSessionId,
-    workoutStatus,
-    restDuration,
-    restDurationInput,
-    restStatus,
-    activeSetId,
-    setLogs,
-  ]);
+  }, [isRestRunning, isWorkoutRunning, persistWorkoutStorage]);
 
   useEffect(() => {
     const persistBeforePageHide = () => persistWorkoutStorage();
@@ -80,50 +51,5 @@ export function useWorkoutPersistence({
       window.removeEventListener("pagehide", persistBeforePageHide);
       document.removeEventListener("visibilitychange", persistWhenHidden);
     };
-  }, [
-    hasLoadedStorage,
-    sessionLogs,
-    selectedSessionId,
-    workoutStartedAt,
-    workoutElapsedBeforeStart,
-    workoutStatus,
-    restDuration,
-    restDurationInput,
-    restStartedAt,
-    restRemainingAtStart,
-    restStatus,
-    activeSetId,
-    setLogs,
-  ]);
-
-  function persistWorkoutStorage() {
-    if (!hasLoadedStorage) return;
-
-    saveWorkoutStorage({
-      savedAt: Date.now(),
-      sessionLogs,
-      selectedSessionId,
-      activeSession: buildActiveSessionSnapshot(),
-    });
-  }
-
-  function loadSavedState() {
-    try {
-      const data = readWorkoutStorage();
-      if (!Object.keys(data).length) {
-        setHasLoadedStorage(true);
-        return;
-      }
-      const savedSessions = Array.isArray(data?.sessionLogs) ? data.sessionLogs : [];
-
-      setSessionLogs(savedSessions);
-      setSelectedSessionId(data?.selectedSessionId ?? savedSessions[0]?.id ?? null);
-      restoreActiveSession(data?.activeSession);
-    } catch (error) {
-      console.error(error);
-      showToast("Could not load saved workout data.");
-    } finally {
-      setHasLoadedStorage(true);
-    }
-  }
+  }, [persistWorkoutStorage]);
 }

@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import { buttonClass, EmptyBlock, MarkerLabel } from "../../../components/ui";
+import { useState } from "react";
+import { buttonClass, MarkerLabel } from "../../../components/ui";
 import { ui } from "../../../styles";
 
 export function ExerciseVideo({ exercise }) {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsVideoLoaded(false);
-  }, [exercise?.id]);
+  const [loadedExerciseId, setLoadedExerciseId] = useState(null);
+  const isVideoLoaded = loadedExerciseId === exercise?.id;
 
   return (
     <section className={ui.videoCard}>
@@ -34,7 +31,7 @@ export function ExerciseVideo({ exercise }) {
               allowFullScreen
             />
           ) : (
-            <button type="button" className={ui.videoPlaceholder} onClick={() => setIsVideoLoaded(true)}>
+            <button type="button" className={ui.videoPlaceholder} onClick={() => setLoadedExerciseId(exercise.id)}>
               <span>
                 <MarkerLabel as="span">Video not loaded</MarkerLabel>
                 <strong className={ui.videoPlaceholderTitle}>Load demo video</strong>

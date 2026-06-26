@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useShortcutPreferences } from "./ShortcutProvider";
+import { useShortcutPreferences } from "./useShortcutPreferences";
 import { hasBlockingShortcutLayer, isEditableShortcutTarget, matchesShortcut } from "./shortcutUtils";
 
 export function useKeyboardShortcuts(shortcuts, options = {}) {

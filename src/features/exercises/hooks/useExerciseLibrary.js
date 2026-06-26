@@ -1,4 +1,4 @@
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import {
   allOption,
   filterExercises,
@@ -30,13 +30,6 @@ export function useExerciseLibrary() {
     ?? filteredExercises[0]
     ?? null
   ), [filteredExercises, selectedExerciseId]);
-
-  useEffect(() => {
-    if (!filteredExercises.length) return;
-    if (!filteredExercises.some((exercise) => exercise.id === selectedExerciseId)) {
-      setSelectedExerciseId(filteredExercises[0].id);
-    }
-  }, [filteredExercises, selectedExerciseId]);
 
   const activeFilterCount = [category, equipment, difficulty, demoFilter].filter((value) => value !== allOption).length
     + (query.trim() ? 1 : 0);

@@ -1,23 +1,16 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ShortcutContext } from "./ShortcutContext";
 import { defaultShortcutBindings, getShortcutDefinition, shortcutDefinitions } from "./shortcutRegistry";
 import { areShortcutBindingsEqual, normalizeShortcutBinding } from "./shortcutUtils";
 
 const shortcutStorageKey = "liftlog-lite.shortcut-bindings.v1";
-const ShortcutContext = createContext(null);
 
 export function ShortcutProvider({ children }) {
-  const [hasLoaded, setHasLoaded] = useState(false);
-  const [bindings, setBindings] = useState(defaultShortcutBindings);
+  const [bindings, setBindings] = useState(loadShortcutBindings);
 
   useEffect(() => {
-    setBindings(loadShortcutBindings());
-    setHasLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hasLoaded) return;
     saveShortcutBindings(bindings);
-  }, [bindings, hasLoaded]);
+  }, [bindings]);
 
   const value = useMemo(() => ({
     bindings,
@@ -54,14 +47,6 @@ export function ShortcutProvider({ children }) {
       {children}
     </ShortcutContext.Provider>
   );
-}
-
-export function useShortcutPreferences() {
-  const context = useContext(ShortcutContext);
-  if (!context) {
-    throw new Error("useShortcutPreferences must be used inside ShortcutProvider.");
-  }
-  return context;
 }
 
 function loadShortcutBindings() {

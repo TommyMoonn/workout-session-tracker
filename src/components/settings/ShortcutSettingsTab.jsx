@@ -6,7 +6,6 @@ import {
   shortcutGroups,
   useShortcutPreferences,
 } from "../../features/shortcuts";
-import { ui } from "../../styles";
 
 export function ShortcutSettingsTab() {
   const {
