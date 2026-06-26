@@ -78,7 +78,7 @@ export function HistoryArchive({ state, actions, refs }) {
   }
 
   return (
-    <div className={ui.page}>
+    <div className={ui.pageWide}>
       <HistoryPageHeader sessionCount={state.sessionLogs.length} />
 
       <section className={ui.historyCard}>

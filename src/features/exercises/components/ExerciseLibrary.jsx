@@ -34,7 +34,7 @@ export function ExerciseLibrary({ state, actions }) {
   useKeyboardShortcuts(exerciseShortcuts);
 
   return (
-    <div className={ui.page}>
+    <div className={ui.pageWide}>
       <div className={ui.reveal}>
         <ExercisePageHeader totalExerciseCount={state.totalExerciseCount} />
       </div>

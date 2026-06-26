@@ -116,7 +116,7 @@ export function TimerDashboard({ state, actions }) {
   }
 
   return (
-    <div className={ui.page}>
+    <div className={ui.pageWide}>
       {state.restAlert && <RestCompletePopup onClose={actions.closeRestAlert} />}
       <main>
         <section className={cx(ui.timerLayoutGrid, ui.reveal)}>
