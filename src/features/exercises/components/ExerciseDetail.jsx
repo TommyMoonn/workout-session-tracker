@@ -4,11 +4,11 @@ import { ExerciseVideo } from "./ExerciseVideo";
 
 export function ExerciseDetail({ exercise }) {
   if (!exercise) {
-    return <div className={ui.detailPane}><EmptyBlock>Select an exercise to view details.</EmptyBlock></div>;
+    return <div className={ui.exerciseDetailPane}><EmptyBlock>Select an exercise to view details.</EmptyBlock></div>;
   }
 
   return (
-    <article className={ui.detailPane}>
+    <article className={ui.exerciseDetailPane}>
       <div className={ui.exerciseDetailCard}>
         <MarkerLabel>Exercise detail</MarkerLabel>
         <h2 className={ui.detailTitle}>{exercise.name}</h2>
