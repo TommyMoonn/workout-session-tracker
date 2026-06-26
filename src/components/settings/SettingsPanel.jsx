@@ -4,14 +4,16 @@ import { cx } from "../../lib/cx";
 import { ui } from "../../styles";
 import { ShortcutSettingsTab } from "./ShortcutSettingsTab";
 import { SoundSettingsTab } from "./SoundSettingsTab";
+import { TimerSettingsTab } from "./TimerSettingsTab";
 
 const settingsTabs = [
+  { id: "timer", label: "Timer" },
   { id: "shortcuts", label: "Shortcuts" },
   { id: "sound", label: "Sound" },
 ];
 
 export function SettingsPanel({ onClose }) {
-  const [activeTab, setActiveTab] = useState("shortcuts");
+  const [activeTab, setActiveTab] = useState("timer");
 
   return (
     <div className={ui.modalOverlay} role="presentation" onMouseDown={onClose}>
@@ -37,7 +39,7 @@ export function SettingsPanel({ onClose }) {
           </Button>
         </header>
 
-        <nav className="grid grid-cols-2 border-b border-[var(--oc-hairline)]" aria-label="Settings sections">
+        <nav className="grid grid-cols-3 border-b border-[var(--oc-hairline)]" aria-label="Settings sections">
           {settingsTabs.map((tab) => (
             <button
               key={tab.id}
@@ -55,7 +57,9 @@ export function SettingsPanel({ onClose }) {
         </nav>
 
         <div className="min-h-0 flex-1 overflow-y-auto p-4">
-          {activeTab === "shortcuts" ? <ShortcutSettingsTab /> : <SoundSettingsTab />}
+          {activeTab === "timer" && <TimerSettingsTab />}
+          {activeTab === "shortcuts" && <ShortcutSettingsTab />}
+          {activeTab === "sound" && <SoundSettingsTab />}
         </div>
       </section>
     </div>

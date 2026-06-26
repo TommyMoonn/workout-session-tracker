@@ -20,6 +20,7 @@ export function RestFlowCard({
   restRemaining,
   restStatus,
   activeSetId,
+  autoStartRestAfterSet,
   className = "",
 }) {
   const selectedRestLabel = restPresets.includes(restDuration)
@@ -102,7 +103,9 @@ export function RestFlowCard({
       </div>
 
       <div className={cx("mt-auto", ui.buttonGrid)}>
-        <Button variant="primary" onClick={onCompleteSetAndStartRest}>Complete set + start rest</Button>
+        <Button variant="primary" onClick={onCompleteSetAndStartRest}>
+          {autoStartRestAfterSet ? "Complete set + start rest" : "Complete set"}
+        </Button>
         <div className={ui.twoCol}>
           {!isRestRunning ? (
             <Button onClick={onResumeRest} disabled={restStatus !== "paused"}>Resume rest</Button>

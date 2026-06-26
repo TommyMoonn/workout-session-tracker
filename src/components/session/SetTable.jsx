@@ -30,7 +30,7 @@ export function SetTable({ sets, emptyText, onDeleteSet }) {
               <td className={ui.tableTimeCell}>{formatClock(set.completedAtSessionSeconds ?? 0)}</td>
               <td className={ui.tableTimeCell}>{formatClock(set.restTargetSeconds ?? 0)}</td>
               <td className={ui.tableTimeCell}>{set.restActualSeconds == null ? "—" : formatClock(set.restActualSeconds)}</td>
-              <td className={ui.tableTimeCell}>{formatClock(set.restStartedAtSessionSeconds ?? 0)}</td>
+              <td className={ui.tableTimeCell}>{set.restStartedAtSessionSeconds == null ? "—" : formatClock(set.restStartedAtSessionSeconds)}</td>
               <td className={ui.tableTimeCell}>{set.restEndedAtSessionSeconds == null ? "—" : formatClock(set.restEndedAtSessionSeconds)}</td>
               <td className={ui.tableActionCell}>
                 <Button variant="soft" className={ui.tableActionButton} onClick={() => onDeleteSet(set.id)}>Delete</Button>

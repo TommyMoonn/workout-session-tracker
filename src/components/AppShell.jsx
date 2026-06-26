@@ -4,6 +4,7 @@ import { SettingsPanel } from "./settings";
 import SideNav from "./SideNav";
 import { ShortcutProvider, useKeyboardShortcuts } from "../features/shortcuts";
 import { SoundSettingsProvider } from "../features/soundSettings";
+import { TimerSettingsProvider } from "../features/timerSettings";
 
 const navigationShortcuts = [
   { id: "nav.timer", path: "/timer" },
@@ -54,11 +55,13 @@ function AppShellContent() {
 
 function AppShell() {
   return (
-    <SoundSettingsProvider>
-      <ShortcutProvider>
-        <AppShellContent />
-      </ShortcutProvider>
-    </SoundSettingsProvider>
+    <TimerSettingsProvider>
+      <SoundSettingsProvider>
+        <ShortcutProvider>
+          <AppShellContent />
+        </ShortcutProvider>
+      </SoundSettingsProvider>
+    </TimerSettingsProvider>
   );
 }
 

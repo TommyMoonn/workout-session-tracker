@@ -7,6 +7,7 @@ import {
   timerTickMs,
 } from "../constants";
 import { useToast } from "../../../hooks/useToast";
+import { useTimerSettings } from "../../timerSettings";
 import { useRestAlarm } from "./useRestAlarm";
 import { useWorkoutPersistence } from "./useWorkoutPersistence";
 
@@ -38,6 +39,7 @@ export function useWorkoutTimer() {
   const [selectedSessionId, setSelectedSessionId] = useState(initialTimerState.selectedSessionId);
 
   const { toast, showToast } = useToast();
+  const { settings: timerSettings } = useTimerSettings();
   const { restAlert, closeRestAlert, showRestEndedAlert, stopRestAlarm } = useRestAlarm();
   const [isSetPanelOpen, setIsSetPanelOpen] = useState(false);
   const [finishDraft, setFinishDraft] = useState(null);
@@ -87,6 +89,21 @@ export function useWorkoutTimer() {
     showToastRef.current = showToast;
     stopRestAlarmRef.current = stopRestAlarm;
   });
+
+  useEffect(() => {
+    if (isRestRunning || activeSetId) return undefined;
+
+    const defaultRestSyncTimer = window.setTimeout(() => {
+      const nextSeconds = timerSettings.defaultRestSeconds;
+      setRestDuration(nextSeconds);
+      setRestDurationInput(String(nextSeconds));
+      setRestRemaining(nextSeconds);
+      setRestRemainingAtStart(nextSeconds);
+      setRestStatus("idle");
+    }, 0);
+
+    return () => window.clearTimeout(defaultRestSyncTimer);
+  }, [activeSetId, isRestRunning, timerSettings.defaultRestSeconds]);
 
   useEffect(() => () => {
     window.clearInterval(workoutTickerRef.current);
@@ -297,6 +314,7 @@ export function useWorkoutTimer() {
     const now = Date.now();
     const wasIdle = workoutStatus === "idle" || workoutStatus === "finished";
     const sessionSeconds = wasIdle ? 0 : getCurrentWorkoutSeconds();
+    const shouldAutoStartRest = timerSettings.autoStartRestAfterSet;
 
     if (wasIdle) {
       setWorkoutStartedAt(now);
@@ -324,17 +342,23 @@ export function useWorkoutTimer() {
         completedAtSessionSeconds: sessionSeconds,
         timeToCompleteSetSeconds: Math.max(0, sessionSeconds - previousRestEndSeconds),
         restTargetSeconds: safeRestSeconds,
-        restStartedAt: now,
-        restStartedAtSessionSeconds: sessionSeconds,
+        restStartedAt: shouldAutoStartRest ? now : null,
+        restStartedAtSessionSeconds: shouldAutoStartRest ? sessionSeconds : null,
         restEndedAt: null,
         restEndedAtSessionSeconds: null,
         restActualSeconds: null,
-        status: "Resting",
+        status: shouldAutoStartRest ? "Resting" : "Set logged",
       },
     ]);
 
-    startRestForSet(setId, safeRestSeconds, now);
-    showToast(`Set ${setNumber} logged. Rest started.`);
+    if (shouldAutoStartRest) {
+      startRestForSet(setId, safeRestSeconds, now);
+      showToast(`Set ${setNumber} logged. Rest started.`);
+      return;
+    }
+
+    resetRestState(safeRestSeconds);
+    showToast(`Set ${setNumber} logged.`);
   }
 
   function startRestForSet(setId, seconds, timestamp) {
@@ -504,6 +528,7 @@ export function useWorkoutTimer() {
   return {
     state: {
       activeSetId,
+      autoStartRestAfterSet: timerSettings.autoStartRestAfterSet,
       finishDraft,
       hasActiveSession,
       isRestRunning,

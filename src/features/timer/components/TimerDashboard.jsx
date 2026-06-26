@@ -94,6 +94,7 @@ export function TimerDashboard({ state, actions }) {
           <RestFlowCard
             className={ui.timerRestArea}
             activeSetId={state.activeSetId}
+            autoStartRestAfterSet={state.autoStartRestAfterSet}
             isRestRunning={state.isRestRunning}
             onAdjustActiveRest={actions.adjustActiveRest}
             onChangeRestDurationInput={actions.changeRestDurationInput}
