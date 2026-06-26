@@ -1,5 +1,5 @@
 export const layoutStyles = {
-  page: "mx-auto w-full max-w-[1120px]",
+  page: "mx-auto w-full min-w-0 max-w-[1120px]",
   reveal: "motion-safe:animate-[fadeUp_var(--transition-base)_both]",
   reveal1: "motion-safe:animate-[fadeUp_var(--transition-base)_both] motion-safe:[animation-delay:35ms]",
   reveal2: "motion-safe:animate-[fadeUp_var(--transition-base)_both] motion-safe:[animation-delay:70ms]",

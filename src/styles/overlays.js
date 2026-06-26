@@ -1,6 +1,6 @@
 export const overlayStyles = {
   overlay: "fixed inset-0 z-[60] bg-black/70 motion-safe:animate-[overlayIn_var(--transition-base)_both]",
-  drawerPanel: "fixed right-0 top-0 z-[70] flex h-screen w-[min(960px,100%)] flex-col border-l border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas)] p-0 text-[var(--oc-ink)] motion-safe:animate-[drawerIn_var(--transition-base)_both] max-[760px]:border-l-0",
+  drawerPanel: "fixed right-0 top-0 z-[70] flex h-screen w-[min(960px,100%)] flex-col border-l border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas)] p-0 text-[var(--oc-ink)] motion-safe:animate-[drawerIn_var(--transition-base)_both] max-[760px]:bottom-0 max-[760px]:top-auto max-[760px]:h-[calc(100dvh-84px)] max-[760px]:border-l-0",
   drawerHeader: "relative border-b border-[var(--oc-hairline)] p-4 pr-16 max-[760px]:p-3 max-[760px]:pr-14",
   drawerClose: "absolute right-4 top-4 h-10 w-10 p-0 text-base leading-none max-[760px]:right-3 max-[760px]:top-3",
   drawerBody: "flex-1 overflow-auto p-4 max-[760px]:p-3",
@@ -17,6 +17,6 @@ export const overlayStyles = {
   ratingRange: "min-w-0 flex-1 accent-[var(--oc-primary)]",
   ratingNumber: "grid h-[38px] w-[38px] place-items-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] font-bold text-[var(--oc-ink)]",
   modalFooter: "mt-4 flex flex-wrap justify-end gap-2 border-t border-[var(--oc-hairline)] pt-4",
-  toast: "fixed bottom-6 right-6 z-[80] w-[min(380px,calc(100%_-_48px))] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] px-4 py-3 text-sm font-medium text-[var(--oc-ink)] motion-safe:animate-[toastIn_var(--transition-base)_both] max-[760px]:bottom-3 max-[760px]:right-3 max-[760px]:w-[calc(100%_-_24px)]",
-  toastMarked: "fixed bottom-6 right-6 z-[80] w-[min(380px,calc(100%_-_48px))] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] px-4 py-3 text-sm font-medium text-[var(--oc-ink)] oc-ok-before motion-safe:animate-[toastIn_var(--transition-base)_both] max-[760px]:bottom-3 max-[760px]:right-3 max-[760px]:w-[calc(100%_-_24px)]",
+  toast: "fixed bottom-6 right-6 z-[80] w-[min(380px,calc(100%_-_48px))] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] px-4 py-3 text-sm font-medium text-[var(--oc-ink)] motion-safe:animate-[toastIn_var(--transition-base)_both] max-[760px]:bottom-[calc(92px+env(safe-area-inset-bottom))] max-[760px]:right-3 max-[760px]:w-[calc(100%_-_24px)]",
+  toastMarked: "fixed bottom-6 right-6 z-[80] w-[min(380px,calc(100%_-_48px))] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] px-4 py-3 text-sm font-medium text-[var(--oc-ink)] oc-ok-before motion-safe:animate-[toastIn_var(--transition-base)_both] max-[760px]:bottom-[calc(92px+env(safe-area-inset-bottom))] max-[760px]:right-3 max-[760px]:w-[calc(100%_-_24px)]",
 };

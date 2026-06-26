@@ -104,6 +104,7 @@
     min-width: 320px;
     min-height: 100vh;
     margin: 0;
+    overflow-x: hidden;
     background: var(--oc-canvas);
     color: var(--oc-ink);
     font-family: var(--font-mono);
