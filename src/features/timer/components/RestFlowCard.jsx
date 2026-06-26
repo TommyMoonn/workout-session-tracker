@@ -26,6 +26,7 @@ export function RestFlowCard({
   const selectedRestLabel = restPresets.includes(restDuration)
     ? `Selected preset: ${restDuration}s`
     : `Custom rest: ${restDuration}s`;
+  const restStatusLabel = restStatus === "idle" ? "Not running" : restStatus;
 
   return (
     <aside className={cx(ui.card, ui.cardPadding, ui.restCard, className)}>
@@ -34,13 +35,13 @@ export function RestFlowCard({
         <h2 className={ui.sectionTitle}>Complete set, then rest.</h2>
       </div>
 
-      <div className={ui.restDisplay}>
+      <div className={cx(ui.restDisplay, isRestRunning && ui.restDisplayActive)}>
         <div className={ui.rowBetween}>
           <div>
             <p className={ui.labelMarker}>Rest remaining</p>
             <p className={ui.restTime}>{formatClock(restRemaining)}</p>
           </div>
-          <p className={ui.restStatus}>{restStatus === "idle" ? "Not running" : restStatus}</p>
+          <p className={cx(ui.restStatus, isRestRunning && ui.restStatusActive)}>{restStatusLabel}</p>
         </div>
         <div className={ui.restAdjustments} aria-label="Adjust active rest timer">
           <button

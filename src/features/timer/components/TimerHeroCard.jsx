@@ -15,10 +15,19 @@ export function TimerHeroCard({
   workoutSummary,
   className = "",
 }) {
+  const statusLabel = isWorkoutRunning ? "Running" : workoutStatus === "paused" ? "Paused" : "Ready";
+
   return (
     <div className={cx(ui.card, ui.cardPadding, className)}>
-      <p className={ui.labelMarker}>Timer</p>
-      <h1 className={ui.heroTitle}>Track your workout.</h1>
+      <div className={ui.timerHeroHeader}>
+        <div>
+          <p className={ui.labelMarker}>Timer</p>
+          <h1 className={ui.heroTitle}>Track your workout.</h1>
+        </div>
+        <span className={cx(ui.timerStatusBadge, isWorkoutRunning && ui.timerStatusBadgeRunning)}>
+          {statusLabel}
+        </span>
+      </div>
 
       <hr className={ui.divider} />
 
@@ -31,7 +40,7 @@ export function TimerHeroCard({
         <p className={ui.timerSummaryMarked}>{workoutSummary}</p>
       </div>
 
-      <div className={ui.buttonRow}>
+      <div className={ui.timerActionGrid}>
         {!isWorkoutRunning ? (
           <Button variant="primary" onClick={onStartWorkout}>
             {workoutStatus === "paused" ? "Resume workout" : "Start workout"}
@@ -44,7 +53,7 @@ export function TimerHeroCard({
           Reset session
         </Button>
 
-        <Button variant="danger" className="col-span-full" onClick={onFinishWorkout} disabled={!hasActiveSession}>
+        <Button variant="danger" onClick={onFinishWorkout} disabled={!hasActiveSession}>
           Finish + log session
         </Button>
       </div>

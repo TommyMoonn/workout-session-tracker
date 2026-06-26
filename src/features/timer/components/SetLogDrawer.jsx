@@ -23,6 +23,9 @@ export function SetLogDrawer({ setLogs, onClose, onClear, onDeleteSet }) {
           </div>
         </div>
         <div className={ui.drawerFooter}>
+          <p className="text-xs font-bold uppercase leading-normal text-[var(--oc-muted)]">
+            {setLogs.length === 0 ? "No active sets" : `${setLogs.length} set${setLogs.length === 1 ? "" : "s"} in current session`}
+          </p>
           <Button variant="soft" onClick={onClear} disabled={setLogs.length === 0}>Clear current sets</Button>
         </div>
       </aside>
