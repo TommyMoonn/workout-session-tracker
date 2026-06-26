@@ -21,6 +21,10 @@ export function RestFlowCard({
   activeSetId,
   className = "",
 }) {
+  const selectedRestLabel = restPresets.includes(restDuration)
+    ? `Selected preset: ${restDuration}s`
+    : `Custom rest: ${restDuration}s`;
+
   return (
     <aside className={cx(ui.card, ui.cardPadding, ui.restCard, className)}>
       <div>
@@ -67,6 +71,7 @@ export function RestFlowCard({
             <button
               key={seconds}
               type="button"
+              aria-pressed={restDuration === seconds}
               onClick={() => onSelectRestPreset(seconds)}
               className={cx(ui.preset, restDuration === seconds && ui.presetActive)}
             >
@@ -74,6 +79,7 @@ export function RestFlowCard({
             </button>
           ))}
         </div>
+        <p className={ui.restPresetSummary}>{selectedRestLabel}</p>
       </div>
 
       <div className={cx("mt-auto", ui.buttonGrid)}>
