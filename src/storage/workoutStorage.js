@@ -17,3 +17,10 @@ export function saveWorkoutStorage(state) {
 
   window.localStorage.setItem(WORKOUT_STORAGE_KEY, JSON.stringify(state));
 }
+
+export function updateWorkoutStorage(patch) {
+  saveWorkoutStorage({
+    ...readWorkoutStorage(),
+    ...patch,
+  });
+}

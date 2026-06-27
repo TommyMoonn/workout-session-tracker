@@ -2,7 +2,7 @@ import { MarkedPill } from "../../../components/ui";
 import { ui } from "../../../styles";
 import { formatDateTime } from "../../../utils/workoutFormat";
 import { getWorkoutTags, getWorkoutTagsLabel } from "../../../domain/workoutTypes";
-import { historyPageSize } from "../constants";
+import { getHistoryPageSize } from "../constants";
 
 export function SessionList({
   displayMode = "list",
@@ -11,6 +11,7 @@ export function SessionList({
   sessionCount,
   visibleSessions,
 }) {
+  const historyPageSize = getHistoryPageSize(displayMode);
   const placeholderCount = Math.max(historyPageSize - visibleSessions.length, 0);
 
   return (

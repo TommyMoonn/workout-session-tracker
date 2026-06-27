@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../../../utils/workoutData";
-import { readWorkoutStorage, saveWorkoutStorage } from "../../../storage/workoutStorage";
+import { readWorkoutStorage, updateWorkoutStorage } from "../../../storage/workoutStorage";
 import { clampSeconds } from "../../../utils/workoutFormat";
 import {
   defaultRestSeconds,
@@ -272,10 +272,7 @@ export function useWorkoutTimer() {
   }
 
   function saveLoggedSession(nextSessionLogs, nextSelectedSessionId) {
-    const currentState = readWorkoutStorage();
-
-    saveWorkoutStorage({
-      ...currentState,
+    updateWorkoutStorage({
       savedAt: Date.now(),
       sessionLogs: nextSessionLogs,
       selectedSessionId: nextSelectedSessionId,

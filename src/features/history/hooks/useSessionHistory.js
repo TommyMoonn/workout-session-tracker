@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useToast } from "../../../hooks/useToast";
-import { readWorkoutStorage, saveWorkoutStorage } from "../../../storage/workoutStorage";
+import { readWorkoutStorage, updateWorkoutStorage } from "../../../storage/workoutStorage";
 import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../../../utils/workoutData";
 import { allWorkoutTypesValue, buildWorkoutTypeFilterOptions, matchesWorkoutTypeFilter } from "../../../domain/workoutTypes";
 import { buildWorkoutHistoryExportPayload, parseWorkoutHistoryImport } from "../../../utils/workoutImport";
 import { buildSessionMarkdown, downloadFile } from "../../../utils/workoutExport";
 import { formatFileTimestamp } from "../../../utils/workoutFormat";
-import { historyPageSize } from "../constants";
+import { getHistoryPageSize } from "../constants";
 
 export function useSessionHistory() {
   const jsonInputRef = useRef(null);
@@ -38,19 +38,18 @@ export function useSessionHistory() {
     [activeWorkoutTypeFilter, sessionLogs]
   );
 
+  const historyPageSize = getHistoryPageSize(historyDisplayMode);
   const totalHistoryPages = Math.max(1, Math.ceil(filteredSessions.length / historyPageSize));
   const currentHistoryPage = Math.min(historyPage, totalHistoryPages);
   const pageSessionStart = (currentHistoryPage - 1) * historyPageSize;
 
   const visibleSessions = useMemo(
     () => filteredSessions.slice(pageSessionStart, pageSessionStart + historyPageSize),
-    [filteredSessions, pageSessionStart]
+    [filteredSessions, historyPageSize, pageSessionStart]
   );
 
   useEffect(() => {
-    const currentState = readWorkoutStorage();
-    saveWorkoutStorage({
-      ...currentState,
+    updateWorkoutStorage({
       savedAt: Date.now(),
       sessionLogs,
       selectedSessionId,
@@ -81,7 +80,6 @@ export function useSessionHistory() {
   function clearSessionLogs() {
     setSessionLogs([]);
     setSelectedSessionId(null);
-    setHistoryDisplayMode("list");
     setWorkoutTypeFilter(allWorkoutTypesValue);
     setHistoryPage(1);
     showToast("Session history cleared.");
@@ -209,6 +207,14 @@ export function useSessionHistory() {
     setHistoryPage((current) => Math.min(totalHistoryPages, current + 1));
   }
 
+  function changeHistoryDisplayMode(nextMode) {
+    if (nextMode === historyDisplayMode) return;
+
+    const nextPageSize = getHistoryPageSize(nextMode);
+    setHistoryPage(Math.floor(pageSessionStart / nextPageSize) + 1);
+    setHistoryDisplayMode(nextMode);
+  }
+
   return {
     state: {
       currentHistoryPage,
@@ -245,7 +251,7 @@ export function useSessionHistory() {
       previousHistoryPage,
       saveEditSessionReview,
       setEditingReview,
-      setHistoryDisplayMode,
+      setHistoryDisplayMode: changeHistoryDisplayMode,
       setSelectedSessionId,
       setWorkoutTypeFilter: (nextFilter) => {
         setWorkoutTypeFilter(nextFilter);

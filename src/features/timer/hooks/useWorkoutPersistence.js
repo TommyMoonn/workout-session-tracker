@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { saveWorkoutStorage } from "../../../storage/workoutStorage";
+import { updateWorkoutStorage } from "../../../storage/workoutStorage";
 import { storageSyncMs } from "../constants";
 
 export function useWorkoutPersistence({
@@ -16,7 +16,7 @@ export function useWorkoutPersistence({
   workoutStatus,
 }) {
   const persistWorkoutStorage = useCallback(() => {
-    saveWorkoutStorage({
+    updateWorkoutStorage({
       savedAt: Date.now(),
       sessionLogs,
       selectedSessionId,
