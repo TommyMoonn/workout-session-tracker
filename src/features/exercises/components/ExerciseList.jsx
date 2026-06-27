@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Button, EmptyBlock, MarkedPill } from "../../../components/ui";
+import { Button, EmptyBlock } from "../../../components/ui";
 import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
 
@@ -26,6 +26,7 @@ export const ExerciseList = forwardRef(function ExerciseList({
       ) : (
         exercises.map((exercise) => {
           const isSelected = selectedExercise?.id === exercise.id;
+          const targetMuscles = (exercise.primaryMuscles ?? []).join(" · ");
 
           return (
             <button
@@ -33,15 +34,24 @@ export const ExerciseList = forwardRef(function ExerciseList({
               type="button"
               aria-current={isSelected ? "true" : undefined}
               onClick={() => onSelectExercise(exercise.id)}
-              className={cx(ui.exerciseRow, isSelected && ui.rowSelected)}
+              className={cx(ui.exerciseRow, isSelected && ui.exerciseRowSelected)}
             >
               <div className="min-w-0">
-                <p className={ui.rowTitle}>{exercise.name}</p>
-                <p className={cx(ui.rowMeta, isSelected && ui.rowMetaSelected)}>
-                  {exercise.category} · {exercise.difficulty} · {exercise.normalizedEquipment}
+                <p className={ui.exerciseRowTitle}>{exercise.name}</p>
+                <p className={ui.exerciseRowMuscles}>
+                  {targetMuscles || "Target muscles not listed"}
+                </p>
+                <p className={ui.exerciseRowMeta}>
+                  {exercise.difficulty} · {exercise.normalizedEquipment}
                 </p>
               </div>
-              <MarkedPill selected={isSelected}>{exercise.movementType}</MarkedPill>
+              {exercise.hasDemo && (
+                <span className={ui.exerciseRowSignals}>
+                  <span className={ui.exerciseDemoIndicator} aria-label="Demo video available">
+                    [demo]
+                  </span>
+                </span>
+              )}
             </button>
           );
         })
