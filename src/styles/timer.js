@@ -17,7 +17,7 @@ export const timerStyles = {
   restDisplay: "min-w-0 border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] p-4 text-[var(--oc-ink)] max-[760px]:p-3",
   restDisplayActive: "border-[var(--oc-success)] bg-[var(--oc-success-soft)]",
   restAdjustments: "mt-3 grid grid-cols-2 gap-2",
-  restAdjustmentButton: "inline-flex min-h-9 items-center justify-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] px-3 py-1 text-xs font-bold uppercase leading-normal text-[var(--oc-ink)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] disabled:cursor-not-allowed disabled:opacity-45",
+  restAdjustmentButton: "inline-flex min-h-10 items-center justify-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] px-3 py-1 text-xs font-bold uppercase leading-normal text-[var(--oc-ink)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] disabled:cursor-not-allowed disabled:opacity-45",
   restTime: "mt-1 max-w-full overflow-hidden text-[clamp(36px,5vw,54px)] font-bold leading-[1.15] text-[var(--oc-ink)] max-[760px]:text-[clamp(34px,13vw,52px)]",
   restStatus: "text-right text-xs font-bold uppercase leading-normal text-[var(--oc-muted)] max-[760px]:text-left",
   restStatusActive: "text-[var(--oc-ink)]",

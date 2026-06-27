@@ -2,7 +2,6 @@ import { MarkedPill } from "../../../components/ui";
 import { ui } from "../../../styles";
 import { formatDateTime } from "../../../utils/workoutFormat";
 import { getWorkoutTags, getWorkoutTagsLabel } from "../../../domain/workoutTypes";
-import { getHistoryPageSize } from "../constants";
 
 export function SessionList({
   displayMode = "list",
@@ -11,9 +10,6 @@ export function SessionList({
   sessionCount,
   visibleSessions,
 }) {
-  const historyPageSize = getHistoryPageSize(displayMode);
-  const placeholderCount = Math.max(historyPageSize - visibleSessions.length, 0);
-
   return (
     <div className={displayMode === "card" ? ui.sessionCardGrid : ui.sessionListPanel}>
       {visibleSessions.map((session, index) => (
@@ -27,19 +23,7 @@ export function SessionList({
           sessionCount={sessionCount}
         />
       ))}
-      {Array.from({ length: placeholderCount }, (_, index) => (
-        <SessionPlaceholder displayMode={displayMode} key={`session-placeholder-${index}`} />
-      ))}
     </div>
-  );
-}
-
-function SessionPlaceholder({ displayMode }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={displayMode === "card" ? ui.sessionCardPlaceholder : ui.sessionListPlaceholder}
-    />
   );
 }
 

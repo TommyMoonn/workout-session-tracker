@@ -4,6 +4,7 @@ export const typographyStyles = {
   sectionTitle: "mt-2 text-[clamp(22px,2.4vw,30px)] font-bold leading-[1.35] tracking-normal text-[var(--oc-ink)]",
   detailTitle: "mt-2 text-[clamp(28px,4vw,44px)] font-bold leading-[1.35] tracking-normal text-[var(--oc-ink)]",
   smallTitle: "mt-2 text-xl font-bold leading-[1.35] tracking-normal text-[var(--oc-ink)]",
+  panelTitle: "mt-1 text-xl font-bold leading-[1.35] tracking-normal text-[var(--oc-ink)]",
   bodyCopy: "mt-2 max-w-[720px] text-base font-normal leading-normal text-[var(--oc-body)]",
   label: "text-xs font-bold uppercase leading-normal text-[var(--oc-muted)]",
   marker: "text-[var(--oc-marker)]",

@@ -6,11 +6,11 @@ import { ExerciseList } from "./ExerciseList";
 export function ExerciseBrowser({ state, actions }) {
   return (
     <section className={ui.browserCard}>
-      <div className={ui.browserHeader}>
+      <div className={`${ui.browserHeader} ${ui.panelToolbarPadding}`}>
         <div className={ui.browserHeaderSummary}>
           <div>
             <MarkerLabel>Results</MarkerLabel>
-            <h2 className={ui.sectionTitle}>{state.filteredExercises.length} exercise{state.filteredExercises.length === 1 ? "" : "s"}</h2>
+            <h2 className={ui.panelTitle}>{state.filteredExercises.length} exercise{state.filteredExercises.length === 1 ? "" : "s"}</h2>
           </div>
           {state.selectedExercise && (
             <MarkedPill selected className={ui.selectedExercisePill}>

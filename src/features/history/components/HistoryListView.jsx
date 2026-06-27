@@ -1,4 +1,5 @@
 import { EmptyBlock, SelectField } from "../../../components/ui";
+import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
 import { HistoryPagination } from "./HistoryPagination";
 import { HistoryViewToggle } from "./HistoryViewToggle";
@@ -23,10 +24,10 @@ export function HistoryListView({
 
   return (
     <div className={ui.historyListView}>
-      <div className={ui.historyListToolbar}>
+      <div className={cx(ui.historyListToolbar, ui.panelToolbarPadding)}>
         <div>
           <p className={ui.labelMarker}>Sessions</p>
-          <h3 className={ui.smallTitle}>{filteredSessionCount} saved</h3>
+          <h3 className={ui.panelTitle}>{filteredSessionCount} saved</h3>
         </div>
 
         <div className={ui.historyListTools}>
@@ -50,9 +51,7 @@ export function HistoryListView({
           visibleSessions={visibleSessions}
         />
       ) : (
-        <div className="p-4">
-          <EmptyBlock>No sessions match this tag.</EmptyBlock>
-        </div>
+        <EmptyBlock className={ui.historyListEmpty}>No sessions match this tag.</EmptyBlock>
       )}
 
       <HistoryPagination

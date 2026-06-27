@@ -5,11 +5,11 @@ import { allOption, demoFilterOptions } from "../utils/exerciseSearch";
 
 export function ExerciseFilters({ state, actions, searchInputRef }) {
   return (
-    <section className={`${ui.card} ${ui.exerciseFilterCard} relative overflow-visible`}>
+    <section className={`${ui.card} ${ui.panelPadding} relative overflow-visible`}>
       <div className={ui.toolbar}>
         <div>
           <MarkerLabel>Filters</MarkerLabel>
-          <h2 className={ui.sectionTitle}>Search and narrow the list</h2>
+          <h2 className={ui.panelTitle}>Search and narrow the list</h2>
         </div>
         <Button variant="soft" onClick={actions.clearFilters} disabled={state.activeFilterCount === 0}>
           Clear filters

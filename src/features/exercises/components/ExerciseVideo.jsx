@@ -11,7 +11,7 @@ export function ExerciseVideo({ exercise }) {
       <div className={ui.rowBetween}>
         <div>
           <MarkerLabel>Demo video</MarkerLabel>
-          <h3 className={ui.smallTitle}>Watch the movement</h3>
+          <h3 className={ui.panelTitle}>Watch the movement</h3>
         </div>
         {exercise.demoUrl && (
           <a className={buttonClass("soft")} href={exercise.demoUrl} target="_blank" rel="noreferrer">

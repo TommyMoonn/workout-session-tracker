@@ -10,5 +10,5 @@ export function EmptyBlock({ children, className = "" }) {
 }
 
 export function EmptyState({ text }) {
-  return <div className={ui.emptyMarked}>{text}</div>;
+  return <EmptyBlock>{text}</EmptyBlock>;
 }

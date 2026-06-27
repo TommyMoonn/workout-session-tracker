@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { ReviewModal } from "../../../components/session";
 import { ConfirmationDialog, EmptyState, Toast } from "../../../components/ui";
 import { useConfirmation } from "../../../hooks/useConfirmation";
+import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
 import { useKeyboardShortcuts } from "../../shortcuts";
 import { formatDateTime, formatDuration } from "../../../utils/workoutFormat";
@@ -82,10 +83,10 @@ export function HistoryArchive({ state, actions, refs }) {
       <HistoryPageHeader sessionCount={state.sessionLogs.length} />
 
       <section className={ui.historyCard}>
-        <div className={ui.historyHeader}>
+        <div className={cx(ui.historyHeader, ui.panelPadding)}>
           <div>
             <p className="whitespace-nowrap text-xs font-bold uppercase leading-normal text-[var(--oc-muted)] oc-plus-before">Saved sessions</p>
-            <h2 className={ui.sectionTitle}>Archive</h2>
+            <h2 className={ui.panelTitle}>Archive</h2>
           </div>
 
           <ArchiveActions

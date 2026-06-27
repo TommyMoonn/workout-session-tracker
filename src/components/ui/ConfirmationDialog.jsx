@@ -23,7 +23,7 @@ export function ConfirmationDialog({
   return (
     <div className={ui.modalOverlay} onMouseDown={onCancel}>
       <section
-        className="w-[min(460px,100%)] border border-[var(--oc-hairline)] bg-[var(--oc-canvas)] p-5 text-[var(--oc-ink)] motion-safe:animate-[modalIn_var(--transition-base)_both]"
+        className={ui.confirmationPanel}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby="confirmation-title"
@@ -31,10 +31,10 @@ export function ConfirmationDialog({
         data-shortcut-blocking="true"
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <div className="border-b border-[var(--oc-hairline)] pb-4">
+        <div className={ui.confirmationHeader}>
           <p className={ui.labelMarker}>Confirm action</p>
           <h2 id="confirmation-title" className={ui.sectionTitle}>{title}</h2>
-          <p id="confirmation-message" className="mt-2 text-sm leading-6 text-[var(--oc-body)]">{message}</p>
+          <p id="confirmation-message" className={ui.confirmationMessage}>{message}</p>
         </div>
 
         <footer className={ui.modalFooter}>

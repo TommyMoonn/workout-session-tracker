@@ -1,9 +1,8 @@
 export const exerciseStyles = {
-  exerciseFilterCard: "px-6 py-5 max-[760px]:p-4",
   exerciseFilterGrid: "mt-3 grid grid-cols-[minmax(240px,1.5fr)_repeat(4,minmax(130px,1fr))] gap-2.5 max-[1120px]:grid-cols-3 max-[900px]:grid-cols-2 max-[760px]:grid-cols-1 max-[760px]:gap-2",
   exerciseSearchField: "max-[1120px]:col-span-2 max-[760px]:col-span-1",
   browserCard: "mt-4 min-w-0 overflow-hidden border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-0 text-[var(--oc-ink)] max-[760px]:mt-3",
-  browserHeader: "min-w-0 border-b border-[var(--oc-hairline)] px-6 py-4 max-[760px]:p-4",
+  browserHeader: "min-w-0 border-b border-[var(--oc-hairline)]",
   browserHeaderSummary: "flex min-w-0 items-end gap-4 max-[760px]:flex-col max-[760px]:items-start max-[760px]:gap-3",
   selectedExercisePill: "mb-0.5 max-w-[min(420px,50%)] shrink min-[761px]:ml-auto [&>span:last-child]:truncate max-[760px]:max-w-full",
   exerciseBrowserBody: "grid h-[clamp(560px,calc(100vh-220px),760px)] min-h-0 grid-cols-[minmax(340px,0.55fr)_minmax(0,1fr)] items-stretch overflow-hidden max-[1120px]:h-auto max-[1120px]:overflow-visible max-[1120px]:grid-cols-1",
