@@ -24,6 +24,7 @@ export function ExerciseVideo({ exercise }) {
         <div className={isVideoLoaded ? ui.videoFrame : ui.videoLoadPanel}>
           {isVideoLoaded ? (
             <iframe
+              className={ui.videoEmbed}
               title={`${exercise.name} demo video`}
               src={exercise.embedUrl}
               loading="lazy"

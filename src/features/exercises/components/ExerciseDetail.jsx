@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Button, EmptyBlock, MarkedPill, MarkerLabel } from "../../../components/ui";
 import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
@@ -14,6 +15,12 @@ export function ExerciseDetail({
   onPrevious,
   resultPosition,
 }) {
+  const detailPaneRef = useRef(null);
+
+  useEffect(() => {
+    if (detailPaneRef.current) detailPaneRef.current.scrollTop = 0;
+  }, [exercise?.id]);
+
   if (!exercise) {
     return (
       <div className={cx(ui.exerciseDetailPane, className)}>
@@ -23,7 +30,7 @@ export function ExerciseDetail({
   }
 
   return (
-    <article className={cx(ui.exerciseDetailPane, className)}>
+    <article ref={detailPaneRef} className={cx(ui.exerciseDetailPane, className)}>
       <div className={ui.exerciseDetailToolbar}>
         <Button ref={backButtonRef} variant="soft" className={ui.exerciseDetailBack} onClick={onBack}>
           ← Exercises
@@ -39,7 +46,7 @@ export function ExerciseDetail({
         </div>
       </div>
 
-      <div className={ui.exerciseDetailCard}>
+      <div key={exercise.id} className={cx(ui.exerciseDetailCard, ui.exerciseDetailContentIn)}>
         <MarkerLabel>Exercise detail</MarkerLabel>
         <h2 className={ui.detailTitle}>{exercise.name}</h2>
         <p className={ui.bodyCopy}>{exercise.description}</p>

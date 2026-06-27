@@ -226,6 +226,17 @@
   50% { opacity: 0.34; }
 }
 
+@keyframes exercisePaneIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @layer utilities {
   .oc-plus-before::before {
     content: "[+] ";
