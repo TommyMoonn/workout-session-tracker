@@ -1,9 +1,15 @@
+import { forwardRef } from "react";
 import { buttonClass } from "./buttonClass";
 
-export function Button({ variant = "default", className = "", children, ...props }) {
+export const Button = forwardRef(function Button({
+  variant = "default",
+  className = "",
+  children,
+  ...props
+}, ref) {
   return (
-    <button className={buttonClass(variant, className)} {...props}>
+    <button ref={ref} className={buttonClass(variant, className)} {...props}>
       {children}
     </button>
   );
-}
+});

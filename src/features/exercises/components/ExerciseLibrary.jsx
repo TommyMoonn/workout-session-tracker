@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
 import { useKeyboardShortcuts } from "../../shortcuts";
@@ -8,6 +8,7 @@ import { ExercisePageHeader } from "./ExercisePageHeader";
 
 export function ExerciseLibrary({ state, actions }) {
   const searchInputRef = useRef(null);
+  const [isMobileDetailOpen, setIsMobileDetailOpen] = useState(false);
   const exerciseShortcuts = useMemo(() => [
     {
       id: "exercises.search",
@@ -20,6 +21,10 @@ export function ExerciseLibrary({ state, actions }) {
       id: "global.close",
       allowInEditable: true,
       handler: () => {
+        if (isMobileDetailOpen) {
+          setIsMobileDetailOpen(false);
+          return;
+        }
         if (document.activeElement === searchInputRef.current) {
           searchInputRef.current?.blur();
           return;
@@ -29,22 +34,34 @@ export function ExerciseLibrary({ state, actions }) {
         }
       },
     },
-  ], [actions, state.query]);
+  ], [actions, isMobileDetailOpen, state.query]);
 
   useKeyboardShortcuts(exerciseShortcuts);
 
   return (
     <div className={ui.pageWide}>
-      <div className={ui.reveal}>
+      <div className={cx(
+        ui.reveal,
+        isMobileDetailOpen && "max-[760px]:hidden",
+      )}>
         <ExercisePageHeader totalExerciseCount={state.totalExerciseCount} />
       </div>
 
-      <div className={cx(ui.reveal1, "relative z-30")}>
+      <div className={cx(
+        ui.reveal1,
+        "relative z-30",
+        isMobileDetailOpen && "max-[760px]:hidden",
+      )}>
         <ExerciseFilters state={state} actions={actions} searchInputRef={searchInputRef} />
       </div>
 
       <div className={cx(ui.reveal, ui.reveal2, "relative z-0")}>
-        <ExerciseBrowser state={state} actions={actions} />
+        <ExerciseBrowser
+          state={state}
+          actions={actions}
+          isMobileDetailOpen={isMobileDetailOpen}
+          onChangeMobileDetail={setIsMobileDetailOpen}
+        />
       </div>
     </div>
   );
