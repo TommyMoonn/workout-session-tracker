@@ -34,7 +34,7 @@ export function ExerciseVideo({ exercise }) {
           ) : (
             <button type="button" className={ui.videoPlaceholder} onClick={() => setLoadedExerciseId(exercise.id)}>
               <span>
-                <MarkerLabel as="span">Demo available</MarkerLabel>
+                <MarkerLabel as="span" className={ui.videoMediaLabel}>Demo available</MarkerLabel>
                 <strong className={ui.videoPlaceholderTitle}>Load demo video</strong>
               </span>
             </button>

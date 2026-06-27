@@ -35,6 +35,7 @@ export const exerciseStyles = {
   videoEmbed: "h-full w-full border-0 motion-safe:animate-[overlayIn_160ms_ease-out_both]",
   videoLoadPanel: "mt-4 min-h-[132px] overflow-hidden border border-[var(--oc-hairline-strong)] bg-[var(--oc-media-surface)] max-[760px]:min-h-[112px]",
   videoPlaceholder: "grid min-h-[132px] w-full place-items-center rounded-none border-0 bg-[var(--oc-media-surface)] p-4 text-center text-[var(--oc-on-media)] whitespace-normal hover:border-0 hover:bg-[var(--oc-media-surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-focus)] max-[760px]:min-h-[112px]",
+  videoMediaLabel: "!text-[var(--oc-media-muted)] [&_span]:!text-[var(--oc-media-marker)]",
   videoPlaceholderTitle: "mt-2 block text-xl font-bold leading-[1.35] text-[var(--oc-on-media)]",
   demoEmpty: "mt-4 border border-dashed border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] p-6 text-[var(--oc-body)] max-[760px]:p-4",
 };
