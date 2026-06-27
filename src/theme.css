@@ -1,0 +1,50 @@
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --oc-canvas: #151313;
+  --oc-canvas-deep: #0d0c0c;
+  --oc-surface: #1c1919;
+  --oc-surface-soft: #242020;
+  --oc-surface-card: #2f2a2a;
+  --oc-surface-muted: #383232;
+
+  --oc-ink: #fdfcfc;
+  --oc-ink-soft: #eee7e2;
+  --oc-body: #d2cbc6;
+  --oc-muted: #a9a19c;
+  --oc-stone: #7d7671;
+  --oc-marker: #8f8782;
+  --oc-marker-soft: rgba(253, 252, 252, 0.42);
+
+  --oc-hairline: rgba(253, 252, 252, 0.14);
+  --oc-hairline-strong: rgba(253, 252, 252, 0.34);
+
+  --oc-primary: #fdfcfc;
+  --oc-primary-active: #ffffff;
+  --oc-primary-soft: rgba(253, 252, 252, 0.12);
+  --oc-primary-softer: rgba(253, 252, 252, 0.18);
+  --oc-on-primary: #151313;
+
+  --oc-accent: #fdfcfc;
+  --oc-accent-soft: rgba(253, 252, 252, 0.12);
+  --oc-accent-softer: rgba(253, 252, 252, 0.08);
+
+  --oc-success: #30d158;
+  --oc-success-soft: rgba(48, 209, 88, 0.14);
+  --oc-on-success: #151313;
+  --oc-warning: #ff9f0a;
+  --oc-warning-soft: rgba(255, 159, 10, 0.14);
+  --oc-on-warning: #151313;
+  --oc-danger: #ff453a;
+  --oc-danger-soft: rgba(255, 69, 58, 0.16);
+  --oc-on-danger: #ffffff;
+
+  --oc-overlay: rgba(0, 0, 0, 0.7);
+  --oc-table-stripe: rgba(255, 255, 255, 0.025);
+  --oc-table-hover: rgba(255, 255, 255, 0.04);
+
+  --oc-media-surface: #000000;
+  --oc-on-media: #fdfcfc;
+  --oc-media-muted: #a9a19c;
+}

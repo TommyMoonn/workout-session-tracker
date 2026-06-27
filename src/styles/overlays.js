@@ -1,11 +1,11 @@
 export const overlayStyles = {
-  overlay: "fixed inset-0 z-[60] bg-black/70 motion-safe:animate-[overlayIn_var(--transition-base)_both]",
+  overlay: "fixed inset-0 z-[60] bg-[var(--oc-overlay)] motion-safe:animate-[overlayIn_var(--transition-base)_both]",
   drawerPanel: "fixed right-0 top-0 z-[70] flex h-[100dvh] w-[min(960px,100%)] flex-col border-l border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas)] p-0 text-[var(--oc-ink)] motion-safe:animate-[drawerIn_var(--transition-base)_both] max-[760px]:bottom-[calc(84px+env(safe-area-inset-bottom))] max-[760px]:top-auto max-[760px]:h-[calc(100dvh-84px-env(safe-area-inset-bottom))] max-[760px]:border-l-0",
   drawerHeader: "relative border-b border-[var(--oc-hairline)] p-4 pr-16 max-[760px]:p-3 max-[760px]:pr-14",
   drawerClose: "absolute right-4 top-4 h-10 !w-10 min-w-10 p-0 text-base leading-none max-[760px]:right-3 max-[760px]:top-3",
   drawerBody: "flex-1 overflow-auto p-4 max-[760px]:p-3",
   drawerFooter: "flex items-start justify-between gap-4 border-t border-[var(--oc-hairline)] p-4 max-[760px]:flex-col max-[760px]:items-stretch max-[760px]:p-3",
-  modalOverlay: "fixed inset-0 z-[60] grid place-items-center overflow-y-auto bg-black/70 p-4 motion-safe:animate-[overlayIn_var(--transition-base)_both]",
+  modalOverlay: "fixed inset-0 z-[60] grid place-items-center overflow-y-auto bg-[var(--oc-overlay)] p-4 motion-safe:animate-[overlayIn_var(--transition-base)_both]",
   modalPanel: "max-h-[min(860px,calc(100dvh-48px))] w-[min(760px,100%)] max-w-full overflow-auto border border-[var(--oc-hairline)] bg-[var(--oc-canvas)] p-6 text-[var(--oc-ink)] motion-safe:animate-[modalIn_var(--transition-base)_both] max-[760px]:max-h-[calc(100dvh-32px)] max-[760px]:p-4",
   modalHeader: "flex items-start justify-between gap-4 border-b border-[var(--oc-hairline)] pb-4 max-[760px]:flex-col max-[760px]:items-stretch",
   modalHeaderPadded: "flex items-start justify-between gap-4 border-b border-[var(--oc-hairline)] pb-4 pr-20 max-[760px]:flex-col max-[760px]:items-stretch max-[520px]:pr-16",

@@ -29,7 +29,7 @@ function SideNav({ onOpenSettings }) {
         <div className="grid grid-cols-[40px_minmax(0,1fr)] items-center gap-3 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-3">
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] text-base leading-none text-[var(--oc-ink)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-accent)]"
+            className="grid h-10 w-10 place-items-center rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] text-base leading-none text-[var(--oc-ink)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-focus)]"
             aria-label="Open settings"
             title="Settings (Ctrl + ,)"
             onClick={onOpenSettings}
@@ -47,7 +47,7 @@ function SideNav({ onOpenSettings }) {
               key={item.path}
               to={item.path}
               className={({ isActive }) => cx(
-                "relative grid min-h-[58px] grid-cols-[44px_minmax(0,1fr)] items-center gap-2 border border-[var(--oc-hairline)] bg-transparent px-3 py-2 text-[var(--oc-body)] no-underline transition-colors hover:border-[var(--oc-hairline-strong)] hover:bg-[var(--oc-surface)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-accent)] max-[1120px]:min-h-[54px]",
+                "relative grid min-h-[58px] grid-cols-[44px_minmax(0,1fr)] items-center gap-2 border border-[var(--oc-hairline)] bg-transparent px-3 py-2 text-[var(--oc-body)] no-underline transition-colors hover:border-[var(--oc-hairline-strong)] hover:bg-[var(--oc-surface)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-focus)] max-[1120px]:min-h-[54px]",
                 isActive && "border-[var(--oc-accent)] bg-[var(--oc-accent-softer)] text-[var(--oc-ink)] before:absolute before:left-[-13px] before:font-bold before:text-[var(--oc-accent)] before:content-['>'] max-[1120px]:before:hidden hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] hover:text-[var(--oc-ink)] [&_span:first-child]:border-[var(--oc-accent)] [&_span:first-child]:text-[var(--oc-accent)] [&_small]:text-[var(--oc-muted)]",
               )}
             >
@@ -70,7 +70,7 @@ function SideNav({ onOpenSettings }) {
             key={item.path}
             to={item.path}
             className={({ isActive }) => cx(
-              "grid min-h-[58px] place-items-center gap-1 rounded-[4px] border border-transparent px-1 py-2 text-center text-xs font-bold leading-tight text-[var(--oc-body)] no-underline transition-colors hover:bg-[var(--oc-surface)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-accent)]",
+              "grid min-h-[58px] place-items-center gap-1 rounded-[4px] border border-transparent px-1 py-2 text-center text-xs font-bold leading-tight text-[var(--oc-body)] no-underline transition-colors hover:bg-[var(--oc-surface)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-focus)]",
               isActive && "border-[var(--oc-accent)] bg-[var(--oc-accent-softer)] text-[var(--oc-ink)]",
             )}
           >
@@ -80,7 +80,7 @@ function SideNav({ onOpenSettings }) {
         ))}
           <button
             type="button"
-            className="grid min-h-[58px] place-items-center gap-1 rounded-[4px] border border-transparent px-1 py-2 text-center text-xs font-bold leading-tight text-[var(--oc-body)] transition-colors hover:bg-[var(--oc-surface)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-accent)]"
+            className="grid min-h-[58px] place-items-center gap-1 rounded-[4px] border border-transparent px-1 py-2 text-center text-xs font-bold leading-tight text-[var(--oc-body)] transition-colors hover:bg-[var(--oc-surface)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-focus)]"
             aria-label="Open settings"
             onClick={onOpenSettings}
           >

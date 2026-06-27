@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap");
 @import "tailwindcss";
+@import "./theme.css";
 
 @theme {
   --font-sans: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -8,67 +9,22 @@
 }
 
 :root {
-  color-scheme: dark;
+  --oc-control-surface: var(--oc-surface-soft);
+  --oc-control-surface-hover: var(--oc-surface-muted);
+  --oc-control-surface-focus: var(--oc-canvas-deep);
+  --oc-control-border: var(--oc-hairline);
+  --oc-control-border-strong: var(--oc-hairline-strong);
+  --oc-control-placeholder: var(--oc-stone);
+  --oc-control-disabled: var(--oc-stone);
 
-  --oc-canvas: #151313;
-  --oc-canvas-deep: #0d0c0c;
-  --oc-surface: #1c1919;
-  --oc-surface-soft: #242020;
-  --oc-surface-card: #2f2a2a;
-  --oc-surface-muted: #383232;
-  --oc-ink: #fdfcfc;
-  --oc-ink-soft: #eee7e2;
-  --oc-body: #d2cbc6;
-  --oc-muted: #a9a19c;
-  --oc-stone: #7d7671;
-  --oc-marker: #8f8782;
-  --oc-marker-soft: rgba(253, 252, 252, 0.42);
-  --oc-hairline: rgba(253, 252, 252, 0.14);
-  --oc-hairline-strong: rgba(253, 252, 252, 0.34);
-  --oc-primary: #fdfcfc;
-  --oc-primary-active: #ffffff;
-  --oc-primary-soft: rgba(253, 252, 252, 0.12);
-  --oc-primary-softer: rgba(253, 252, 252, 0.18);
-  --oc-on-primary: #151313;
-  --oc-accent: #fdfcfc;
-  --oc-accent-soft: rgba(253, 252, 252, 0.12);
-  --oc-accent-softer: rgba(253, 252, 252, 0.08);
-  --oc-success: #30d158;
-  --oc-warning: #ff9f0a;
-  --oc-danger: #ff453a;
-  --oc-danger-soft: rgba(255, 69, 58, 0.16);
-  --oc-success-soft: rgba(48, 209, 88, 0.14);
+  --oc-focus: var(--oc-accent);
+  --oc-focus-soft: var(--oc-accent-soft);
+
+  --oc-scrollbar-track: var(--oc-canvas-deep);
+  --oc-scrollbar-thumb: var(--oc-hairline-strong);
 
   --transition-fast: 120ms ease;
   --transition-base: 180ms ease;
-
-  --nb-black: var(--oc-canvas-deep);
-  --nb-paper: var(--oc-canvas);
-  --nb-white: var(--oc-surface);
-  --nb-gray: var(--oc-surface-soft);
-  --nb-gray-2: var(--oc-surface-muted);
-  --nb-muted: var(--oc-muted);
-  --nb-primary: var(--oc-primary);
-  --nb-primary-dark: var(--oc-primary-active);
-  --nb-danger: var(--oc-danger);
-  --nb-shadow: none;
-  --nb-shadow-sm: none;
-
-  --tm-primary: var(--oc-primary);
-  --tm-primary-dark: var(--oc-primary-active);
-  --tm-primary-light: var(--oc-primary-active);
-  --tm-ink: var(--oc-ink);
-  --tm-paper: var(--oc-canvas);
-  --tm-white: var(--oc-surface);
-  --tm-muted: var(--oc-muted);
-  --tm-border: var(--oc-hairline);
-  --tm-danger: var(--oc-danger);
-  --tm-success: var(--oc-success);
-  --tm-warning: var(--oc-warning);
-  --tm-shadow: none;
-  --tm-shadow-sm: none;
-  --tm-primary-pale: var(--oc-accent-soft);
-  --tm-soft-bg: var(--oc-surface-soft);
 
   background: var(--oc-canvas);
   color: var(--oc-ink);
@@ -86,7 +42,7 @@
 @layer base {
   * {
     box-sizing: border-box;
-    scrollbar-color: var(--oc-hairline-strong) var(--oc-canvas-deep);
+    scrollbar-color: var(--oc-scrollbar-thumb) var(--oc-scrollbar-track);
     scrollbar-width: thin;
   }
 
@@ -157,13 +113,13 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--oc-canvas-deep);
+    background: var(--oc-scrollbar-track);
   }
 
   ::-webkit-scrollbar-thumb {
-    border: 2px solid var(--oc-canvas-deep);
+    border: 2px solid var(--oc-scrollbar-track);
     border-radius: 4px;
-    background: var(--oc-hairline-strong);
+    background: var(--oc-scrollbar-thumb);
   }
 }
 

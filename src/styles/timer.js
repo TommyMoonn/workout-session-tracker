@@ -27,7 +27,7 @@ export const timerStyles = {
   unitBox: "grid min-h-10 min-w-[72px] place-items-center rounded-[4px] border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] text-xs font-bold uppercase text-[var(--oc-muted)]",
   restPresetSummary: "mt-2 text-xs font-bold uppercase leading-normal text-[var(--oc-muted)]",
   presets: "mt-2 grid grid-cols-4 gap-2 max-[760px]:grid-cols-2",
-  preset: "inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[4px] border border-[var(--oc-hairline-strong)] bg-transparent px-4 py-1 text-center text-sm font-medium leading-[2] text-[var(--oc-ink)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-accent)] max-[520px]:w-full",
+  preset: "inline-flex min-h-10 items-center justify-center gap-2 whitespace-nowrap rounded-[4px] border border-[var(--oc-hairline-strong)] bg-transparent px-4 py-1 text-center text-sm font-medium leading-[2] text-[var(--oc-ink)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-focus)] max-[520px]:w-full",
   presetActive: "border-[var(--oc-primary)] bg-[var(--oc-primary-soft)] text-[var(--oc-ink)] hover:border-[var(--oc-primary-active)] hover:bg-[var(--oc-primary-softer)] hover:text-[var(--oc-ink)]",
   buttonRow: "mt-4 grid grid-cols-2 gap-2 max-[760px]:grid-cols-1",
   timerActionGrid: "mt-4 grid grid-cols-3 gap-2 max-[1120px]:grid-cols-2 max-[760px]:grid-cols-1",
