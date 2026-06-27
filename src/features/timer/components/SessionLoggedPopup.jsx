@@ -10,7 +10,7 @@ export function SessionLoggedPopup({ session, onClose }) {
       <section className={cx(ui.modalPanel, "relative")} onMouseDown={(event) => event.stopPropagation()}>
         <Button
           variant="soft"
-          className="absolute right-6 top-6 h-11 w-11 p-0"
+          className={ui.modalClose}
           onClick={onClose}
           aria-label="Close popup"
         >

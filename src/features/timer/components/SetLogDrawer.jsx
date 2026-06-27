@@ -17,7 +17,12 @@ export function SetLogDrawer({ setLogs, onClose, onClear, onDeleteSet }) {
         <div className={ui.drawerBody}>
           <div className={ui.tablePanel}>
             <div className={ui.tableTitleMarked}>Current session sets</div>
-            <div className={ui.tableScroll}>
+            <div
+              aria-label="Current session set details"
+              className={ui.tableScroll}
+              role="region"
+              tabIndex={0}
+            >
               <SetTable sets={setLogs} emptyText="No sets logged in the current session yet." onDeleteSet={onDeleteSet} />
             </div>
           </div>

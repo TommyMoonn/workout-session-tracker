@@ -15,7 +15,7 @@ export function SessionReviewSummary({ session, onEditReview }) {
           <p className={ui.labelMarker}>Review</p>
           <h3 className={ui.smallTitle}>{workoutTagsLabel}</h3>
         </div>
-        <Button variant="soft" className="h-9 w-9 shrink-0 px-0 text-base leading-none" onClick={onEditReview} aria-label="Edit review" title="Edit review">
+        <Button variant="soft" className={ui.iconButton} onClick={onEditReview} aria-label="Edit review" title="Edit review">
           ✎
         </Button>
       </div>

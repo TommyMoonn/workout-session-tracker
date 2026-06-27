@@ -12,7 +12,7 @@ export const exerciseStyles = {
   exerciseDetailCard: "min-w-0 text-[var(--oc-ink)]",
   exerciseBadgeGrid: "mt-4 grid grid-cols-4 gap-2 max-[1120px]:grid-cols-2 max-[760px]:grid-cols-2 max-[520px]:grid-cols-1",
   infoBadge: "min-h-[76px] min-w-0 border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] p-3 text-[var(--oc-ink)]",
-  infoBadgeValue: "mt-1 text-[15px] font-bold leading-normal text-[var(--oc-ink)]",
+  infoBadgeValue: "mt-1 [overflow-wrap:anywhere] text-[15px] font-bold leading-normal text-[var(--oc-ink)]",
   sectionBlock: "mt-5 border-t border-[var(--oc-hairline)] pt-4 max-[760px]:mt-4 max-[760px]:pt-3",
   pillWrap: "mt-2 flex flex-wrap gap-2",
   videoCard: "mt-5 min-w-0 border border-[var(--oc-hairline)] bg-[var(--oc-canvas-deep)] p-4 text-[var(--oc-ink)] max-[760px]:mt-4 max-[760px]:p-3",

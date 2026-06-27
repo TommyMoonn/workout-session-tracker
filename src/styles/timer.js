@@ -33,6 +33,6 @@ export const timerStyles = {
   timerActionGrid: "mt-4 grid grid-cols-3 gap-2 max-[1120px]:grid-cols-2 max-[760px]:grid-cols-1",
   buttonGrid: "grid grid-cols-1 gap-2",
   twoCol: "grid grid-cols-2 gap-2 max-[760px]:grid-cols-1",
-  restAlert: "fixed left-1/2 top-[76px] z-[90] w-[min(460px,calc(100%_-_32px))] -translate-x-1/2 border border-[var(--oc-warning)] bg-[var(--oc-canvas-deep)] p-4 text-[var(--oc-ink)] motion-safe:animate-[restAlertIn_var(--transition-base)_both] max-[760px]:top-3 max-[760px]:w-[calc(100%_-_24px)] max-[760px]:p-3",
+  restAlert: "fixed left-1/2 top-[76px] z-[90] max-h-[calc(100dvh-100px)] w-[min(460px,calc(100%_-_32px))] -translate-x-1/2 overflow-y-auto [overflow-wrap:anywhere] border border-[var(--oc-warning)] bg-[var(--oc-canvas-deep)] p-4 text-[var(--oc-ink)] motion-safe:animate-[restAlertIn_var(--transition-base)_both] max-[760px]:top-3 max-[760px]:max-h-[calc(100dvh-108px-env(safe-area-inset-bottom))] max-[760px]:w-[calc(100%_-_24px)] max-[760px]:p-3",
   restAlertTitle: "mt-2 text-[clamp(22px,2.4vw,30px)] font-bold leading-[1.35] tracking-normal text-[var(--oc-ink)] oc-alert-before",
 };

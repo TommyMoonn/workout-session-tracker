@@ -1,7 +1,8 @@
 export const settingsStyles = {
   settingsModal: "flex h-[min(820px,calc(100vh-40px))] w-[min(760px,100%)] flex-col overflow-hidden border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas)] text-[var(--oc-ink)] motion-safe:animate-[modalIn_var(--transition-base)_both] max-[760px]:h-[100dvh] max-[760px]:w-full max-[760px]:border-0",
+  settingsOverlay: "max-[760px]:p-0",
   settingsHeader: "relative border-b border-[var(--oc-hairline)] p-4 pr-16 max-[520px]:p-3 max-[520px]:pr-14",
-  settingsCloseButton: "absolute right-4 top-4 h-10 w-10 p-0 text-base leading-none max-[520px]:right-3 max-[520px]:top-3 max-[520px]:w-10",
+  settingsCloseButton: "absolute right-4 top-4 h-10 !w-10 min-w-10 p-0 text-base leading-none max-[520px]:right-3 max-[520px]:top-3",
   settingsTabs: "grid grid-cols-3 border-b border-[var(--oc-hairline)]",
   settingsTabButton: "min-h-10 border-r border-[var(--oc-hairline)] px-3 py-2 text-sm font-bold uppercase tracking-[0.14em] text-[var(--oc-muted)] last:border-r-0 hover:bg-[var(--oc-surface-soft)] hover:text-[var(--oc-ink)] max-[520px]:min-h-11 max-[520px]:px-1.5 max-[520px]:text-[11px] max-[520px]:tracking-[0.06em]",
   settingsTabButtonActive: "bg-[var(--oc-primary-soft)] text-[var(--oc-ink)]",

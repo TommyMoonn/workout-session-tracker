@@ -16,7 +16,7 @@ export function SettingsPanel({ onClose }) {
   const [activeTab, setActiveTab] = useState("timer");
 
   return (
-    <div className={ui.modalOverlay} role="presentation" onMouseDown={onClose}>
+    <div className={cx(ui.modalOverlay, ui.settingsOverlay)} role="presentation" onMouseDown={onClose}>
       <section
         className={ui.settingsModal}
         role="dialog"
