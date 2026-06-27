@@ -24,16 +24,20 @@ export function ArchiveActions({
         <ActionButton label="Selected" onClick={onExportSelectedMarkdown} disabled={!hasSelectedSession} primary />
         <ActionButton label="All" onClick={onExportAllMarkdown} disabled={!hasSessions} />
       </ActionGroup>
-      <ActionGroup label="Manage" compact>
+      <ActionGroup label="Manage" compact danger>
         <ActionButton label="Clear" onClick={onClear} disabled={!hasSessions} danger />
       </ActionGroup>
     </div>
   );
 }
 
-function ActionGroup({ label, children, compact = false }) {
+function ActionGroup({ label, children, compact = false, danger = false }) {
   return (
-    <div className={cx(ui.actionGroup, compact && ui.actionGroupCompact)}>
+    <div className={cx(
+      ui.actionGroup,
+      compact && ui.actionGroupCompact,
+      danger && ui.actionGroupDanger,
+    )}>
       <p className={cx(ui.labelMarker, "whitespace-nowrap")}>{label}</p>
       <div className={ui.actionButtons}>{children}</div>
     </div>

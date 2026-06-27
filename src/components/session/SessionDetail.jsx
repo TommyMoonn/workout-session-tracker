@@ -16,7 +16,12 @@ export function SessionDetail({ session, onDeleteSet, onEditReview }) {
 
       <div className={ui.tablePanel}>
         <div className={ui.tableTitleMarked}>Sets</div>
-        <div className={ui.tableScroll}>
+        <div
+          aria-label="Saved set details"
+          className={ui.tableScroll}
+          role="region"
+          tabIndex={0}
+        >
           <SetTable
             sets={sets}
             emptyText="No sets logged."

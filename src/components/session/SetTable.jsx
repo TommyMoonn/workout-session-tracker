@@ -33,7 +33,7 @@ export function SetTable({ sets, emptyText, onDeleteSet }) {
               <td className={ui.tableTimeCell}>{set.restStartedAtSessionSeconds == null ? "—" : formatClock(set.restStartedAtSessionSeconds)}</td>
               <td className={ui.tableTimeCell}>{set.restEndedAtSessionSeconds == null ? "—" : formatClock(set.restEndedAtSessionSeconds)}</td>
               <td className={ui.tableActionCell}>
-                <Button variant="soft" className={ui.tableActionButton} onClick={() => onDeleteSet(set.id)}>Delete</Button>
+                <Button variant="danger" className={ui.tableActionButton} onClick={() => onDeleteSet(set.id)}>Delete</Button>
               </td>
             </tr>
           ))

@@ -28,7 +28,7 @@ export const dataDisplayStyles = {
   tablePanel: "mt-4 min-w-0 overflow-hidden border border-[var(--oc-hairline)] bg-[var(--oc-surface)] text-[var(--oc-ink)]",
   tableTitle: "px-4 py-3 text-xs font-bold uppercase leading-normal text-[var(--oc-muted)]",
   tableTitleMarked: "px-4 py-3 text-xs font-bold uppercase leading-normal text-[var(--oc-muted)] oc-plus-before",
-  tableScroll: "max-h-[520px] overflow-auto border-t border-[var(--oc-hairline)] max-[760px]:max-h-[360px]",
+  tableScroll: "max-h-[520px] overflow-auto overscroll-contain border-t border-[var(--oc-hairline)] outline-none [scrollbar-gutter:stable] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--oc-accent)] max-[760px]:max-h-[360px]",
   table: "w-full min-w-[820px] border-separate border-spacing-0 text-sm leading-normal text-[var(--oc-body)] [&_td]:border-b [&_td]:border-r [&_td]:border-[var(--oc-hairline)] [&_td]:bg-[var(--oc-surface)] [&_td]:px-3 [&_td]:py-3 [&_td]:text-left [&_td]:align-middle [&_td:first-child]:border-l [&_th]:sticky [&_th]:top-0 [&_th]:z-[2] [&_th]:border-b [&_th]:border-r [&_th]:border-[var(--oc-hairline)] [&_th]:bg-[var(--oc-canvas-deep)] [&_th]:px-3 [&_th]:py-3 [&_th]:text-left [&_th]:align-middle [&_th]:text-[11px] [&_th]:font-bold [&_th]:uppercase [&_th]:tracking-[0.02em] [&_th]:text-[var(--oc-muted)] [&_th:first-child]:border-l [&_tbody_tr:nth-child(even)_td]:bg-white/[0.025] [&_tbody_tr:hover_td]:bg-white/[0.04]",
   tableSetCell: "w-[76px] whitespace-nowrap font-bold text-[var(--oc-ink)]",
   tableTimeCell: "whitespace-nowrap tabular-nums",
