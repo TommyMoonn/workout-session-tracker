@@ -1,6 +1,9 @@
 export const exerciseStyles = {
   exerciseFilterGrid: "mt-3 grid grid-cols-[minmax(240px,1.5fr)_repeat(4,minmax(130px,1fr))] gap-2.5 max-[1120px]:grid-cols-3 max-[900px]:grid-cols-2 max-[760px]:grid-cols-1 max-[760px]:gap-2",
   exerciseSearchField: "max-[1120px]:col-span-2 max-[760px]:col-span-1",
+  exerciseActiveFilters: "mt-4 flex min-w-0 items-start gap-3 border-t border-[var(--oc-hairline)] pt-4 max-[760px]:flex-col max-[760px]:gap-2",
+  exerciseActiveFilterList: "flex min-w-0 flex-1 flex-wrap gap-2",
+  exerciseActiveFilter: "inline-flex min-h-10 max-w-full min-w-0 items-center gap-2 rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] px-3 py-1 text-left text-xs font-bold uppercase leading-normal text-[var(--oc-body)] transition-colors hover:border-[var(--oc-accent)] hover:bg-[var(--oc-accent-softer)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oc-accent)]",
   browserCard: "mt-4 min-w-0 overflow-hidden border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-0 text-[var(--oc-ink)] max-[760px]:mt-3",
   browserHeader: "min-w-0 border-b border-[var(--oc-hairline)]",
   browserHeaderSummary: "flex min-w-0 items-end gap-4 max-[760px]:flex-col max-[760px]:items-start max-[760px]:gap-3",
@@ -12,6 +15,8 @@ export const exerciseStyles = {
   exerciseDetailToolbar: "mb-4 flex items-center justify-between gap-2 max-[520px]:flex-col max-[520px]:items-stretch",
   exerciseDetailBack: "hidden max-[1120px]:inline-flex max-[520px]:!w-auto max-[520px]:self-start",
   exerciseDetailPager: "ml-auto flex gap-2 max-[520px]:ml-0 max-[520px]:grid max-[520px]:w-full max-[520px]:grid-cols-2",
+  exerciseResultPosition: "inline-flex min-h-10 min-w-[72px] items-center justify-center px-2 text-xs font-bold uppercase leading-normal text-[var(--oc-muted)] max-[520px]:col-span-2",
+  exerciseEmptyState: "gap-3 max-[520px]:flex-wrap",
   exerciseDetailCard: "min-w-0 text-[var(--oc-ink)]",
   exerciseBadgeGrid: "mt-4 grid grid-cols-4 gap-2 max-[1120px]:grid-cols-2 max-[760px]:grid-cols-2 max-[520px]:grid-cols-1",
   infoBadge: "min-h-[76px] min-w-0 border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] p-3 text-[var(--oc-ink)]",

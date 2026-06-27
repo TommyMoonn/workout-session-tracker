@@ -12,6 +12,7 @@ export function ExerciseDetail({
   onBack,
   onNext,
   onPrevious,
+  resultPosition,
 }) {
   if (!exercise) {
     return (
@@ -28,6 +29,7 @@ export function ExerciseDetail({
           ← Exercises
         </Button>
         <div className={ui.exerciseDetailPager}>
+          <span className={ui.exerciseResultPosition}>{resultPosition}</span>
           <Button variant="soft" onClick={onPrevious} disabled={!hasPrevious}>
             ← Previous
           </Button>

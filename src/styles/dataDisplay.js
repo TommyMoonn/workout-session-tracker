@@ -36,5 +36,7 @@ export const dataDisplayStyles = {
   tableActionCell: "sticky right-0 z-[1] w-[96px] bg-[var(--oc-surface)] shadow-[-1px_0_0_var(--oc-hairline)]",
   tableActionButton: "min-h-8 px-3 py-0 text-xs leading-[2]",
   emptyState: "flex min-h-[96px] items-center border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] p-6 leading-normal text-[var(--oc-muted)] max-[760px]:min-h-[82px] max-[760px]:p-4",
+  emptyStateText: "min-w-0 flex-1",
+  emptyStateAction: "ml-auto shrink-0 max-[520px]:ml-0 max-[520px]:w-full",
   emptyTableCell: "text-center text-[var(--oc-muted)]",
 };

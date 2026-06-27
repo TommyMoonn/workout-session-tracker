@@ -109,6 +109,7 @@ export function ExerciseBrowser({
         <ExerciseList
           ref={listRef}
           exercises={state.filteredExercises}
+          onClearFilters={actions.clearFilters}
           onSelectExercise={selectExercise}
           selectedExercise={state.selectedExercise}
           className={isCompactDetailOpen ? "max-[1120px]:hidden" : ""}
@@ -121,6 +122,7 @@ export function ExerciseBrowser({
           onPrevious={() => showAdjacentExercise(previousExercise)}
           hasNext={Boolean(nextExercise)}
           hasPrevious={Boolean(previousExercise)}
+          resultPosition={`${selectedExerciseIndex + 1} of ${state.filteredExercises.length}`}
           className={isCompactDetailOpen ? "" : "max-[1120px]:hidden"}
         />
       </div>

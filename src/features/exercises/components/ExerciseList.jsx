@@ -1,18 +1,28 @@
 import { forwardRef } from "react";
-import { EmptyBlock, MarkedPill } from "../../../components/ui";
+import { Button, EmptyBlock, MarkedPill } from "../../../components/ui";
 import { cx } from "../../../lib/cx";
 import { ui } from "../../../styles";
 
 export const ExerciseList = forwardRef(function ExerciseList({
   className = "",
   exercises,
+  onClearFilters,
   onSelectExercise,
   selectedExercise,
 }, ref) {
   return (
     <aside ref={ref} className={cx(ui.exerciseList, className)}>
       {exercises.length === 0 ? (
-        <EmptyBlock>No exercises match the current filters.</EmptyBlock>
+        <EmptyBlock
+          className={ui.exerciseEmptyState}
+          action={(
+            <Button variant="soft" onClick={onClearFilters}>
+              Clear filters
+            </Button>
+          )}
+        >
+          No exercises match the current filters.
+        </EmptyBlock>
       ) : (
         exercises.map((exercise) => {
           const isSelected = selectedExercise?.id === exercise.id;

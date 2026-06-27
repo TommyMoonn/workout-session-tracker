@@ -4,6 +4,34 @@ import { ui } from "../../../styles";
 import { allOption, demoFilterOptions } from "../utils/exerciseSearch";
 
 export function ExerciseFilters({ state, actions, searchInputRef }) {
+  const activeFilters = [
+    state.query.trim() && {
+      id: "query",
+      label: `Search: ${state.query.trim()}`,
+      onRemove: () => actions.setQuery(""),
+    },
+    state.category !== allOption && {
+      id: "category",
+      label: `Category: ${state.category}`,
+      onRemove: () => actions.setCategory(allOption),
+    },
+    state.equipment !== allOption && {
+      id: "equipment",
+      label: `Equipment: ${state.equipment}`,
+      onRemove: () => actions.setEquipment(allOption),
+    },
+    state.difficulty !== allOption && {
+      id: "difficulty",
+      label: `Difficulty: ${state.difficulty}`,
+      onRemove: () => actions.setDifficulty(allOption),
+    },
+    state.demoFilter !== allOption && {
+      id: "demo",
+      label: `Demo: ${state.demoFilter}`,
+      onRemove: () => actions.setDemoFilter(allOption),
+    },
+  ].filter(Boolean);
+
   return (
     <section className={`${ui.card} ${ui.panelPadding} relative overflow-visible`}>
       <div className={ui.toolbar}>
@@ -23,6 +51,26 @@ export function ExerciseFilters({ state, actions, searchInputRef }) {
         <FilterSelect label="Difficulty" value={state.difficulty} options={state.difficultyOptions} onChange={actions.setDifficulty} />
         <FilterSelect label="Demo" value={state.demoFilter} options={demoFilterOptions} onChange={actions.setDemoFilter} />
       </div>
+
+      {activeFilters.length > 0 && (
+        <div className={ui.exerciseActiveFilters}>
+          <MarkerLabel as="span">Active</MarkerLabel>
+          <div className={ui.exerciseActiveFilterList}>
+            {activeFilters.map((filter) => (
+              <button
+                key={filter.id}
+                type="button"
+                className={ui.exerciseActiveFilter}
+                aria-label={`Remove ${filter.label} filter`}
+                onClick={filter.onRemove}
+              >
+                <span className="truncate">{filter.label}</span>
+                <span aria-hidden="true">×</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
