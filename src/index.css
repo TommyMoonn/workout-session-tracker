@@ -234,6 +234,6 @@
 
   .oc-alert-before::before {
     content: "[!] ";
-    color: var(--oc-warning);
+    color: var(--oc-warning-text);
   }
 }

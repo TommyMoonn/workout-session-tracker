@@ -27,6 +27,7 @@
   --oc-on-primary: #151313;
 
   --oc-accent: #fdfcfc;
+  --oc-accent-text: #fdfcfc;
   --oc-accent-soft: rgba(253, 252, 252, 0.12);
   --oc-accent-softer: rgba(253, 252, 252, 0.08);
 
@@ -34,6 +35,7 @@
   --oc-success-soft: rgba(48, 209, 88, 0.14);
   --oc-on-success: #151313;
   --oc-warning: #ff9f0a;
+  --oc-warning-text: #ff9f0a;
   --oc-warning-soft: rgba(255, 159, 10, 0.14);
   --oc-on-warning: #151313;
   --oc-danger: #ff453a;
@@ -79,6 +81,7 @@
   --oc-on-primary: #fdfcfc;
 
   --oc-accent: #007aff;
+  --oc-accent-text: #0056b3;
   --oc-accent-soft: rgba(0, 122, 255, 0.12);
   --oc-accent-softer: rgba(0, 122, 255, 0.08);
 
@@ -86,6 +89,7 @@
   --oc-success-soft: rgba(48, 209, 88, 0.14);
   --oc-on-success: #201d1d;
   --oc-warning: #ff9f0a;
+  --oc-warning-text: #995f06;
   --oc-warning-soft: rgba(255, 159, 10, 0.14);
   --oc-on-warning: #201d1d;
   --oc-danger: #ff3b30;

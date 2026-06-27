@@ -19,7 +19,7 @@ export const exerciseStyles = {
   exerciseDemoIndicator: "text-[11px] font-bold uppercase leading-none text-[var(--oc-muted)]",
   exerciseDetailPane: "min-h-0 min-w-0 overflow-y-auto overscroll-contain p-6 [scrollbar-gutter:stable] max-[1120px]:overflow-visible max-[1120px]:p-6 max-[760px]:p-4",
   exerciseDetailToolbar: "mb-4 flex items-center justify-between gap-2 max-[520px]:flex-col max-[520px]:items-stretch",
-  exerciseDetailBack: "hidden max-[1120px]:inline-flex max-[520px]:!w-auto max-[520px]:self-start",
+  exerciseDetailBack: "!hidden max-[1120px]:!inline-flex max-[520px]:!w-auto max-[520px]:self-start",
   exerciseDetailPager: "ml-auto flex gap-2 max-[520px]:ml-0 max-[520px]:grid max-[520px]:w-full max-[520px]:grid-cols-2",
   exerciseResultPosition: "inline-flex min-h-10 min-w-[72px] items-center justify-center px-2 text-xs font-bold uppercase leading-normal text-[var(--oc-muted)] max-[520px]:col-span-2",
   exerciseEmptyState: "gap-3 max-[520px]:flex-wrap",
