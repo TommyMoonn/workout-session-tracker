@@ -7,7 +7,11 @@ export function ExerciseDetail({
   backButtonRef,
   className = "",
   exercise,
+  hasNext,
+  hasPrevious,
   onBack,
+  onNext,
+  onPrevious,
 }) {
   if (!exercise) {
     return (
@@ -19,10 +23,18 @@ export function ExerciseDetail({
 
   return (
     <article className={cx(ui.exerciseDetailPane, className)}>
-      <div className={ui.exerciseMobileDetailToolbar}>
-        <Button ref={backButtonRef} variant="soft" className="max-[520px]:w-auto" onClick={onBack}>
+      <div className={ui.exerciseDetailToolbar}>
+        <Button ref={backButtonRef} variant="soft" className={ui.exerciseDetailBack} onClick={onBack}>
           ← Exercises
         </Button>
+        <div className={ui.exerciseDetailPager}>
+          <Button variant="soft" onClick={onPrevious} disabled={!hasPrevious}>
+            ← Previous
+          </Button>
+          <Button variant="soft" onClick={onNext} disabled={!hasNext}>
+            Next →
+          </Button>
+        </div>
       </div>
 
       <div className={ui.exerciseDetailCard}>

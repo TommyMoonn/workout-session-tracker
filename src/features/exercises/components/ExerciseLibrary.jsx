@@ -8,7 +8,7 @@ import { ExercisePageHeader } from "./ExercisePageHeader";
 
 export function ExerciseLibrary({ state, actions }) {
   const searchInputRef = useRef(null);
-  const [isMobileDetailOpen, setIsMobileDetailOpen] = useState(false);
+  const [isCompactDetailOpen, setIsCompactDetailOpen] = useState(false);
   const exerciseShortcuts = useMemo(() => [
     {
       id: "exercises.search",
@@ -21,8 +21,8 @@ export function ExerciseLibrary({ state, actions }) {
       id: "global.close",
       allowInEditable: true,
       handler: () => {
-        if (isMobileDetailOpen) {
-          setIsMobileDetailOpen(false);
+        if (isCompactDetailOpen) {
+          setIsCompactDetailOpen(false);
           return;
         }
         if (document.activeElement === searchInputRef.current) {
@@ -34,7 +34,7 @@ export function ExerciseLibrary({ state, actions }) {
         }
       },
     },
-  ], [actions, isMobileDetailOpen, state.query]);
+  ], [actions, isCompactDetailOpen, state.query]);
 
   useKeyboardShortcuts(exerciseShortcuts);
 
@@ -42,7 +42,7 @@ export function ExerciseLibrary({ state, actions }) {
     <div className={ui.pageWide}>
       <div className={cx(
         ui.reveal,
-        isMobileDetailOpen && "max-[760px]:hidden",
+        isCompactDetailOpen && "max-[1120px]:hidden",
       )}>
         <ExercisePageHeader totalExerciseCount={state.totalExerciseCount} />
       </div>
@@ -50,7 +50,7 @@ export function ExerciseLibrary({ state, actions }) {
       <div className={cx(
         ui.reveal1,
         "relative z-30",
-        isMobileDetailOpen && "max-[760px]:hidden",
+        isCompactDetailOpen && "max-[1120px]:hidden",
       )}>
         <ExerciseFilters state={state} actions={actions} searchInputRef={searchInputRef} />
       </div>
@@ -59,8 +59,8 @@ export function ExerciseLibrary({ state, actions }) {
         <ExerciseBrowser
           state={state}
           actions={actions}
-          isMobileDetailOpen={isMobileDetailOpen}
-          onChangeMobileDetail={setIsMobileDetailOpen}
+          isCompactDetailOpen={isCompactDetailOpen}
+          onChangeCompactDetail={setIsCompactDetailOpen}
         />
       </div>
     </div>
