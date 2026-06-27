@@ -21,7 +21,7 @@ export function ExerciseVideo({ exercise }) {
       </div>
 
       {exercise.embedUrl ? (
-        <div className={ui.videoFrame}>
+        <div className={isVideoLoaded ? ui.videoFrame : ui.videoLoadPanel}>
           {isVideoLoaded ? (
             <iframe
               title={`${exercise.name} demo video`}
@@ -33,9 +33,8 @@ export function ExerciseVideo({ exercise }) {
           ) : (
             <button type="button" className={ui.videoPlaceholder} onClick={() => setLoadedExerciseId(exercise.id)}>
               <span>
-                <MarkerLabel as="span">Video not loaded</MarkerLabel>
+                <MarkerLabel as="span">Demo available</MarkerLabel>
                 <strong className={ui.videoPlaceholderTitle}>Load demo video</strong>
-                <span className={ui.videoPlaceholderCopy}>Embedded players are kept off the page until needed to avoid UI jank.</span>
               </span>
             </button>
           )}

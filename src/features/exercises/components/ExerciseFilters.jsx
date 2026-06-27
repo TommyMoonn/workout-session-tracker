@@ -5,7 +5,7 @@ import { allOption, demoFilterOptions } from "../utils/exerciseSearch";
 
 export function ExerciseFilters({ state, actions, searchInputRef }) {
   return (
-    <section className={`${ui.card} ${ui.cardPadding} relative overflow-visible`}>
+    <section className={`${ui.card} ${ui.exerciseFilterCard} relative overflow-visible`}>
       <div className={ui.toolbar}>
         <div>
           <MarkerLabel>Filters</MarkerLabel>
@@ -29,7 +29,7 @@ export function ExerciseFilters({ state, actions, searchInputRef }) {
 
 const TextFilter = forwardRef(function TextFilter({ value, onChange }, ref) {
   return (
-    <label className={ui.filterField}>
+    <label className={`${ui.filterField} ${ui.exerciseSearchField}`}>
       <MarkerLabel as="span">Search</MarkerLabel>
       <input
         ref={ref}
