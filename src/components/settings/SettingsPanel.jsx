@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, MarkerLabel } from "../ui";
 import { cx } from "../../lib/cx";
 import { ui } from "../../styles";
+import { AppearanceSettingsTab } from "./AppearanceSettingsTab";
 import { ShortcutSettingsTab } from "./ShortcutSettingsTab";
 import { SoundSettingsTab } from "./SoundSettingsTab";
 import { TimerSettingsTab } from "./TimerSettingsTab";
@@ -10,6 +11,7 @@ const settingsTabs = [
   { id: "timer", label: "Timer" },
   { id: "shortcuts", label: "Shortcuts" },
   { id: "sound", label: "Sound" },
+  { id: "appearance", label: "Appearance" },
 ];
 
 export function SettingsPanel({ onClose }) {
@@ -60,6 +62,7 @@ export function SettingsPanel({ onClose }) {
           {activeTab === "timer" && <TimerSettingsTab />}
           {activeTab === "shortcuts" && <ShortcutSettingsTab />}
           {activeTab === "sound" && <SoundSettingsTab />}
+          {activeTab === "appearance" && <AppearanceSettingsTab />}
         </div>
       </section>
     </div>

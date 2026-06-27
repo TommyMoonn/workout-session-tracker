@@ -55,6 +55,31 @@ export function SettingsToggle({
   );
 }
 
+export function SettingsSegmentedControl({ label, onChange, options, value }) {
+  return (
+    <div className={ui.settingsSegmentedControl} role="group" aria-label={label}>
+      {options.map((option) => {
+        const isActive = option.value === value;
+
+        return (
+          <button
+            key={option.value}
+            type="button"
+            aria-pressed={isActive}
+            className={cx(
+              ui.settingsSegmentedButton,
+              isActive && ui.settingsSegmentedButtonActive,
+            )}
+            onClick={() => onChange(option.value)}
+          >
+            {option.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export function SettingsActions({ children }) {
   return <div className={ui.settingsActions}>{children}</div>;
 }

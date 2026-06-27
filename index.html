@@ -4,6 +4,32 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/izumi.PNG" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#151313" />
+    <script>
+      (() => {
+        const storageKey = "liftlog-lite.appearance.v1";
+        const validAppearances = ["system", "light", "dark"];
+        let appearance = "system";
+
+        try {
+          const storedAppearance = window.localStorage.getItem(storageKey);
+          if (validAppearances.includes(storedAppearance)) appearance = storedAppearance;
+        } catch {
+          appearance = "system";
+        }
+
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = appearance === "system"
+          ? (prefersDark ? "dark" : "light")
+          : appearance;
+
+        document.documentElement.dataset.appearance = appearance;
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", theme === "dark" ? "#151313" : "#fdfcfc");
+      })();
+    </script>
     <title>LiftLog Lite</title>
   </head>
   <body>
