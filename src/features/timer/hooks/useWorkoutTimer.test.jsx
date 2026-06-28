@@ -2,7 +2,7 @@ import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { SoundSettingsProvider } from "../../soundSettings";
 import { TimerSettingsProvider } from "../../timerSettings";
-import { WORKOUT_STORAGE_KEY } from "../../../storage/workoutStorage";
+import { WORKOUT_STORAGE_KEY } from "@domain/workout";
 import { useWorkoutTimer } from "./useWorkoutTimer";
 
 const timerSettingsStorageKey = "liftlog-lite.timer-settings.v1";

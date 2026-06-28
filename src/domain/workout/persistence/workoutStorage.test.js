@@ -11,6 +11,10 @@ describe("workout storage", () => {
     window.localStorage.clear();
   });
 
+  it("keeps the persisted storage key stable", () => {
+    expect(WORKOUT_STORAGE_KEY).toBe("liftlog-lite.workout-state.v1");
+  });
+
   it("saves and reads workout state", () => {
     const state = {
       savedAt: 1000,

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@shared/ui";
 import { cx } from "@shared/lib/cx";
 import { ui } from "@shared/styles";
-import { formatDuration } from "../../../utils/workoutFormat";
+import { formatDuration } from "@domain/workout";
 
 export function SessionLoggedPopup({ session, onClose }) {
   return (

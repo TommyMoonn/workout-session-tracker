@@ -1,11 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useToast } from "@shared/hooks/useToast";
-import { readWorkoutStorage, updateWorkoutStorage } from "../../../storage/workoutStorage";
-import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../../../utils/workoutData";
-import { allWorkoutTypesValue, buildWorkoutTypeFilterOptions, matchesWorkoutTypeFilter } from "../../../domain/workoutTypes";
-import { buildWorkoutHistoryExportPayload, parseWorkoutHistoryImport } from "../../../utils/workoutImport";
-import { buildSessionMarkdown, downloadFile } from "../../../utils/workoutExport";
-import { formatFileTimestamp } from "../../../utils/workoutFormat";
+import {
+  allWorkoutTypesValue,
+  buildSessionMarkdown,
+  buildWorkoutHistoryExportPayload,
+  buildWorkoutTypeFilterOptions,
+  createEmptyReview,
+  downloadFile,
+  formatFileTimestamp,
+  matchesWorkoutTypeFilter,
+  normalizeReview,
+  normalizeSetLogs,
+  parseWorkoutHistoryImport,
+  readWorkoutStorage,
+  updateWorkoutStorage,
+} from "@domain/workout";
 import { getHistoryPageSize } from "../constants";
 
 export function useSessionHistory() {

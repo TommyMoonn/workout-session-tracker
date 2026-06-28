@@ -1,6 +1,6 @@
-import { getWorkoutTagsLabel } from "../domain/workoutTypes";
-import { normalizeReview } from "./workoutData";
-import { formatClock, formatDateTime, formatDuration } from "./workoutFormat";
+import { formatClock, formatDateTime, formatDuration } from "../formatting/workoutFormat";
+import { normalizeReview } from "../model/workoutData";
+import { getWorkoutTagsLabel } from "../model/workoutTypes";
 
 export function buildSessionMarkdown(session) {
   const review = normalizeReview(session.review);

@@ -1,7 +1,7 @@
 import { Button } from "@shared/ui";
 import { ui } from "@shared/styles";
-import { getWorkoutTagsLabel } from "../../domain/workoutTypes";
-import { normalizeReview } from "../../utils/workoutData";
+import { normalizeReview } from "../model/workoutData";
+import { getWorkoutTagsLabel } from "../model/workoutTypes";
 
 export function SessionReviewSummary({ session, onEditReview }) {
   const review = normalizeReview(session?.review);

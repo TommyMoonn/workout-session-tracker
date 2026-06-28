@@ -1,11 +1,10 @@
 import { useMemo } from "react";
-import { ReviewModal } from "../../../components/session";
+import { formatDateTime, formatDuration, ReviewModal } from "@domain/workout";
 import { ConfirmationDialog, EmptyState, Toast } from "@shared/ui";
 import { useConfirmation } from "@shared/hooks/useConfirmation";
 import { cx } from "@shared/lib/cx";
 import { ui } from "@shared/styles";
 import { useKeyboardShortcuts } from "../../shortcuts";
-import { formatDateTime, formatDuration } from "../../../utils/workoutFormat";
 import { ArchiveActions } from "./ArchiveActions";
 import { HistoryDetailView } from "./HistoryDetailView";
 import { HistoryListView } from "./HistoryListView";

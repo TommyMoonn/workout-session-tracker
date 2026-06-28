@@ -1,5 +1,5 @@
 import { defaultRestSeconds } from "../timer/constants";
-import { clampSeconds } from "../../utils/workoutFormat";
+import { clampSeconds } from "@domain/workout";
 
 export const defaultTimerSettings = {
   defaultRestSeconds,

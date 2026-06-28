@@ -1,11 +1,10 @@
 import { useMemo } from "react";
-import { ReviewModal } from "../../../components/session";
+import { formatDuration, ReviewModal } from "@domain/workout";
 import { ConfirmationDialog, Toast } from "@shared/ui";
 import { useConfirmation } from "@shared/hooks/useConfirmation";
 import { cx } from "@shared/lib/cx";
 import { ui } from "@shared/styles";
 import { useKeyboardShortcuts } from "../../shortcuts";
-import { formatDuration } from "../../../utils/workoutFormat";
 import { RestCompletePopup } from "./RestCompletePopup";
 import { RestFlowCard } from "./RestFlowCard";
 import { SessionLoggedPopup } from "./SessionLoggedPopup";

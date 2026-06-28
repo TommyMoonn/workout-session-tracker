@@ -1,7 +1,7 @@
 import { Button } from "@shared/ui";
 import { cx } from "@shared/lib/cx";
 import { ui } from "@shared/styles";
-import { formatClock } from "../../../utils/workoutFormat";
+import { formatClock } from "@domain/workout";
 import { restPresets } from "../constants";
 
 export function RestFlowCard({

@@ -1,5 +1,5 @@
 import { Button } from "@shared/ui";
-import { SetTable } from "../../../components/session";
+import { SetTable } from "@domain/workout";
 import { ui } from "@shared/styles";
 
 export function SetLogDrawer({ setLogs, onClose, onClear, onDeleteSet }) {

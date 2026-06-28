@@ -1,4 +1,4 @@
-import { maxWorkoutTagsPerSession, normalizeReview } from "../utils/workoutData";
+import { maxWorkoutTagsPerSession, normalizeReview } from "./workoutData";
 
 export const allWorkoutTypesValue = "all";
 export const untaggedWorkoutTypeValue = "__untagged__";

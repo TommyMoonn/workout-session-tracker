@@ -1,4 +1,4 @@
-import { getReviewWorkoutTagOptions, maxWorkoutTagsPerSession } from "../../domain/workoutTypes";
+import { getReviewWorkoutTagOptions, maxWorkoutTagsPerSession } from "../model/workoutTypes";
 import { ui } from "@shared/styles";
 import { Button, MultiSelectField } from "@shared/ui";
 

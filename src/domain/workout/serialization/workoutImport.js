@@ -1,4 +1,4 @@
-import { normalizeReview, normalizeSetLogs } from "./workoutData";
+import { normalizeReview, normalizeSetLogs } from "../model/workoutData";
 
 export const workoutHistoryExportFormat = "liftlog-lite.workout-history";
 export const workoutHistoryExportVersion = 2;

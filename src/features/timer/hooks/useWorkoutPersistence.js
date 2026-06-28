@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { updateWorkoutStorage } from "../../../storage/workoutStorage";
+import { updateWorkoutStorage } from "@domain/workout";
 import { storageSyncMs } from "../constants";
 
 export function useWorkoutPersistence({

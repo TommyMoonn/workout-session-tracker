@@ -1,5 +1,5 @@
 import { Button } from "@shared/ui";
-import { SessionDetail } from "../../../components/session";
+import { SessionDetail } from "@domain/workout";
 import { ui } from "@shared/styles";
 
 export function HistoryDetailView({ onBack, onDeleteSet, onEditReview, session }) {

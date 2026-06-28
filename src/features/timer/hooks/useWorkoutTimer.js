@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../../../utils/workoutData";
-import { readWorkoutStorage, updateWorkoutStorage } from "../../../storage/workoutStorage";
-import { clampSeconds } from "../../../utils/workoutFormat";
+import {
+  clampSeconds,
+  createEmptyReview,
+  normalizeReview,
+  normalizeSetLogs,
+  readWorkoutStorage,
+  updateWorkoutStorage,
+} from "@domain/workout";
 import {
   defaultRestSeconds,
   timerTickMs,

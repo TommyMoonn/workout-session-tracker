@@ -26,6 +26,11 @@ const validSession = {
 };
 
 describe("workout history serialization", () => {
+  it("keeps the export format stable", () => {
+    expect(workoutHistoryExportFormat).toBe("liftlog-lite.workout-history");
+    expect(workoutHistoryExportVersion).toBe(2);
+  });
+
   it("builds a versioned normalized export payload", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-06-28T12:00:00.000Z"));
