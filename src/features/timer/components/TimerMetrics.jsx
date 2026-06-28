@@ -1,6 +1,6 @@
-import { Button } from "../../../components/ui";
-import { cx } from "../../../lib/cx";
-import { ui } from "../../../styles";
+import { Button } from "@shared/ui";
+import { cx } from "@shared/lib/cx";
+import { ui } from "@shared/styles";
 import { formatDuration } from "../../../utils/workoutFormat";
 
 export function TimerMetrics({ onClearSetLogs, onOpenSetLog, setCount, totalRestSeconds, workoutElapsed, className = "" }) {

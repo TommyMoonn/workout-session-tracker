@@ -1,5 +1,5 @@
-import { Button } from "../ui";
-import { ui } from "../../styles";
+import { Button } from "@shared/ui";
+import { ui } from "@shared/styles";
 import { getWorkoutTagsLabel } from "../../domain/workoutTypes";
 import { normalizeReview } from "../../utils/workoutData";
 

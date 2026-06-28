@@ -1,4 +1,4 @@
-import { ui } from "../../styles";
+import { ui } from "@shared/styles";
 import { SessionDetailHeader } from "./SessionDetailHeader";
 import { SessionReviewSummary } from "./SessionReviewSummary";
 import { SetTable } from "./SetTable";

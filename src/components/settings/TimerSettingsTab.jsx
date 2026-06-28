@@ -1,6 +1,6 @@
-import { Button } from "../ui";
+import { Button } from "@shared/ui";
 import { normalizeTimerRestSeconds, useTimerSettings } from "../../features/timerSettings";
-import { ui } from "../../styles";
+import { ui } from "@shared/styles";
 import {
   SettingsActions,
   SettingsRow,

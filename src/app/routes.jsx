@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import AppShell from "./components/AppShell";
-import ExerciseLibraryPage from "./pages/ExerciseLibraryPage";
-import HistoryPage from "./pages/HistoryPage";
-import TimerPage from "./pages/TimerPage";
+import ExerciseLibraryPage from "../pages/ExerciseLibraryPage";
+import HistoryPage from "../pages/HistoryPage";
+import TimerPage from "../pages/TimerPage";
+import AppShell from "./layout/AppShell";
 
-function App() {
+export function AppRoutes() {
   return (
     <Routes>
       <Route element={<AppShell />}>
@@ -18,5 +18,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

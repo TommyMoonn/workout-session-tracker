@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
-import { Button, EmptyBlock } from "../../../components/ui";
-import { cx } from "../../../lib/cx";
-import { ui } from "../../../styles";
+import { Button, EmptyBlock } from "@shared/ui";
+import { cx } from "@shared/lib/cx";
+import { ui } from "@shared/styles";
 
 export const ExerciseList = forwardRef(function ExerciseList({
   className = "",

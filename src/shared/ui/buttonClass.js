@@ -1,5 +1,5 @@
-import { cx } from "../../lib/cx";
-import { ui } from "../../styles";
+import { cx } from "../lib/cx";
+import { ui } from "../styles";
 
 export function buttonClass(variant = "default", extra = "") {
   return cx(

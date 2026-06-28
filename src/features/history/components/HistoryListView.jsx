@@ -1,6 +1,6 @@
-import { EmptyBlock, SelectField } from "../../../components/ui";
-import { cx } from "../../../lib/cx";
-import { ui } from "../../../styles";
+import { EmptyBlock, SelectField } from "@shared/ui";
+import { cx } from "@shared/lib/cx";
+import { ui } from "@shared/styles";
 import { HistoryPagination } from "./HistoryPagination";
 import { HistoryViewToggle } from "./HistoryViewToggle";
 import { SessionList } from "./SessionList";

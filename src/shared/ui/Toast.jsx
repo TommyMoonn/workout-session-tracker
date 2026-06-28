@@ -1,4 +1,4 @@
-import { ui } from "../../styles";
+import { ui } from "../styles";
 
 export function Toast({ message }) {
   if (!message) return null;

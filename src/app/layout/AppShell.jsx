@@ -1,10 +1,8 @@
 import { useMemo, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { SettingsPanel } from "./settings";
+import { SettingsPanel } from "../../components/settings";
 import SideNav from "./SideNav";
-import { ShortcutProvider, useKeyboardShortcuts } from "../features/shortcuts";
-import { SoundSettingsProvider } from "../features/soundSettings";
-import { TimerSettingsProvider } from "../features/timerSettings";
+import { useKeyboardShortcuts } from "@features/shortcuts";
 
 const navigationShortcuts = [
   { id: "nav.timer", path: "/timer" },
@@ -12,7 +10,7 @@ const navigationShortcuts = [
   { id: "nav.exercises", path: "/exercises" },
 ];
 
-function AppShellContent() {
+function AppShell() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -50,18 +48,6 @@ function AppShellContent() {
 
       {isSettingsOpen && <SettingsPanel onClose={() => setIsSettingsOpen(false)} />}
     </div>
-  );
-}
-
-function AppShell() {
-  return (
-    <TimerSettingsProvider>
-      <SoundSettingsProvider>
-        <ShortcutProvider>
-          <AppShellContent />
-        </ShortcutProvider>
-      </SoundSettingsProvider>
-    </TimerSettingsProvider>
   );
 }
 

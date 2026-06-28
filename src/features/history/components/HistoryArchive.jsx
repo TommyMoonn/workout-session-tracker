@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { ReviewModal } from "../../../components/session";
-import { ConfirmationDialog, EmptyState, Toast } from "../../../components/ui";
-import { useConfirmation } from "../../../hooks/useConfirmation";
-import { cx } from "../../../lib/cx";
-import { ui } from "../../../styles";
+import { ConfirmationDialog, EmptyState, Toast } from "@shared/ui";
+import { useConfirmation } from "@shared/hooks/useConfirmation";
+import { cx } from "@shared/lib/cx";
+import { ui } from "@shared/styles";
 import { useKeyboardShortcuts } from "../../shortcuts";
 import { formatDateTime, formatDuration } from "../../../utils/workoutFormat";
 import { ArchiveActions } from "./ArchiveActions";

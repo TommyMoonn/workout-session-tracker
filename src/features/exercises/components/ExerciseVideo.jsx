@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { buttonClass, MarkerLabel } from "../../../components/ui";
-import { ui } from "../../../styles";
+import { buttonClass, MarkerLabel } from "@shared/ui";
+import { ui } from "@shared/styles";
 
 export function ExerciseVideo({ exercise }) {
   const [loadedExerciseId, setLoadedExerciseId] = useState(null);

@@ -1,5 +1,5 @@
-import { Button } from "../ui";
-import { ui } from "../../styles";
+import { Button } from "@shared/ui";
+import { ui } from "@shared/styles";
 import { formatClock } from "../../utils/workoutFormat";
 
 export function SetTable({ sets, emptyText, onDeleteSet }) {

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useToast } from "../../../hooks/useToast";
+import { useToast } from "@shared/hooks/useToast";
 import { readWorkoutStorage, updateWorkoutStorage } from "../../../storage/workoutStorage";
 import { createEmptyReview, normalizeReview, normalizeSetLogs } from "../../../utils/workoutData";
 import { allWorkoutTypesValue, buildWorkoutTypeFilterOptions, matchesWorkoutTypeFilter } from "../../../domain/workoutTypes";

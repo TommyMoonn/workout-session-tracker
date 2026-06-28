@@ -1,5 +1,5 @@
-import { Button } from "../../../components/ui";
-import { ui } from "../../../styles";
+import { Button } from "@shared/ui";
+import { ui } from "@shared/styles";
 
 export function HistoryPagination({ currentPage, totalPages, onNextPage, onPreviousPage }) {
   if (totalPages <= 1) return null;

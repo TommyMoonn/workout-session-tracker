@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ui } from "../../styles";
+import { ui } from "../styles";
 import { Button } from "./Button";
 
 export function ConfirmationDialog({

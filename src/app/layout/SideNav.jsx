@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { cx } from "../lib/cx";
+import { cx } from "@shared/lib/cx";
 
 const navItems = [
   {

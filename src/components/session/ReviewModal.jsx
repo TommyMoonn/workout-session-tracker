@@ -1,6 +1,6 @@
 import { getReviewWorkoutTagOptions, maxWorkoutTagsPerSession } from "../../domain/workoutTypes";
-import { ui } from "../../styles";
-import { Button, MultiSelectField } from "../ui";
+import { ui } from "@shared/styles";
+import { Button, MultiSelectField } from "@shared/ui";
 
 export function ReviewModal({ title, subtitle, review, onChange, onCancel, onSave, mode }) {
   function update(field, value) {

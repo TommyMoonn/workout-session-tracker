@@ -1,6 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { cx } from "../../lib/cx";
-import { ui } from "../../styles";
+import { cx } from "../lib/cx";
+import { ui } from "../styles";
 import { MarkerLabel } from "./MarkerLabel";
 
 export function MultiSelectField({

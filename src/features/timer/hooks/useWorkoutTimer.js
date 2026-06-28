@@ -6,7 +6,7 @@ import {
   defaultRestSeconds,
   timerTickMs,
 } from "../constants";
-import { useToast } from "../../../hooks/useToast";
+import { useToast } from "@shared/hooks/useToast";
 import { useTimerSettings } from "../../timerSettings";
 import { useRestAlarm } from "./useRestAlarm";
 import { useWorkoutPersistence } from "./useWorkoutPersistence";

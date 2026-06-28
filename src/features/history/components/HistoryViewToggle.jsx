@@ -1,5 +1,5 @@
-import { cx } from "../../../lib/cx";
-import { ui } from "../../../styles";
+import { cx } from "@shared/lib/cx";
+import { ui } from "@shared/styles";
 
 export function HistoryViewToggle({ value, onChange }) {
   return (

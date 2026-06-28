@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { Button, EmptyBlock, MarkedPill, MarkerLabel } from "../../../components/ui";
-import { cx } from "../../../lib/cx";
-import { ui } from "../../../styles";
+import { Button, EmptyBlock, MarkedPill, MarkerLabel } from "@shared/ui";
+import { cx } from "@shared/lib/cx";
+import { ui } from "@shared/styles";
 import { ExerciseVideo } from "./ExerciseVideo";
 
 export function ExerciseDetail({

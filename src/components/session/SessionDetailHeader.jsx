@@ -1,6 +1,6 @@
-import { MarkedPill } from "../ui";
+import { MarkedPill } from "@shared/ui";
 import { getWorkoutTags, getWorkoutTagsLabel, getWorkoutTypeLabel } from "../../domain/workoutTypes";
-import { ui } from "../../styles";
+import { ui } from "@shared/styles";
 import { formatDateTime, formatDuration } from "../../utils/workoutFormat";
 
 export function SessionDetailHeader({ session }) {

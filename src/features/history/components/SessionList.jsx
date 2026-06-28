@@ -1,5 +1,5 @@
-import { MarkedPill } from "../../../components/ui";
-import { ui } from "../../../styles";
+import { MarkedPill } from "@shared/ui";
+import { ui } from "@shared/styles";
 import { formatDateTime } from "../../../utils/workoutFormat";
 import { getWorkoutTags, getWorkoutTagsLabel } from "../../../domain/workoutTypes";
 

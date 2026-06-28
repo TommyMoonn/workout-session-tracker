@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
-import { MarkedPill, MarkerLabel } from "../../../components/ui";
-import { cx } from "../../../lib/cx";
-import { ui } from "../../../styles";
+import { MarkedPill, MarkerLabel } from "@shared/ui";
+import { cx } from "@shared/lib/cx";
+import { ui } from "@shared/styles";
 import { ExerciseDetail } from "./ExerciseDetail";
 import { ExerciseList } from "./ExerciseList";
 

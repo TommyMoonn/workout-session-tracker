@@ -1,6 +1,6 @@
-import { Button } from "../../../components/ui";
+import { Button } from "@shared/ui";
 import { SetTable } from "../../../components/session";
-import { ui } from "../../../styles";
+import { ui } from "@shared/styles";
 
 export function SetLogDrawer({ setLogs, onClose, onClear, onDeleteSet }) {
   return (

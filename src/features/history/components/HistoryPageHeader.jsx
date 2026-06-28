@@ -1,4 +1,4 @@
-import { ui } from "../../../styles";
+import { ui } from "@shared/styles";
 
 export function HistoryPageHeader({ sessionCount }) {
   return (

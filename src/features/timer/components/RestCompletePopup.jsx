@@ -1,5 +1,5 @@
-import { Button } from "../../../components/ui";
-import { ui } from "../../../styles";
+import { Button } from "@shared/ui";
+import { ui } from "@shared/styles";
 
 export function RestCompletePopup({ onClose }) {
   return (
