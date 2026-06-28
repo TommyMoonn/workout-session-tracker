@@ -1,5 +1,4 @@
-import { TimerDashboard } from "../features/timer/components/TimerDashboard";
-import { useWorkoutTimer } from "../features/timer/hooks/useWorkoutTimer";
+import { TimerDashboard, useWorkoutTimer } from "@features/timer";
 
 function TimerPage() {
   const timer = useWorkoutTimer();

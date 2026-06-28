@@ -1,6 +1,6 @@
 import { Button } from "@shared/ui";
 import { SetTable } from "@domain/workout";
-import { ui } from "@shared/styles";
+import { timerUi as ui } from "../styles";
 
 export function SetLogDrawer({ setLogs, onClose, onClear, onDeleteSet }) {
   return (

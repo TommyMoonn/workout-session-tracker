@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { formatDuration, ReviewModal } from "@domain/workout";
 import { ConfirmationDialog, Toast } from "@shared/ui";
-import { useConfirmation } from "@shared/hooks/useConfirmation";
-import { cx } from "@shared/lib/cx";
-import { ui } from "@shared/styles";
-import { useKeyboardShortcuts } from "@features/settings/shortcuts";
+import { useConfirmation } from "@shared/hooks";
+import { cx } from "@shared/lib";
+import { timerUi as ui } from "../styles";
+import { useKeyboardShortcuts } from "@features/settings";
 import { RestCompletePopup } from "./RestCompletePopup";
 import { RestFlowCard } from "./RestFlowCard";
 import { SessionLoggedPopup } from "./SessionLoggedPopup";

@@ -1,3 +1,5 @@
+import { ui as sharedUi } from "@shared/styles";
+
 export const timerStyles = {
   gridTop: "grid grid-cols-[minmax(0,1.7fr)_minmax(320px,0.95fr)] items-stretch gap-4 max-[1120px]:grid-cols-1",
   timerLayoutGrid: "grid grid-cols-3 items-stretch gap-4 max-[1120px]:grid-cols-1 max-[760px]:gap-3",
@@ -35,4 +37,9 @@ export const timerStyles = {
   twoCol: "grid grid-cols-2 gap-2 max-[760px]:grid-cols-1",
   restAlert: "fixed left-1/2 top-[76px] z-[90] max-h-[calc(100dvh-100px)] w-[min(460px,calc(100%_-_32px))] -translate-x-1/2 overflow-y-auto [overflow-wrap:anywhere] border border-[var(--oc-warning)] bg-[var(--oc-canvas-deep)] p-4 text-[var(--oc-ink)] motion-safe:animate-[restAlertIn_var(--transition-base)_both] max-[760px]:top-3 max-[760px]:max-h-[calc(100dvh-108px-env(safe-area-inset-bottom))] max-[760px]:w-[calc(100%_-_24px)] max-[760px]:p-3",
   restAlertTitle: "mt-2 text-[clamp(22px,2.4vw,30px)] font-bold leading-[1.35] tracking-normal text-[var(--oc-ink)] oc-alert-before",
+};
+
+export const timerUi = {
+  ...sharedUi,
+  ...timerStyles,
 };

@@ -9,6 +9,7 @@ export const dataDisplayStyles = {
   miniMetric: "border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-6 text-[var(--oc-ink)] max-[760px]:p-4",
   miniValue: "text-[28px] font-bold leading-[1.2] text-[var(--oc-ink)]",
   detailMetrics: "grid grid-cols-3 gap-3 max-[1120px]:grid-cols-2 max-[760px]:grid-cols-1",
+  detailPane: "min-w-0 px-6 py-5 min-[1180px]:px-8 min-[1180px]:py-6 max-[760px]:p-4",
   sessionDetailHeader: "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-6 text-[var(--oc-ink)] max-[900px]:grid-cols-1 max-[760px]:p-4",
   sessionDetailTitle: "mt-1 text-[clamp(20px,2.4vw,28px)] font-bold leading-[1.25] text-[var(--oc-ink)]",
   tagPillRow: "mt-3 flex flex-wrap gap-2",

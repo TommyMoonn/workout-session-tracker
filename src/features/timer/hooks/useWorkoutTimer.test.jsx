@@ -3,11 +3,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   SoundSettingsProvider,
   soundSettingsStorageKey,
-} from "@features/settings/sound";
-import {
   TimerSettingsProvider,
   timerSettingsStorageKey,
-} from "@features/settings/timer";
+} from "@features/settings";
 import { WORKOUT_STORAGE_KEY } from "@domain/workout";
 import { useWorkoutTimer } from "./useWorkoutTimer";
 

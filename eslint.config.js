@@ -17,5 +17,23 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [
+          {
+            regex: '^@features/[^/]+/.+',
+            message: 'Import from the feature public entry point instead.',
+          },
+          {
+            regex: '^@domain/[^/]+/.+',
+            message: 'Import from the domain public entry point instead.',
+          },
+          {
+            regex: '^@shared/(hooks|lib|styles|ui)/.+',
+            message: 'Import from the shared module entry point instead.',
+          },
+        ],
+      }],
+    },
   },
 ])

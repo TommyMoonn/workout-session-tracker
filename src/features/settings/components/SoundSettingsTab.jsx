@@ -1,6 +1,6 @@
 import { Button, SelectField } from "@shared/ui";
 import { restAlertVolumeOptions, useSoundSettings } from "../sound";
-import { ui } from "@shared/styles";
+import { settingsUi as ui } from "../styles";
 import {
   SettingsActions,
   SettingsRow,

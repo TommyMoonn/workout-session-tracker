@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { Button, MarkerLabel, SelectField } from "@shared/ui";
-import { ui } from "@shared/styles";
+import { exerciseUi as ui } from "../styles";
 import { allOption, demoFilterOptions } from "../utils/exerciseSearch";
 
 export function ExerciseFilters({ state, actions, searchInputRef }) {

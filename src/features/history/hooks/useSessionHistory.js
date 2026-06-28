@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer } from "react";
 import { readWorkoutStorage, updateWorkoutStorage } from "@domain/workout";
-import { useToast } from "@shared/hooks/useToast";
+import { useToast } from "@shared/hooks";
 import { getHistoryPageSize } from "../constants";
 import {
   createInitialHistoryState,

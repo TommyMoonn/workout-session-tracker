@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { formatDateTime, formatDuration, ReviewModal } from "@domain/workout";
 import { ConfirmationDialog, EmptyState, Toast } from "@shared/ui";
-import { useConfirmation } from "@shared/hooks/useConfirmation";
-import { cx } from "@shared/lib/cx";
-import { ui } from "@shared/styles";
-import { useKeyboardShortcuts } from "@features/settings/shortcuts";
+import { useConfirmation } from "@shared/hooks";
+import { cx } from "@shared/lib";
+import { historyUi as ui } from "../styles";
+import { useKeyboardShortcuts } from "@features/settings";
 import { ArchiveActions } from "./ArchiveActions";
 import { HistoryDetailView } from "./HistoryDetailView";
 import { HistoryListView } from "./HistoryListView";

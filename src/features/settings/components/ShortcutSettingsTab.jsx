@@ -6,7 +6,7 @@ import {
   shortcutGroups,
   useShortcutPreferences,
 } from "../shortcuts";
-import { ui } from "@shared/styles";
+import { settingsUi as ui } from "../styles";
 import {
   SettingsActions,
   SettingsSection,

@@ -1,5 +1,4 @@
-import { HistoryArchive } from "../features/history/components/HistoryArchive";
-import { useSessionHistory } from "../features/history/hooks/useSessionHistory";
+import { HistoryArchive, useSessionHistory } from "@features/history";
 
 function HistoryPage() {
   const history = useSessionHistory();

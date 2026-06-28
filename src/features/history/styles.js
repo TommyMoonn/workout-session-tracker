@@ -1,3 +1,5 @@
+import { ui as sharedUi } from "@shared/styles";
+
 export const historyStyles = {
   historyCard: "relative mt-4 min-w-0 overflow-visible border border-[var(--oc-hairline)] bg-[var(--oc-surface)] p-0 text-[var(--oc-ink)] max-[760px]:mt-3",
   historyHeader: "grid grid-cols-[minmax(180px,1fr)_auto] items-start gap-6 border-b border-[var(--oc-hairline)] max-[1120px]:grid-cols-1 max-[1120px]:items-stretch max-[760px]:gap-4",
@@ -32,5 +34,9 @@ export const historyStyles = {
   rowTitle: "mt-1 overflow-hidden text-ellipsis text-sm font-bold leading-[1.45] text-current",
   rowMeta: "mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs uppercase leading-normal text-[var(--oc-muted)]",
   rowMetaSelected: "text-[var(--oc-muted)]",
-  detailPane: "min-w-0 px-6 py-5 min-[1180px]:px-8 min-[1180px]:py-6 max-[760px]:p-4",
+};
+
+export const historyUi = {
+  ...sharedUi,
+  ...historyStyles,
 };

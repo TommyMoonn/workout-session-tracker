@@ -1,6 +1,6 @@
 import { Button } from "@shared/ui";
-import { cx } from "@shared/lib/cx";
-import { ui } from "@shared/styles";
+import { cx } from "@shared/lib";
+import { timerUi as ui } from "../styles";
 import { formatClock } from "@domain/workout";
 import { restPresets } from "../constants";
 

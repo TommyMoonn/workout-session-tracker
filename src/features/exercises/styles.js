@@ -1,3 +1,5 @@
+import { ui as sharedUi } from "@shared/styles";
+
 export const exerciseStyles = {
   exerciseFilterGrid: "mt-3 grid grid-cols-[minmax(240px,1.5fr)_repeat(4,minmax(130px,1fr))] gap-2.5 max-[1120px]:grid-cols-3 max-[900px]:grid-cols-2 max-[760px]:grid-cols-1 max-[760px]:gap-2",
   exerciseSearchField: "max-[1120px]:col-span-2 max-[760px]:col-span-1",
@@ -38,4 +40,9 @@ export const exerciseStyles = {
   videoMediaLabel: "!text-[var(--oc-media-muted)] [&_span]:!text-[var(--oc-media-marker)]",
   videoPlaceholderTitle: "mt-2 block text-xl font-bold leading-[1.35] text-[var(--oc-on-media)]",
   demoEmpty: "mt-4 border border-dashed border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] p-6 text-[var(--oc-body)] max-[760px]:p-4",
+};
+
+export const exerciseUi = {
+  ...sharedUi,
+  ...exerciseStyles,
 };

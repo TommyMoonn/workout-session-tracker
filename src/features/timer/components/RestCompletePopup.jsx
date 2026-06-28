@@ -1,5 +1,5 @@
 import { Button } from "@shared/ui";
-import { ui } from "@shared/styles";
+import { timerUi as ui } from "../styles";
 
 export function RestCompletePopup({ onClose }) {
   return (

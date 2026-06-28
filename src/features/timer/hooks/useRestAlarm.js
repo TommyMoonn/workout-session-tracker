@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { playChillAlarm, useSoundSettings } from "@features/settings/sound";
+import { playChillAlarm, useSoundSettings } from "@features/settings";
 import { restAlertAutoDismissMs } from "../constants";
 
 export function useRestAlarm() {

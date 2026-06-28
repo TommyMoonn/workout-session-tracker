@@ -1,5 +1,5 @@
-import { cx } from "@shared/lib/cx";
-import { ui } from "@shared/styles";
+import { cx } from "@shared/lib";
+import { settingsUi as ui } from "../styles";
 
 export function SettingsTab({ children }) {
   return <div className={ui.settingsTab}>{children}</div>;

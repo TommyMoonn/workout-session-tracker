@@ -5,8 +5,8 @@ import {
   readWorkoutStorage,
   updateWorkoutStorage,
 } from "@domain/workout";
-import { useTimerSettings } from "@features/settings/timer";
-import { useToast } from "@shared/hooks/useToast";
+import { useTimerSettings } from "@features/settings";
+import { useToast } from "@shared/hooks";
 import {
   createFinishDraft,
   createLoggedSession,

@@ -1,7 +1,7 @@
-import { defaultRestSeconds } from "@features/timer/constants";
 import { clampSeconds } from "@domain/workout";
 
 export const timerSettingsStorageKey = "liftlog-lite.timer-settings.v1";
+export const defaultRestSeconds = 90;
 
 export const defaultTimerSettings = {
   defaultRestSeconds,

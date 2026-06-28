@@ -1,1 +1,0 @@
-export { shortcutGroups } from "./shortcutRegistry";

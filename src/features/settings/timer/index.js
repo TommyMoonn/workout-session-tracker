@@ -1,6 +1,7 @@
 export { TimerSettingsProvider } from "./TimerSettingsProvider";
 export {
   defaultTimerSettings,
+  defaultRestSeconds,
   normalizeTimerRestSeconds,
   normalizeTimerSettings,
   timerSettingsStorageKey,

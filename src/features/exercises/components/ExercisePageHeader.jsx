@@ -1,5 +1,5 @@
 import { MarkerLabel } from "@shared/ui";
-import { ui } from "@shared/styles";
+import { exerciseUi as ui } from "../styles";
 
 export function ExercisePageHeader({ totalExerciseCount }) {
   return (

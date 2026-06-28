@@ -1,5 +1,26 @@
 export { SettingsPanel } from "./components";
-export { AppearanceSettingsProvider } from "./appearance";
-export { ShortcutProvider } from "./shortcuts";
-export { SoundSettingsProvider } from "./sound";
-export { TimerSettingsProvider } from "./timer";
+export {
+  AppearanceSettingsProvider,
+  useAppearanceSettings,
+} from "./appearance";
+export {
+  ShortcutProvider,
+  formatShortcutKeys,
+  shortcutFromKeyboardEvent,
+  shortcutGroups,
+  shortcutStorageKey,
+  useKeyboardShortcuts,
+  useShortcutPreferences,
+} from "./shortcuts";
+export {
+  SoundSettingsProvider,
+  playChillAlarm,
+  soundSettingsStorageKey,
+  useSoundSettings,
+} from "./sound";
+export {
+  TimerSettingsProvider,
+  defaultRestSeconds,
+  timerSettingsStorageKey,
+  useTimerSettings,
+} from "./timer";

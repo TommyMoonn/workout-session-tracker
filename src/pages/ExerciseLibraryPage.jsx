@@ -1,5 +1,4 @@
-import { ExerciseLibrary } from "../features/exercises/components/ExerciseLibrary";
-import { useExerciseLibrary } from "../features/exercises/hooks/useExerciseLibrary";
+import { ExerciseLibrary, useExerciseLibrary } from "@features/exercises";
 
 function ExerciseLibraryPage() {
   const exerciseLibrary = useExerciseLibrary();

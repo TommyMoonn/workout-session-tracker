@@ -1,5 +1,5 @@
 import { clampSeconds, createEmptyReview } from "@domain/workout";
-import { defaultRestSeconds } from "../constants";
+import { defaultRestSeconds } from "@features/settings";
 
 export function createInitialTimerState(data = {}) {
   const fallback = createFallbackTimerState();

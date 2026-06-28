@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
-import { cx } from "@shared/lib/cx";
-import { ui } from "@shared/styles";
-import { useKeyboardShortcuts } from "@features/settings/shortcuts";
+import { cx } from "@shared/lib";
+import { exerciseUi as ui } from "../styles";
+import { useKeyboardShortcuts } from "@features/settings";
 import { ExerciseBrowser } from "./ExerciseBrowser";
 import { ExerciseFilters } from "./ExerciseFilters";
 import { ExercisePageHeader } from "./ExercisePageHeader";

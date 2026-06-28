@@ -1,5 +1,5 @@
 import { MarkedPill } from "@shared/ui";
-import { ui } from "@shared/styles";
+import { historyUi as ui } from "../styles";
 import { formatDateTime, getWorkoutTags, getWorkoutTagsLabel } from "@domain/workout";
 
 export function SessionList({

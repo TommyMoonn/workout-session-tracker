@@ -1,3 +1,5 @@
+import { ui as sharedUi } from "@shared/styles";
+
 export const settingsStyles = {
   settingsModal: "flex h-[min(820px,calc(100vh-40px))] w-[min(760px,100%)] flex-col overflow-hidden border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas)] text-[var(--oc-ink)] motion-safe:animate-[modalIn_var(--transition-base)_both] max-[760px]:h-[100dvh] max-[760px]:w-full max-[760px]:border-0",
   settingsOverlay: "max-[760px]:p-0",
@@ -28,4 +30,9 @@ export const settingsStyles = {
   settingsShortcutLabel: "min-w-0 break-words leading-normal text-[var(--oc-body)] max-[620px]:col-span-2",
   settingsShortcutKeys: "inline-flex min-h-8 min-w-[112px] max-w-[220px] items-center justify-center overflow-hidden text-ellipsis whitespace-nowrap rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-surface-soft)] px-2 text-xs font-bold text-[var(--oc-ink)] max-[620px]:min-w-0 max-[620px]:justify-start",
   settingsShortcutActions: "flex justify-end gap-2 max-[520px]:grid max-[520px]:grid-cols-2",
+};
+
+export const settingsUi = {
+  ...sharedUi,
+  ...settingsStyles,
 };

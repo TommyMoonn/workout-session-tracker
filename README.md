@@ -28,10 +28,35 @@ The app runs fully in the browser and stores data locally.
 ```bash
 npm install
 npm run dev
-Building
-npm run build
 ```
 
-## Notes
+## Commands
 
-This is a simple personal mini project, not a full fitness platform. The goal is to make workout tracking quick, local-first, and easy to use.
+```bash
+npm run build
+npm run lint
+npm run test:run
+```
+
+## Project Structure
+
+```text
+src/
+  app/       Routing, providers, and application layout
+  pages/     Thin route composition
+  features/  Timer, history, exercises, and settings
+  domain/    Shared workout model, persistence, and serialization
+  shared/    Reusable UI, hooks, utilities, and style primitives
+  data/      Static exercise data
+```
+
+## Module Rules
+
+- Pages compose feature public APIs and do not own business logic.
+- Features import other features through their `index.js` entry points.
+- Workout behavior shared by multiple features belongs in `domain/workout`.
+- Generic UI, hooks, utilities, and style primitives belong in `shared`.
+- Feature components, hooks, models, tests, and styles stay colocated.
+- Storage keys and serialized workout formats must remain backward compatible.
+
+ESLint enforces public alias imports for `features`, `domain`, and `shared`.

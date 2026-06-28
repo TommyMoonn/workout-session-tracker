@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, MarkerLabel } from "@shared/ui";
-import { cx } from "@shared/lib/cx";
-import { ui } from "@shared/styles";
+import { cx } from "@shared/lib";
+import { settingsUi as ui } from "../styles";
 import { AppearanceSettingsTab } from "./AppearanceSettingsTab";
 import { ShortcutSettingsTab } from "./ShortcutSettingsTab";
 import { SoundSettingsTab } from "./SoundSettingsTab";
