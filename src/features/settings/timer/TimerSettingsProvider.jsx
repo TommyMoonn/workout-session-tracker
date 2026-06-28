@@ -1,14 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
+import { createSettingsStorage } from "../persistence/createSettingsStorage";
 import { TimerSettingsContext } from "./TimerSettingsContext";
-import { defaultTimerSettings, normalizeTimerSettings } from "./timerSettingsRegistry";
+import {
+  defaultTimerSettings,
+  normalizeTimerSettings,
+  timerSettingsStorageKey,
+} from "./timerSettingsRegistry";
 
-const timerSettingsStorageKey = "liftlog-lite.timer-settings.v1";
+const timerSettingsStorage = createSettingsStorage({
+  key: timerSettingsStorageKey,
+  fallback: defaultTimerSettings,
+  normalize: normalizeTimerSettings,
+});
 
 export function TimerSettingsProvider({ children }) {
-  const [settings, setSettings] = useState(loadTimerSettings);
+  const [settings, setSettings] = useState(timerSettingsStorage.load);
 
   useEffect(() => {
-    saveTimerSettings(settings);
+    timerSettingsStorage.save(settings);
   }, [settings]);
 
   const value = useMemo(() => ({
@@ -39,26 +48,4 @@ export function TimerSettingsProvider({ children }) {
       {children}
     </TimerSettingsContext.Provider>
   );
-}
-
-function loadTimerSettings() {
-  if (typeof window === "undefined") return defaultTimerSettings;
-
-  try {
-    const raw = window.localStorage.getItem(timerSettingsStorageKey);
-    return normalizeTimerSettings(raw ? JSON.parse(raw) : defaultTimerSettings);
-  } catch (error) {
-    console.error(error);
-    return defaultTimerSettings;
-  }
-}
-
-function saveTimerSettings(settings) {
-  if (typeof window === "undefined") return;
-
-  try {
-    window.localStorage.setItem(timerSettingsStorageKey, JSON.stringify(normalizeTimerSettings(settings)));
-  } catch (error) {
-    console.error(error);
-  }
 }

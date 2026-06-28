@@ -1,12 +1,15 @@
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { SoundSettingsProvider } from "../../soundSettings";
-import { TimerSettingsProvider } from "../../timerSettings";
+import {
+  SoundSettingsProvider,
+  soundSettingsStorageKey,
+} from "@features/settings/sound";
+import {
+  TimerSettingsProvider,
+  timerSettingsStorageKey,
+} from "@features/settings/timer";
 import { WORKOUT_STORAGE_KEY } from "@domain/workout";
 import { useWorkoutTimer } from "./useWorkoutTimer";
-
-const timerSettingsStorageKey = "liftlog-lite.timer-settings.v1";
-const soundSettingsStorageKey = "liftlog-lite.sound-settings.v1";
 
 function TimerProviders({ children }) {
   return (

@@ -1,7 +1,9 @@
-import { AppearanceSettingsProvider } from "@features/appearanceSettings";
-import { ShortcutProvider } from "@features/shortcuts";
-import { SoundSettingsProvider } from "@features/soundSettings";
-import { TimerSettingsProvider } from "@features/timerSettings";
+import {
+  AppearanceSettingsProvider,
+  ShortcutProvider,
+  SoundSettingsProvider,
+  TimerSettingsProvider,
+} from "@features/settings";
 
 export function AppProviders({ children }) {
   return (

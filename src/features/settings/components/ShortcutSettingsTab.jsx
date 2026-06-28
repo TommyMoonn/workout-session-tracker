@@ -5,7 +5,7 @@ import {
   shortcutFromKeyboardEvent,
   shortcutGroups,
   useShortcutPreferences,
-} from "../../features/shortcuts";
+} from "../shortcuts";
 import { ui } from "@shared/styles";
 import {
   SettingsActions,

@@ -1,4 +1,4 @@
-import { useAppearanceSettings } from "../../features/appearanceSettings";
+import { useAppearanceSettings } from "../appearance";
 import {
   SettingsRow,
   SettingsSection,

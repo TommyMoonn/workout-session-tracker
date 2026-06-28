@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { createSettingsStorage } from "../persistence/createSettingsStorage";
 import { AppearanceSettingsContext } from "./AppearanceSettingsContext";
 import {
   appearanceOptions,
@@ -10,15 +11,22 @@ import {
 } from "./appearanceSettingsRegistry";
 
 const systemThemeQuery = "(prefers-color-scheme: dark)";
+const appearanceStorage = createSettingsStorage({
+  key: appearanceStorageKey,
+  fallback: defaultAppearance,
+  normalize: normalizeAppearance,
+  parse: (raw) => raw,
+  serialize: (value) => value,
+});
 
 export function AppearanceSettingsProvider({ children }) {
-  const [appearance, setAppearanceState] = useState(loadAppearance);
+  const [appearance, setAppearanceState] = useState(appearanceStorage.load);
   const [resolvedTheme, setResolvedTheme] = useState(() => (
     resolveTheme(appearance, getSystemPrefersDark())
   ));
 
   useEffect(() => {
-    saveAppearance(appearance);
+    appearanceStorage.save(appearance);
     const mediaQuery = window.matchMedia(systemThemeQuery);
 
     function syncTheme() {
@@ -50,25 +58,6 @@ export function AppearanceSettingsProvider({ children }) {
       {children}
     </AppearanceSettingsContext.Provider>
   );
-}
-
-function loadAppearance() {
-  if (typeof window === "undefined") return defaultAppearance;
-
-  try {
-    return normalizeAppearance(window.localStorage.getItem(appearanceStorageKey));
-  } catch (error) {
-    console.error(error);
-    return defaultAppearance;
-  }
-}
-
-function saveAppearance(appearance) {
-  try {
-    window.localStorage.setItem(appearanceStorageKey, normalizeAppearance(appearance));
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 function getSystemPrefersDark() {

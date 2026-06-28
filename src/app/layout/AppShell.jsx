@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { SettingsPanel } from "../../components/settings";
+import { SettingsPanel } from "@features/settings";
 import SideNav from "./SideNav";
-import { useKeyboardShortcuts } from "@features/shortcuts";
+import { useKeyboardShortcuts } from "@features/settings/shortcuts";
 
 const navigationShortcuts = [
   { id: "nav.timer", path: "/timer" },

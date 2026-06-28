@@ -1,15 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
+import { createSettingsStorage } from "../persistence/createSettingsStorage";
 import { ShortcutContext } from "./ShortcutContext";
-import { defaultShortcutBindings, getShortcutDefinition, shortcutDefinitions } from "./shortcutRegistry";
+import {
+  defaultShortcutBindings,
+  getShortcutDefinition,
+  shortcutDefinitions,
+  shortcutStorageKey,
+} from "./shortcutRegistry";
 import { areShortcutBindingsEqual, normalizeShortcutBinding } from "./shortcutUtils";
 
-const shortcutStorageKey = "liftlog-lite.shortcut-bindings.v1";
+const shortcutStorage = createSettingsStorage({
+  key: shortcutStorageKey,
+  fallback: defaultShortcutBindings,
+  normalize: normalizeShortcutBindings,
+});
 
 export function ShortcutProvider({ children }) {
-  const [bindings, setBindings] = useState(loadShortcutBindings);
+  const [bindings, setBindings] = useState(shortcutStorage.load);
 
   useEffect(() => {
-    saveShortcutBindings(bindings);
+    shortcutStorage.save(bindings);
   }, [bindings]);
 
   const value = useMemo(() => ({
@@ -49,31 +59,11 @@ export function ShortcutProvider({ children }) {
   );
 }
 
-function loadShortcutBindings() {
-  if (typeof window === "undefined") return defaultShortcutBindings;
-
-  try {
-    const raw = window.localStorage.getItem(shortcutStorageKey);
-    const savedBindings = raw ? JSON.parse(raw) : {};
-
-    return Object.fromEntries(
-      shortcutDefinitions.map((shortcut) => {
-        const savedBinding = normalizeShortcutBinding(savedBindings?.[shortcut.id]);
-        return [shortcut.id, savedBinding ?? defaultShortcutBindings[shortcut.id]];
-      })
-    );
-  } catch (error) {
-    console.error(error);
-    return defaultShortcutBindings;
-  }
-}
-
-function saveShortcutBindings(bindings) {
-  if (typeof window === "undefined") return;
-
-  try {
-    window.localStorage.setItem(shortcutStorageKey, JSON.stringify(bindings));
-  } catch (error) {
-    console.error(error);
-  }
+function normalizeShortcutBindings(value) {
+  return Object.fromEntries(
+    shortcutDefinitions.map((shortcut) => {
+      const savedBinding = normalizeShortcutBinding(value?.[shortcut.id]);
+      return [shortcut.id, savedBinding ?? defaultShortcutBindings[shortcut.id]];
+    })
+  );
 }

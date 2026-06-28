@@ -1,5 +1,5 @@
 import { Button } from "@shared/ui";
-import { normalizeTimerRestSeconds, useTimerSettings } from "../../features/timerSettings";
+import { normalizeTimerRestSeconds, useTimerSettings } from "../timer";
 import { ui } from "@shared/styles";
 import {
   SettingsActions,

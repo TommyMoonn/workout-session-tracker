@@ -12,7 +12,7 @@ import {
   timerTickMs,
 } from "../constants";
 import { useToast } from "@shared/hooks/useToast";
-import { useTimerSettings } from "../../timerSettings";
+import { useTimerSettings } from "@features/settings/timer";
 import { useRestAlarm } from "./useRestAlarm";
 import { useWorkoutPersistence } from "./useWorkoutPersistence";
 

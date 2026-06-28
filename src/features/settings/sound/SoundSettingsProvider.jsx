@@ -1,15 +1,24 @@
 import { useEffect, useMemo, useState } from "react";
-import { playChillAlarm } from "../timer/utils/restAlarm";
+import { createSettingsStorage } from "../persistence/createSettingsStorage";
 import { SoundSettingsContext } from "./SoundSettingsContext";
-import { defaultSoundSettings, normalizeSoundSettings } from "./soundSettingsRegistry";
+import {
+  defaultSoundSettings,
+  normalizeSoundSettings,
+  soundSettingsStorageKey,
+} from "./soundSettingsRegistry";
+import { playChillAlarm } from "./restAlarm";
 
-const soundSettingsStorageKey = "liftlog-lite.sound-settings.v1";
+const soundSettingsStorage = createSettingsStorage({
+  key: soundSettingsStorageKey,
+  fallback: defaultSoundSettings,
+  normalize: normalizeSoundSettings,
+});
 
 export function SoundSettingsProvider({ children }) {
-  const [settings, setSettings] = useState(loadSoundSettings);
+  const [settings, setSettings] = useState(soundSettingsStorage.load);
 
   useEffect(() => {
-    saveSoundSettings(settings);
+    soundSettingsStorage.save(settings);
   }, [settings]);
 
   const value = useMemo(() => ({
@@ -44,26 +53,4 @@ export function SoundSettingsProvider({ children }) {
       {children}
     </SoundSettingsContext.Provider>
   );
-}
-
-function loadSoundSettings() {
-  if (typeof window === "undefined") return defaultSoundSettings;
-
-  try {
-    const raw = window.localStorage.getItem(soundSettingsStorageKey);
-    return normalizeSoundSettings(raw ? JSON.parse(raw) : defaultSoundSettings);
-  } catch (error) {
-    console.error(error);
-    return defaultSoundSettings;
-  }
-}
-
-function saveSoundSettings(settings) {
-  if (typeof window === "undefined") return;
-
-  try {
-    window.localStorage.setItem(soundSettingsStorageKey, JSON.stringify(normalizeSoundSettings(settings)));
-  } catch (error) {
-    console.error(error);
-  }
 }

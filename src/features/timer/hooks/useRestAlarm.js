@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useSoundSettings } from "../../soundSettings";
+import { playChillAlarm, useSoundSettings } from "@features/settings/sound";
 import { restAlertAutoDismissMs } from "../constants";
-import { playChillAlarm } from "../utils/restAlarm";
 
 export function useRestAlarm() {
   const alarmLoopRef = useRef(null);

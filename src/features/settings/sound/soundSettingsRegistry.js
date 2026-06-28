@@ -1,3 +1,5 @@
+export const soundSettingsStorageKey = "liftlog-lite.sound-settings.v1";
+
 export const restAlertVolumeOptions = [
   { value: "low", label: "Low" },
   { value: "medium", label: "Medium" },

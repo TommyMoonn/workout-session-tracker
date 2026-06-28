@@ -1,3 +1,5 @@
+export const shortcutStorageKey = "liftlog-lite.shortcut-bindings.v1";
+
 export const defaultShortcutBindings = {
   "nav.timer": { key: "1" },
   "nav.history": { key: "2" },
