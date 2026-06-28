@@ -34,6 +34,10 @@ export {
   workoutTypeOptions,
 } from "./model/workoutTypes";
 export {
+  removeSetFromSessionLogs,
+  updateSessionReview,
+} from "./model/sessionUpdates";
+export {
   readWorkoutStorage,
   saveWorkoutStorage,
   updateWorkoutStorage,

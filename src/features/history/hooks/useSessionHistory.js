@@ -1,174 +1,65 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useReducer } from "react";
+import { readWorkoutStorage, updateWorkoutStorage } from "@domain/workout";
 import { useToast } from "@shared/hooks/useToast";
-import {
-  allWorkoutTypesValue,
-  buildSessionMarkdown,
-  buildWorkoutHistoryExportPayload,
-  buildWorkoutTypeFilterOptions,
-  createEmptyReview,
-  downloadFile,
-  formatFileTimestamp,
-  matchesWorkoutTypeFilter,
-  normalizeReview,
-  normalizeSetLogs,
-  parseWorkoutHistoryImport,
-  readWorkoutStorage,
-  updateWorkoutStorage,
-} from "@domain/workout";
 import { getHistoryPageSize } from "../constants";
+import {
+  createInitialHistoryState,
+  historyActionTypes,
+  historyReducer,
+} from "../model/historyReducer";
+import { selectHistoryView } from "../model/historySelectors";
+import { useHistoryArchive } from "./useHistoryArchive";
+import { useHistoryReview } from "./useHistoryReview";
 
 export function useSessionHistory() {
-  const jsonInputRef = useRef(null);
-  const [initialHistoryState] = useState(readInitialHistoryState);
-  const [sessionLogs, setSessionLogs] = useState(initialHistoryState.sessionLogs);
-  const [selectedSessionId, setSelectedSessionId] = useState(null);
-  const [historyDisplayMode, setHistoryDisplayMode] = useState(initialHistoryState.historyDisplayMode);
-  const [historyPage, setHistoryPage] = useState(initialHistoryState.historyPage);
-  const [workoutTypeFilter, setWorkoutTypeFilter] = useState(initialHistoryState.workoutTypeFilter);
-  const [editingSession, setEditingSession] = useState(null);
-  const [editingReview, setEditingReview] = useState(createEmptyReview());
+  const [state, dispatch] = useReducer(
+    historyReducer,
+    undefined,
+    () => createInitialHistoryState(readWorkoutStorage())
+  );
   const { toast, showToast } = useToast();
-
-  const selectedSession = useMemo(() => (
-    sessionLogs.find((session) => session.id === selectedSessionId) ?? null
-  ), [sessionLogs, selectedSessionId]);
-
-  const workoutTypeFilterOptions = useMemo(
-    () => buildWorkoutTypeFilterOptions(sessionLogs),
-    [sessionLogs]
-  );
-
-  const activeWorkoutTypeFilter = workoutTypeFilterOptions.some((option) => option.value === workoutTypeFilter)
-    ? workoutTypeFilter
-    : allWorkoutTypesValue;
-
-  const filteredSessions = useMemo(
-    () => sessionLogs.filter((session) => matchesWorkoutTypeFilter(session, activeWorkoutTypeFilter)),
-    [activeWorkoutTypeFilter, sessionLogs]
-  );
-
-  const historyPageSize = getHistoryPageSize(historyDisplayMode);
-  const totalHistoryPages = Math.max(1, Math.ceil(filteredSessions.length / historyPageSize));
-  const currentHistoryPage = Math.min(historyPage, totalHistoryPages);
-  const pageSessionStart = (currentHistoryPage - 1) * historyPageSize;
-
-  const visibleSessions = useMemo(
-    () => filteredSessions.slice(pageSessionStart, pageSessionStart + historyPageSize),
-    [filteredSessions, historyPageSize, pageSessionStart]
-  );
+  const view = useMemo(() => selectHistoryView(state), [state]);
+  const reviewActions = useHistoryReview({
+    dispatch,
+    editingSession: state.editingSession,
+    showToast,
+  });
+  const archive = useHistoryArchive({
+    dispatch,
+    selectedSession: view.selectedSession,
+    sessionLogs: state.sessionLogs,
+    showToast,
+  });
 
   useEffect(() => {
     updateWorkoutStorage({
       savedAt: Date.now(),
-      sessionLogs,
-      selectedSessionId,
-      historyDisplayMode,
-      historyPage: currentHistoryPage,
-      workoutTypeFilter: activeWorkoutTypeFilter,
+      sessionLogs: state.sessionLogs,
+      selectedSessionId: state.selectedSessionId,
+      historyDisplayMode: state.historyDisplayMode,
+      historyPage: view.currentHistoryPage,
+      workoutTypeFilter: view.workoutTypeFilter,
     });
-  }, [activeWorkoutTypeFilter, currentHistoryPage, historyDisplayMode, sessionLogs, selectedSessionId]);
+  }, [
+    state.historyDisplayMode,
+    state.selectedSessionId,
+    state.sessionLogs,
+    view.currentHistoryPage,
+    view.workoutTypeFilter,
+  ]);
 
   function deleteSessionSet(sessionId, setId) {
-    setSessionLogs((current) => current.map((session) => {
-      if (session.id !== sessionId) return session;
-
-      const nextSets = normalizeSetLogs((session.sets || []).filter((set) => set.id !== setId));
-      const nextTotalRestSeconds = nextSets.reduce((sum, set) => sum + (set.restActualSeconds ?? 0), 0);
-
-      return {
-        ...session,
-        sets: nextSets,
-        setCount: nextSets.length,
-        totalRestSeconds: nextTotalRestSeconds,
-      };
-    }));
-
+    dispatch({
+      type: historyActionTypes.setDeleted,
+      sessionId,
+      setId,
+    });
     showToast("Set removed from saved session.");
   }
 
   function clearSessionLogs() {
-    setSessionLogs([]);
-    setSelectedSessionId(null);
-    setWorkoutTypeFilter(allWorkoutTypesValue);
-    setHistoryPage(1);
+    dispatch({ type: historyActionTypes.historyCleared });
     showToast("Session history cleared.");
-  }
-
-  function openEditSessionReview(session) {
-    if (!session) return;
-    setEditingSession(session);
-    setEditingReview(normalizeReview(session.review));
-  }
-
-  function saveEditSessionReview() {
-    if (!editingSession) return;
-
-    const nextReview = normalizeReview(editingReview);
-    setSessionLogs((current) => current.map((session) => (
-      session.id === editingSession.id ? { ...session, review: nextReview } : session
-    )));
-    setEditingSession(null);
-    setEditingReview(createEmptyReview());
-    showToast("Session notes updated.");
-  }
-
-  function cancelEditSessionReview() {
-    setEditingSession(null);
-    setEditingReview(createEmptyReview());
-  }
-
-  function exportWorkoutHistoryJson() {
-    const backup = buildWorkoutHistoryExportPayload(sessionLogs);
-
-    if (backup.sessionLogs.length === 0) {
-      showToast("No sessions to export yet.");
-      return;
-    }
-
-    downloadFile(
-      `workout-history-${formatFileTimestamp(Date.now())}.json`,
-      JSON.stringify(backup, null, 2),
-      "application/json"
-    );
-    showToast(`${backup.sessionLogs.length} session(s) exported.`);
-  }
-
-  function openJsonImport() {
-    jsonInputRef.current?.click();
-  }
-
-  function importWorkoutHistoryJson(event) {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const importResult = parseWorkoutHistoryImport(reader.result);
-
-      if (!importResult.ok) {
-        showToast(importResult.message);
-        event.target.value = "";
-        return;
-      }
-
-      setSessionLogs(importResult.sessions);
-      setSelectedSessionId(null);
-      setWorkoutTypeFilter(allWorkoutTypesValue);
-      setHistoryPage(1);
-
-      if (importResult.skippedCount > 0) {
-        showToast(`Loaded ${importResult.sessions.length}; skipped ${importResult.skippedCount}.`);
-      } else {
-        showToast(`${importResult.sessions.length} workout session(s) loaded.`);
-      }
-
-      event.target.value = "";
-    };
-    reader.onerror = () => {
-      showToast("Could not read JSON file.");
-      event.target.value = "";
-    };
-    reader.readAsText(file);
   }
 
   function openSessionDetail(sessionId) {
@@ -179,104 +70,70 @@ export function useSessionHistory() {
     setSelectedSessionId(null);
   }
 
-  function exportSelectedMarkdown() {
-    const session = selectedSession ?? sessionLogs[0];
-    if (!session) {
-      showToast("No sessions to export yet.");
-      return;
-    }
-
-    downloadFile(
-      `workout-session-${formatFileTimestamp(session.endedAt)}.md`,
-      buildSessionMarkdown(session),
-      "text/markdown"
-    );
-    showToast("Selected markdown exported.");
-  }
-
-  function exportAllMarkdown() {
-    if (sessionLogs.length === 0) {
-      showToast("No sessions to export yet.");
-      return;
-    }
-
-    downloadFile(
-      `workout-sessions-${formatFileTimestamp(Date.now())}.md`,
-      sessionLogs.map(buildSessionMarkdown).join("\n\n---\n\n"),
-      "text/markdown"
-    );
-    showToast("All sessions markdown exported.");
+  function setSelectedSessionId(sessionId) {
+    dispatch({
+      type: historyActionTypes.sessionSelected,
+      sessionId,
+    });
   }
 
   function previousHistoryPage() {
-    setHistoryPage((current) => Math.max(1, current - 1));
+    dispatch({ type: historyActionTypes.previousPage });
   }
 
   function nextHistoryPage() {
-    setHistoryPage((current) => Math.min(totalHistoryPages, current + 1));
+    dispatch({
+      type: historyActionTypes.nextPage,
+      totalPages: view.totalHistoryPages,
+    });
   }
 
-  function changeHistoryDisplayMode(nextMode) {
-    if (nextMode === historyDisplayMode) return;
+  function changeHistoryDisplayMode(displayMode) {
+    dispatch({
+      type: historyActionTypes.displayModeChanged,
+      displayMode,
+      pageSessionStart: view.pageSessionStart,
+      pageSize: getHistoryPageSize(displayMode),
+    });
+  }
 
-    const nextPageSize = getHistoryPageSize(nextMode);
-    setHistoryPage(Math.floor(pageSessionStart / nextPageSize) + 1);
-    setHistoryDisplayMode(nextMode);
+  function setWorkoutTypeFilter(filter) {
+    dispatch({
+      type: historyActionTypes.filterChanged,
+      filter,
+    });
   }
 
   return {
     state: {
-      currentHistoryPage,
-      editingReview,
-      editingSession,
-      historyDisplayMode,
-      historyPageSize,
-      pageSessionStart,
-      filteredSessionCount: filteredSessions.length,
-      selectedSession,
-      sessionLogs,
+      currentHistoryPage: view.currentHistoryPage,
+      editingReview: state.editingReview,
+      editingSession: state.editingSession,
+      historyDisplayMode: state.historyDisplayMode,
+      historyPageSize: view.historyPageSize,
+      pageSessionStart: view.pageSessionStart,
+      filteredSessionCount: view.filteredSessionCount,
+      selectedSession: view.selectedSession,
+      sessionLogs: state.sessionLogs,
       toast,
-      totalHistoryPages,
-      visibleSessions,
-      workoutTypeFilter: activeWorkoutTypeFilter,
-      workoutTypeFilterOptions,
+      totalHistoryPages: view.totalHistoryPages,
+      visibleSessions: view.visibleSessions,
+      workoutTypeFilter: view.workoutTypeFilter,
+      workoutTypeFilterOptions: view.workoutTypeFilterOptions,
     },
-    refs: {
-      jsonInputRef,
-    },
+    refs: archive.refs,
     actions: {
-      cancelEditSessionReview,
+      ...archive.actions,
+      ...reviewActions,
       closeSessionDetail,
       clearSessionLogs,
       deleteSessionSet,
-      exportAllMarkdown,
-      exportSelectedMarkdown,
-      exportWorkoutHistoryJson,
-      importWorkoutHistoryJson,
       nextHistoryPage,
-      openEditSessionReview,
       openSessionDetail,
-      openJsonImport,
       previousHistoryPage,
-      saveEditSessionReview,
-      setEditingReview,
       setHistoryDisplayMode: changeHistoryDisplayMode,
       setSelectedSessionId,
-      setWorkoutTypeFilter: (nextFilter) => {
-        setWorkoutTypeFilter(nextFilter);
-        setHistoryPage(1);
-      },
+      setWorkoutTypeFilter,
     },
-  };
-}
-
-function readInitialHistoryState() {
-  const data = readWorkoutStorage();
-
-  return {
-    sessionLogs: Array.isArray(data?.sessionLogs) ? data.sessionLogs : [],
-    historyDisplayMode: data?.historyDisplayMode === "card" ? "card" : "list",
-    historyPage: Number.isInteger(data?.historyPage) && data.historyPage > 0 ? data.historyPage : 1,
-    workoutTypeFilter: typeof data?.workoutTypeFilter === "string" ? data.workoutTypeFilter : allWorkoutTypesValue,
   };
 }
