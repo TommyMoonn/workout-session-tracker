@@ -128,4 +128,102 @@ describe("useWorkoutTimer", () => {
     expect(result.current.state.restDuration).toBe(30);
     expect(result.current.state.restDurationInput).toBe("30");
   });
+
+  it("preserves elapsed workout time across pause and resume", () => {
+    const { result } = renderHook(() => useWorkoutTimer(), {
+      wrapper: TimerProviders,
+    });
+
+    act(() => {
+      result.current.actions.startWorkout();
+    });
+    act(() => {
+      vi.advanceTimersByTime(5_000);
+    });
+    act(() => {
+      result.current.actions.pauseWorkout();
+    });
+    act(() => {
+      vi.advanceTimersByTime(10_000);
+    });
+
+    expect(result.current.state).toMatchObject({
+      workoutElapsed: 5,
+      workoutStatus: "paused",
+    });
+
+    act(() => {
+      result.current.actions.startWorkout();
+    });
+    act(() => {
+      vi.advanceTimersByTime(2_000);
+    });
+
+    expect(result.current.state.workoutElapsed).toBe(7);
+  });
+
+  it("completes rest and records its actual duration", () => {
+    window.localStorage.setItem(timerSettingsStorageKey, JSON.stringify({
+      defaultRestSeconds: 10,
+      autoStartRestAfterSet: true,
+      confirmResetSession: true,
+    }));
+    const { result } = renderHook(() => useWorkoutTimer(), {
+      wrapper: TimerProviders,
+    });
+
+    act(() => {
+      vi.advanceTimersByTime(0);
+    });
+    act(() => {
+      result.current.actions.completeSetAndStartRest();
+    });
+    act(() => {
+      vi.advanceTimersByTime(10_000);
+    });
+
+    expect(result.current.state).toMatchObject({
+      activeSetId: null,
+      restAlert: true,
+      restStatus: "done",
+      setLogs: [
+        expect.objectContaining({
+          restActualSeconds: 10,
+          status: "Rest completed",
+        }),
+      ],
+    });
+  });
+
+  it("logs a set without starting rest when auto-start is disabled", () => {
+    window.localStorage.setItem(timerSettingsStorageKey, JSON.stringify({
+      defaultRestSeconds: 45,
+      autoStartRestAfterSet: false,
+      confirmResetSession: true,
+    }));
+    const { result } = renderHook(() => useWorkoutTimer(), {
+      wrapper: TimerProviders,
+    });
+
+    act(() => {
+      vi.advanceTimersByTime(0);
+    });
+    act(() => {
+      result.current.actions.completeSetAndStartRest();
+    });
+
+    expect(result.current.state).toMatchObject({
+      activeSetId: null,
+      restDuration: 45,
+      restRemaining: 45,
+      restStatus: "idle",
+      setLogs: [
+        expect.objectContaining({
+          restStartedAt: null,
+          status: "Set logged",
+        }),
+      ],
+      workoutStatus: "running",
+    });
+  });
 });
