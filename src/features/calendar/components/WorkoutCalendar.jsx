@@ -63,9 +63,20 @@ export function WorkoutCalendar({ state, actions }) {
           <h1 className={ui.pageTitle}>Workout calendar</h1>
           <p className={ui.bodyCopy}>Completed sessions by local date.</p>
         </div>
-        <div className={ui.countCard}>
-          <span className={ui.countLabel}>Sessions</span>
-          <strong className={ui.countValue}>{state.sessionCount}</strong>
+        <div className={ui.calendarHeaderStats}>
+          <div className={cx(ui.countCard, ui.calendarStatCard)}>
+            <span className={ui.countLabel}>Sessions</span>
+            <strong className={ui.countValue}>{state.sessionCount}</strong>
+          </div>
+          <div className={cx(ui.countCard, ui.calendarStatCard)}>
+            <span className={ui.countLabel}>Current streak</span>
+            <strong className={ui.countValue}>
+              {state.currentWorkoutStreak}
+              <small className={ui.calendarStreakUnit}>
+                {state.currentWorkoutStreak === 1 ? " day" : " days"}
+              </small>
+            </strong>
+          </div>
         </div>
       </header>
 
@@ -231,7 +242,9 @@ function CalendarDay({ calendarDay, isSelected, isToday, onSelect }) {
     >
       <span className={ui.calendarDayNumber}>{calendarDay.day}</span>
       {sessionCount > 0 && (
-        <span className={ui.calendarDayCount} aria-hidden="true">[{sessionCount}]</span>
+        <span className={ui.calendarDayCount} aria-hidden="true">
+          <span>{sessionCount}</span>
+        </span>
       )}
     </button>
   );

@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { readWorkoutStorage } from "@domain/workout";
 import {
   buildCalendarMonth,
+  calculateCurrentWorkoutStreak,
   createMonthDate,
   formatLocalDateTitle,
   formatMonthTitle,
@@ -34,6 +35,10 @@ export function useWorkoutCalendar(options = {}) {
     () => buildCalendarMonth(visibleMonth, sessionsByDate),
     [sessionsByDate, visibleMonth]
   );
+  const currentWorkoutStreak = useMemo(
+    () => calculateCurrentWorkoutStreak(sessionsByDate, now),
+    [now, sessionsByDate]
+  );
   const selectedDateSessions = sessionsByDate.get(selectedDateKey) ?? [];
 
   function showToday() {
@@ -44,6 +49,7 @@ export function useWorkoutCalendar(options = {}) {
   return {
     state: {
       calendarDays,
+      currentWorkoutStreak,
       monthTitle: formatMonthTitle(visibleMonth),
       selectedDateKey,
       selectedDateSessions,

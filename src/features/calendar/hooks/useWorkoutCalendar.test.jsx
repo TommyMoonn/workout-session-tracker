@@ -25,6 +25,7 @@ describe("useWorkoutCalendar", () => {
     expect(result.current.state.selectedDateTitle).toContain("29");
     expect(result.current.state.selectedDateTitle).toContain("2026");
     expect(result.current.state.selectedDateSessions).toHaveLength(2);
+    expect(result.current.state.currentWorkoutStreak).toBe(1);
     expect(
       result.current.state.calendarDays.find((day) => day?.dateKey === "2026-06-29")?.sessions
     ).toHaveLength(2);

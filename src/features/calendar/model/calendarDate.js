@@ -23,6 +23,23 @@ export function groupSessionsByLocalDate(sessions) {
   return groups;
 }
 
+export function calculateCurrentWorkoutStreak(sessionsByDate, today = new Date()) {
+  if (!(sessionsByDate instanceof Map) || sessionsByDate.size === 0) return 0;
+
+  const cursor = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  if (!sessionsByDate.has(toLocalDateKey(cursor))) {
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  let streak = 0;
+  while (sessionsByDate.has(toLocalDateKey(cursor))) {
+    streak += 1;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  return streak;
+}
+
 export function createMonthDate(value = new Date()) {
   const date = value instanceof Date ? value : new Date(value);
   const safeDate = Number.isNaN(date.getTime()) ? new Date() : date;

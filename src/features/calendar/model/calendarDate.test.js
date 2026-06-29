@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   buildCalendarMonth,
+  calculateCurrentWorkoutStreak,
   groupSessionsByLocalDate,
   shiftMonth,
   toLocalDateKey,
@@ -49,5 +50,22 @@ describe("workout calendar date helpers", () => {
   it("navigates across month and year boundaries", () => {
     expect(toLocalDateKey(shiftMonth(new Date(2026, 11, 1), 1))).toBe("2027-01-01");
     expect(toLocalDateKey(shiftMonth(new Date(2026, 0, 1), -1))).toBe("2025-12-01");
+  });
+
+  it("calculates a local-day streak ending today or yesterday", () => {
+    const today = new Date(2026, 5, 29, 12);
+    const sessionsByDate = new Map([
+      ["2026-06-26", [{ id: "session-26" }]],
+      ["2026-06-27", [{ id: "session-27" }]],
+      ["2026-06-28", [{ id: "session-28a" }, { id: "session-28b" }]],
+    ]);
+
+    expect(calculateCurrentWorkoutStreak(sessionsByDate, today)).toBe(3);
+
+    sessionsByDate.set("2026-06-29", [{ id: "session-29" }]);
+    expect(calculateCurrentWorkoutStreak(sessionsByDate, today)).toBe(4);
+
+    sessionsByDate.delete("2026-06-28");
+    expect(calculateCurrentWorkoutStreak(sessionsByDate, today)).toBe(1);
   });
 });
