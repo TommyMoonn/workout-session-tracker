@@ -9,6 +9,7 @@ export const settingsStyles = {
   settingsTabButton: "oc-interactive min-h-10 border-r border-[var(--oc-hairline)] px-3 py-2 text-sm font-bold uppercase tracking-[0.14em] text-[var(--oc-muted)] last:border-r-0 hover:bg-[var(--oc-surface-soft)] hover:text-[var(--oc-ink)] max-[520px]:min-h-11 max-[520px]:px-1.5 max-[520px]:text-[11px] max-[520px]:tracking-[0.06em]",
   settingsTabButtonActive: "bg-[var(--oc-primary-soft)] text-[var(--oc-ink)]",
   settingsContent: "min-h-0 flex-1 overflow-y-auto p-4 max-[520px]:p-3",
+  settingsTabTransition: "min-w-0 oc-content-enter",
   settingsTab: "grid content-start gap-3",
   settingsSection: "border border-[var(--oc-hairline)] bg-[var(--oc-surface)]",
   settingsSectionTitle: "border-b border-[var(--oc-hairline)] px-3 py-2 text-sm font-bold uppercase tracking-[0.14em] text-[var(--oc-muted)]",
