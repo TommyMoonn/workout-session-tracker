@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { formatDateTime, formatDuration, ReviewModal } from "@domain/workout";
 import { ConfirmationDialog, EmptyState, Toast } from "@shared/ui";
 import { useConfirmation } from "@shared/hooks";
@@ -19,6 +19,41 @@ export function HistoryArchive({ state, actions, refs }) {
   } = useConfirmation();
   const hasSessions = state.sessionLogs.length > 0;
   const isDetailView = Boolean(state.selectedSession);
+  const archiveScrollPositionRef = useRef(0);
+  const backButtonRef = useRef(null);
+  const [lastOpenedSessionId, setLastOpenedSessionId] = useState(null);
+  const selectedSessionTriggerRef = useRef(null);
+  const wasDetailViewRef = useRef(isDetailView);
+
+  useLayoutEffect(() => {
+    const wasDetailView = wasDetailViewRef.current;
+
+    if (!wasDetailView && isDetailView) {
+      backButtonRef.current?.focus({ preventScroll: true });
+    }
+
+    if (wasDetailView && !isDetailView) {
+      window.scrollTo({
+        top: archiveScrollPositionRef.current,
+        left: 0,
+        behavior: "auto",
+      });
+      selectedSessionTriggerRef.current?.focus({ preventScroll: true });
+    }
+
+    wasDetailViewRef.current = isDetailView;
+  }, [isDetailView]);
+
+  function openSessionDetail(sessionId) {
+    archiveScrollPositionRef.current = window.scrollY;
+    setLastOpenedSessionId(sessionId);
+    actions.openSessionDetail(sessionId);
+  }
+
+  const closeSessionDetail = useCallback(function closeSessionDetail() {
+    actions.closeSessionDetail();
+  }, [actions]);
+
   const historyShortcuts = useMemo(() => [
     {
       id: "history.listView",
@@ -49,11 +84,11 @@ export function HistoryArchive({ state, actions, refs }) {
           return;
         }
         if (isDetailView) {
-          actions.closeSessionDetail();
+          closeSessionDetail();
         }
       },
     },
-  ], [actions, isDetailView, state.currentHistoryPage, state.editingSession, state.historyDisplayMode, state.totalHistoryPages]);
+  ], [actions, closeSessionDetail, isDetailView, state.currentHistoryPage, state.editingSession, state.historyDisplayMode, state.totalHistoryPages]);
 
   useKeyboardShortcuts(historyShortcuts);
 
@@ -103,29 +138,39 @@ export function HistoryArchive({ state, actions, refs }) {
 
         {!hasSessions ? (
           <EmptyState text="No sessions logged yet. Finish a workout from the timer page to save the full session summary." />
-        ) : isDetailView ? (
-          <HistoryDetailView
-            session={state.selectedSession}
-            onBack={actions.closeSessionDetail}
-            onDeleteSet={deleteSessionSet}
-            onEditReview={actions.openEditSessionReview}
-          />
         ) : (
-          <HistoryListView
-            currentPage={state.currentHistoryPage}
-            displayMode={state.historyDisplayMode}
-            filteredSessionCount={state.filteredSessionCount}
-            onChangeDisplayMode={actions.setHistoryDisplayMode}
-            onChangeWorkoutTypeFilter={actions.setWorkoutTypeFilter}
-            onNextPage={actions.nextHistoryPage}
-            onOpenSession={actions.openSessionDetail}
-            onPreviousPage={actions.previousHistoryPage}
-            pageSessionStart={state.pageSessionStart}
-            totalPages={state.totalHistoryPages}
-            visibleSessions={state.visibleSessions}
-            workoutTypeFilter={state.workoutTypeFilter}
-            workoutTypeFilterOptions={state.workoutTypeFilterOptions}
-          />
+          <div
+            key={isDetailView ? `detail:${state.selectedSession.id}` : "archive"}
+            className={ui.historyArchiveContent}
+          >
+            {isDetailView ? (
+              <HistoryDetailView
+                backButtonRef={backButtonRef}
+                session={state.selectedSession}
+                onBack={closeSessionDetail}
+                onDeleteSet={deleteSessionSet}
+                onEditReview={actions.openEditSessionReview}
+              />
+            ) : (
+              <HistoryListView
+                currentPage={state.currentHistoryPage}
+                displayMode={state.historyDisplayMode}
+                filteredSessionCount={state.filteredSessionCount}
+                onChangeDisplayMode={actions.setHistoryDisplayMode}
+                onChangeWorkoutTypeFilter={actions.setWorkoutTypeFilter}
+                onNextPage={actions.nextHistoryPage}
+                onOpenSession={openSessionDetail}
+                onPreviousPage={actions.previousHistoryPage}
+                pageSessionStart={state.pageSessionStart}
+                selectedSessionId={lastOpenedSessionId}
+                selectedSessionRef={selectedSessionTriggerRef}
+                totalPages={state.totalHistoryPages}
+                visibleSessions={state.visibleSessions}
+                workoutTypeFilter={state.workoutTypeFilter}
+                workoutTypeFilterOptions={state.workoutTypeFilterOptions}
+              />
+            )}
+          </div>
         )}
       </section>
 

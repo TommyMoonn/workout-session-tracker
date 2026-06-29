@@ -15,6 +15,8 @@ export function HistoryListView({
   onOpenSession,
   onPreviousPage,
   pageSessionStart,
+  selectedSessionId,
+  selectedSessionRef,
   totalPages,
   visibleSessions,
   workoutTypeFilter,
@@ -42,17 +44,24 @@ export function HistoryListView({
         </div>
       </div>
 
-      {hasVisibleSessions ? (
-        <SessionList
-          displayMode={displayMode}
-          onOpenSession={onOpenSession}
-          pageSessionStart={pageSessionStart}
-          sessionCount={filteredSessionCount}
-          visibleSessions={visibleSessions}
-        />
-      ) : (
-        <EmptyBlock className={ui.historyListEmpty}>No sessions match this tag.</EmptyBlock>
-      )}
+      <div
+        key={`${displayMode}:${currentPage}:${workoutTypeFilter}`}
+        className={ui.historyResultsSwap}
+      >
+        {hasVisibleSessions ? (
+          <SessionList
+            displayMode={displayMode}
+            onOpenSession={onOpenSession}
+            pageSessionStart={pageSessionStart}
+            selectedSessionId={selectedSessionId}
+            selectedSessionRef={selectedSessionRef}
+            sessionCount={filteredSessionCount}
+            visibleSessions={visibleSessions}
+          />
+        ) : (
+          <EmptyBlock className={ui.historyListEmpty}>No sessions match this tag.</EmptyBlock>
+        )}
+      </div>
 
       <HistoryPagination
         currentPage={currentPage}
