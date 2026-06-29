@@ -20,6 +20,12 @@ const navItems = [
     description: "Library",
     path: "/exercises",
   },
+  {
+    label: "Calendar",
+    shortcut: "4",
+    description: "Workout dates",
+    path: "/calendar",
+  },
 ];
 
 function SideNav({ onOpenSettings }) {
@@ -41,7 +47,7 @@ function SideNav({ onOpenSettings }) {
           </div>
         </div>
 
-        <nav className="mt-4 grid gap-2 max-[1120px]:grid-cols-3" aria-label="Primary navigation">
+        <nav className="mt-4 grid gap-2 max-[1120px]:grid-cols-4" aria-label="Primary navigation">
           {navItems.map((item) => (
             <NavLink
               key={item.path}
@@ -64,7 +70,7 @@ function SideNav({ onOpenSettings }) {
       </aside>
 
       <nav className="fixed inset-x-0 bottom-0 z-50 hidden border-t border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 text-[var(--oc-ink)] max-[760px]:block" aria-label="Mobile navigation">
-        <div className="grid grid-cols-4 gap-1">
+        <div className="grid grid-cols-5 gap-1">
         {navItems.map((item) => (
           <NavLink
             key={item.path}

@@ -8,6 +8,7 @@ const navigationShortcuts = [
   { id: "nav.timer", path: "/timer" },
   { id: "nav.history", path: "/history" },
   { id: "nav.exercises", path: "/exercises" },
+  { id: "nav.calendar", path: "/calendar" },
 ];
 
 function AppShell() {
