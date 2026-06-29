@@ -1,12 +1,12 @@
 import { ui as sharedUi } from "@shared/styles";
 
 export const settingsStyles = {
-  settingsModal: "flex h-[min(820px,calc(100vh-40px))] w-[min(760px,100%)] flex-col overflow-hidden border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas)] text-[var(--oc-ink)] motion-safe:animate-[modalIn_var(--transition-base)_both] max-[760px]:h-[100dvh] max-[760px]:w-full max-[760px]:border-0",
+  settingsModal: "flex h-[min(820px,calc(100vh-40px))] w-[min(760px,100%)] flex-col overflow-hidden border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas)] text-[var(--oc-ink)] motion-safe:animate-[modalIn_var(--motion-duration-base)_var(--motion-ease-enter)_both] max-[760px]:h-[100dvh] max-[760px]:w-full max-[760px]:border-0",
   settingsOverlay: "max-[760px]:p-0",
   settingsHeader: "relative border-b border-[var(--oc-hairline)] p-4 pr-16 max-[520px]:p-3 max-[520px]:pr-14",
   settingsCloseButton: "absolute right-4 top-4 h-10 !w-10 min-w-10 p-0 text-base leading-none max-[520px]:right-3 max-[520px]:top-3",
   settingsTabs: "grid grid-cols-4 border-b border-[var(--oc-hairline)]",
-  settingsTabButton: "min-h-10 border-r border-[var(--oc-hairline)] px-3 py-2 text-sm font-bold uppercase tracking-[0.14em] text-[var(--oc-muted)] last:border-r-0 hover:bg-[var(--oc-surface-soft)] hover:text-[var(--oc-ink)] max-[520px]:min-h-11 max-[520px]:px-1.5 max-[520px]:text-[11px] max-[520px]:tracking-[0.06em]",
+  settingsTabButton: "oc-interactive min-h-10 border-r border-[var(--oc-hairline)] px-3 py-2 text-sm font-bold uppercase tracking-[0.14em] text-[var(--oc-muted)] last:border-r-0 hover:bg-[var(--oc-surface-soft)] hover:text-[var(--oc-ink)] max-[520px]:min-h-11 max-[520px]:px-1.5 max-[520px]:text-[11px] max-[520px]:tracking-[0.06em]",
   settingsTabButtonActive: "bg-[var(--oc-primary-soft)] text-[var(--oc-ink)]",
   settingsContent: "min-h-0 flex-1 overflow-y-auto p-4 max-[520px]:p-3",
   settingsTab: "grid content-start gap-3",
@@ -18,10 +18,10 @@ export const settingsStyles = {
   settingsNumberControl: "grid grid-cols-[minmax(0,1fr)_56px] gap-2",
   settingsUnit: "grid min-h-10 place-items-center rounded-[4px] border border-[var(--oc-hairline)] bg-[var(--oc-surface-soft)] text-xs font-bold uppercase text-[var(--oc-muted)]",
   settingsToggle: "inline-grid w-full grid-cols-2 rounded-[4px] border border-[var(--oc-hairline-strong)] bg-[var(--oc-canvas-deep)] p-1 text-xs",
-  settingsToggleButton: "min-h-8 min-w-14 rounded-[4px] border border-transparent px-3 font-bold uppercase tracking-[0.12em] text-[var(--oc-muted)] transition-colors hover:text-[var(--oc-ink)] disabled:cursor-not-allowed disabled:opacity-40",
+  settingsToggleButton: "oc-interactive min-h-8 min-w-14 rounded-[4px] border border-transparent px-3 font-bold uppercase tracking-[0.12em] text-[var(--oc-muted)] hover:text-[var(--oc-ink)] disabled:cursor-not-allowed disabled:opacity-40",
   settingsToggleButtonActive: "border-[var(--oc-hairline-strong)] bg-[var(--oc-primary-soft)] text-[var(--oc-ink)]",
   settingsSegmentedControl: "grid w-full grid-cols-3 rounded-[4px] border border-[var(--oc-control-border-strong)] bg-[var(--oc-control-surface-focus)] p-1 text-xs",
-  settingsSegmentedButton: "min-h-8 min-w-0 rounded-[4px] border border-transparent px-2 font-bold uppercase tracking-[0.08em] text-[var(--oc-muted)] transition-colors hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-focus)]",
+  settingsSegmentedButton: "oc-interactive min-h-8 min-w-0 rounded-[4px] border border-transparent px-2 font-bold uppercase tracking-[0.08em] text-[var(--oc-muted)] hover:text-[var(--oc-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--oc-focus)]",
   settingsSegmentedButtonActive: "border-[var(--oc-control-border-strong)] bg-[var(--oc-primary-soft)] text-[var(--oc-ink)]",
   settingsActions: "flex flex-wrap justify-end gap-2 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] px-3 py-2 max-[520px]:flex-col",
   settingsActionButton: "px-3 text-xs",
