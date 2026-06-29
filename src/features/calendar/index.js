@@ -3,7 +3,9 @@ export { useWorkoutCalendar } from "./hooks/useWorkoutCalendar";
 export {
   buildCalendarMonth,
   createMonthDate,
+  formatLocalDateTitle,
   formatMonthTitle,
+  fromLocalDateKey,
   groupSessionsByLocalDate,
   shiftMonth,
   toLocalDateKey,

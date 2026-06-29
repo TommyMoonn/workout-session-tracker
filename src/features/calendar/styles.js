@@ -15,6 +15,12 @@ export const calendarStyles = {
   calendarDaySelected: "!bg-[var(--oc-accent-softer)] !text-[var(--oc-ink)] outline outline-2 outline-offset-[-2px] outline-[var(--oc-accent)]",
   calendarDayNumber: "text-sm leading-none tabular-nums max-[520px]:text-xs",
   calendarDayCount: "self-end text-xs font-bold leading-none text-[var(--oc-accent-text)] max-[520px]:text-[10px]",
+  calendarAgenda: "mt-4 min-w-0 border border-[var(--oc-hairline)] bg-[var(--oc-surface)] text-[var(--oc-ink)] max-[760px]:mt-3",
+  calendarAgendaHeader: "flex items-center justify-between gap-4 border-b border-[var(--oc-hairline)] bg-[var(--oc-canvas-deep)] px-6 py-4 max-[760px]:items-start max-[760px]:px-4 max-[520px]:flex-col",
+  calendarAgendaCount: "shrink-0 text-xs font-bold uppercase leading-normal text-[var(--oc-muted)]",
+  calendarAgendaGrid: "grid grid-cols-3 gap-3 p-6 oc-content-swap max-[1120px]:grid-cols-2 max-[760px]:grid-cols-1 max-[760px]:gap-2 max-[760px]:p-4",
+  calendarAgendaEmpty: "m-4 max-[760px]:m-3",
+  calendarDetail: "min-w-0 oc-content-swap",
 };
 
 export const calendarUi = {

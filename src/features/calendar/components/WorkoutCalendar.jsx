@@ -1,11 +1,59 @@
-import { Button } from "@shared/ui";
+import { useLayoutEffect, useRef, useState } from "react";
+import {
+  formatDateTime,
+  formatDuration,
+  ReviewModal,
+  SessionDetail,
+} from "@domain/workout";
+import { SessionSummaryCard } from "@features/history";
+import { Button, ConfirmationDialog, EmptyBlock, Toast } from "@shared/ui";
+import { useConfirmation } from "@shared/hooks";
 import { cx } from "@shared/lib";
 import { calendarUi as ui } from "../styles";
 
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export function WorkoutCalendar({ state, actions }) {
+  const {
+    cancelConfirmation,
+    confirmation,
+    confirmAction,
+    requestConfirmation,
+  } = useConfirmation();
+  const backButtonRef = useRef(null);
+  const selectedSessionCardRef = useRef(null);
+  const wasDetailViewRef = useRef(Boolean(state.selectedSession));
+  const [lastOpenedSessionId, setLastOpenedSessionId] = useState(null);
   const weeks = chunkWeeks(state.calendarDays);
+
+  useLayoutEffect(() => {
+    const isDetailView = Boolean(state.selectedSession);
+    const wasDetailView = wasDetailViewRef.current;
+
+    if (!wasDetailView && isDetailView) {
+      backButtonRef.current?.focus({ preventScroll: true });
+    }
+
+    if (wasDetailView && !isDetailView) {
+      selectedSessionCardRef.current?.focus({ preventScroll: true });
+    }
+
+    wasDetailViewRef.current = isDetailView;
+  }, [state.selectedSession]);
+
+  function openSessionDetail(sessionId) {
+    setLastOpenedSessionId(sessionId);
+    actions.openSessionDetail(sessionId);
+  }
+
+  function deleteSessionSet(sessionId, setId) {
+    requestConfirmation({
+      title: "Delete this saved set?",
+      message: "This removes the set from the saved session and updates that session's set count and total rest time.",
+      confirmLabel: "Delete set",
+      onConfirm: () => actions.deleteSessionSet(sessionId, setId),
+    });
+  }
 
   return (
     <div className={ui.pageWide}>
@@ -73,6 +121,85 @@ export function WorkoutCalendar({ state, actions }) {
           ))}
         </div>
       </section>
+
+      <section className={ui.calendarAgenda} aria-labelledby="calendar-agenda-title">
+        {state.selectedSession ? (
+          <div className={ui.calendarDetail}>
+            <div className={ui.calendarAgendaHeader}>
+              <div>
+                <p className={ui.labelMarker}>Session detail</p>
+                <h2 id="calendar-agenda-title" className={ui.panelTitle}>{state.selectedDateTitle}</h2>
+              </div>
+              <Button
+                ref={backButtonRef}
+                variant="soft"
+                className="max-[520px]:w-auto"
+                onClick={actions.closeSessionDetail}
+              >
+                ← Calendar
+              </Button>
+            </div>
+            <SessionDetail
+              session={state.selectedSession}
+              onDeleteSet={deleteSessionSet}
+              onEditReview={actions.openEditSessionReview}
+            />
+          </div>
+        ) : (
+          <>
+            <div className={ui.calendarAgendaHeader}>
+              <div>
+                <p className={ui.labelMarker}>Selected date</p>
+                <h2 id="calendar-agenda-title" className={ui.panelTitle}>{state.selectedDateTitle}</h2>
+              </div>
+              <span className={ui.calendarAgendaCount}>
+                {state.selectedDateSessions.length} {state.selectedDateSessions.length === 1 ? "session" : "sessions"}
+              </span>
+            </div>
+
+            {state.selectedDateSessions.length > 0 ? (
+              <div className={ui.calendarAgendaGrid}>
+                {state.selectedDateSessions.map((session, index) => (
+                  <SessionSummaryCard
+                    key={session.id}
+                    onOpenSession={openSessionDetail}
+                    ref={session.id === lastOpenedSessionId ? selectedSessionCardRef : undefined}
+                    selected={session.id === lastOpenedSessionId}
+                    session={session}
+                    sessionNumber={state.selectedDateSessions.length - index}
+                  />
+                ))}
+              </div>
+            ) : (
+              <EmptyBlock className={ui.calendarAgendaEmpty}>
+                No completed sessions on this date.
+              </EmptyBlock>
+            )}
+          </>
+        )}
+      </section>
+
+      {state.editingSession && (
+        <ReviewModal
+          mode="edit"
+          title="Update workout review."
+          subtitle={`${formatDateTime(state.editingSession.startedAt)} · ${formatDuration(state.editingSession.workoutSeconds)}`}
+          review={state.editingReview}
+          onChange={actions.setEditingReview}
+          onCancel={actions.cancelEditSessionReview}
+          onSave={actions.saveEditSessionReview}
+        />
+      )}
+
+      {confirmation && (
+        <ConfirmationDialog
+          {...confirmation}
+          onCancel={cancelConfirmation}
+          onConfirm={confirmAction}
+        />
+      )}
+
+      <Toast message={state.toast} />
     </div>
   );
 }

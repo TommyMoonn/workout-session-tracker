@@ -66,6 +66,26 @@ export function formatMonthTitle(monthDate, locale) {
   }).format(createMonthDate(monthDate));
 }
 
+export function formatLocalDateTitle(dateKey, locale) {
+  const date = fromLocalDateKey(dateKey);
+  if (!date) return "Selected date";
+
+  return new Intl.DateTimeFormat(locale, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
+
+export function fromLocalDateKey(dateKey) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(dateKey));
+  if (!match) return null;
+
+  const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  return toLocalDateKey(date) === dateKey ? date : null;
+}
+
 function pad(value) {
   return String(value).padStart(2, "0");
 }

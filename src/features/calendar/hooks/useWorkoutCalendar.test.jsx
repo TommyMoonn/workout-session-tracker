@@ -12,7 +12,7 @@ describe("useWorkoutCalendar", () => {
         { id: "session-2", startedAt: today.getTime() + 60_000 },
       ],
     }));
-    const { result } = renderHook(() => useWorkoutCalendar(today));
+    const { result } = renderHook(() => useWorkoutCalendar({ now: today }));
 
     expect(result.current.state).toMatchObject({
       monthTitle: "June 2026",
@@ -20,6 +20,11 @@ describe("useWorkoutCalendar", () => {
       sessionCount: 2,
       todayKey: "2026-06-29",
     });
+    expect(result.current.state.selectedDateTitle).toContain("Monday");
+    expect(result.current.state.selectedDateTitle).toContain("June");
+    expect(result.current.state.selectedDateTitle).toContain("29");
+    expect(result.current.state.selectedDateTitle).toContain("2026");
+    expect(result.current.state.selectedDateSessions).toHaveLength(2);
     expect(
       result.current.state.calendarDays.find((day) => day?.dateKey === "2026-06-29")?.sessions
     ).toHaveLength(2);
